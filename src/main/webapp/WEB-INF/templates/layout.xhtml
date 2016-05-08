@@ -6,12 +6,18 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
+	
+<f:view locale="#{facesContext.externalContext.requestLocale}"/>	<!-- IMPORTANTE para que el i18n funcione necesita esta linea y la declaración del bundle en el faces-config.xml -->
 
 <h:head>
 	<title> <ui:insert name="title">Befp</ui:insert> </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 	
-	<h:outputStylesheet name="css/style.css" />
+	<link href='https://fonts.googleapis.com/css?family=Raleway:300,400,600' rel='stylesheet' type='text/css'/>
+		
+	<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>	
+	
+	<h:outputStylesheet name="css/styleIndex.css" />
 </h:head>
 			
 <h:body>
@@ -24,6 +30,12 @@
 
 	<!-- Footer -->
 	<ui:include src="/WEB-INF/templates/footer.xhtml"></ui:include>
+	
+	<h:outputScript name="js/jquery.countTo.js"/>
+	
+<script type="text/javascript">
+  $('.timer').countTo();
+</script>	
 		
 </h:body>
 	

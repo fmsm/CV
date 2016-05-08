@@ -5,33 +5,99 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
-
+		
+	<h:form id="contentForm">
+	
 	<div class="ui-grid ui-grid-responsive">
 	
 		<div class="ui-grid-row">
-		
-	        <div class="ui-grid-col-1"></div>
-	        			
-	        <div class="ui-grid-col-5">
-	        
-				<p:panel id="contentAlu" styleClass="txtcenter" style="background-color: #EBECED;">
-    				<p:outputLabel value="Alumnos"/>
+		        	        		        		
+	        <div class="ui-grid-col-6">
+
+				<p:panel id="contentAlu" styleClass="noBorder panelAlu">
+
+					<h:outputText value="#{msg['msg.alumnosU']}" styleClass="txtBold txtEnorme txtColorWhite"/>
+					<p:separator/>
+					<h:outputText value="#{msg['msg.alumnosDetalle']}" styleClass="txtGrande txtColorWhite"/>						
+					<p:separator/>
+					<p:commandButton id="regAlu" value="#{msg['btn.signup']}" styleClass="btnCustom"/>
+
 			    </p:panel>    			        	        	        
 	        	        	
 	        </div>
 	        
-	        <div class="ui-grid-col-5">
+	        <div class="ui-grid-col-6">
 				
-				<p:panel id="contentEmp" styleClass="txtcenter" style="background-color: #EBECED;">
-    				<p:outputLabel value="Empresas"/>
+				<p:panel id="contentEmp" styleClass="noBorder panelEmp">
+				
+					<h:outputText value="#{msg['msg.empresasU']}" styleClass="txtBold txtEnorme txtColorWhite"/>
+					<p:separator/>
+					<h:outputText value="#{msg['msg.empresasDetalle']}" styleClass="txtGrande txtColorWhite"/>						
+					<p:separator/>
+					<p:commandButton id="regEmp" value="#{msg['btn.signup']}" styleClass="btnCustom"/>
+
 			    </p:panel>
 			        			        	        	        
-	        </div>
-	        
-	        <div class="ui-grid-col-1"></div>
-	        
+	        </div>	        
+	        	        
 		</div>
-		
+				
+		<div class="ui-grid-row countersContainer txtCenter">
+						
+			<!-- alumnos registrados -->			
+			<div class="ui-grid-col-4">
+				<p:panel styleClass="counters bgColor noBorder">
+				
+					<i class="fa fa-graduation-cap fa-3x"/>
+					
+					<div class="countersNum">				
+	   					<span class="timer" data-from="0" data-to="125" data-speed="3000" style="color:#42AFC6;"/> <!-- AQUI SE CAMBIAN LOS VALORES DE LOS COUNTERS -->
+	   				</div>
+	   				
+	   				<h:outputText value="#{msg['msg.alumnos']}" styleClass="countersTxt"/>
+	   				<br/>
+	   				<h:outputText value="#{msg['msg.registered']}" styleClass="countersTxt"/>
+	   				
+	   			</p:panel>			
+			</div>
+						
+			<!-- empresas registrados -->
+			<div class="ui-grid-col-4">
+				<p:panel styleClass="counters bgColor dottedBorder noBorder">
+				
+					<i class="fa fa-briefcase fa-3x"/>
+					
+					<div class="countersNum">	
+	   					<span class="timer" data-from="0" data-to="35" data-speed="3000" style="color:#3A8BC5;"/> <!-- AQUI SE CAMBIAN LOS VALORES DE LOS COUNTERS -->
+	   				</div>
+	   				
+	   				<h:outputText value="#{msg['msg.empresas']}" styleClass="countersTxt"/>
+	   				<br/>
+	   				<h:outputText value="#{msg['msg.registered']}" styleClass="countersTxt"/>
+	   					   					   				
+   				</p:panel>			
+			</div>
+			
+			<!-- cvs descargados -->			
+			<div class="ui-grid-col-4">
+				<p:panel styleClass="counters bgColor dottedBorder noBorder">
+				
+					<i class="fa fa-file-text fa-3x"/>
+					
+					<div class="countersNum">
+						<span class="timer" data-from="0" data-to="157" data-speed="3000" style="color:#23518e;"/>
+					</div>
+	   				
+	   				<h:outputText value="#{msg['msg.counter3a']}" styleClass="countersTxt"/>
+	   				<br/>
+	   				<h:outputText value="#{msg['msg.counter3b']}" styleClass="countersTxt"/>
+	   				
+  				</p:panel>			
+			</div>
+									
+		</div>				
 	</div>
 	
+	</h:form>
+		
 </ui:composition>	

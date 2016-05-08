@@ -6,42 +6,59 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
+	<h:form id="headerForm">
+	
 	<div class="ui-grid ui-grid-responsive">
 	
+		<!-- Barra superior (fecha) -->
 		<div class="ui-grid-row">
-			
-			<div class="ui-grid-col-1"></div>
-    		<div class="ui-grid-col-10">
+								
+    		<div class="ui-grid-col-12">
     			
-				<p:panel id="hdrSup" styleClass="nopadding" style="background-color: #EBECED;">
-    				<p:outputLabel value="Cabecera Superior"/>
-			    </p:panel>    		
+				<p:panelGrid id="hdrSup" columns="2" layout="grid" styleClass="noBorder" 
+							 columnClasses="bgColorDark txtLeft txtColorDark, bgColorDark txtRight txtColorDark fecha">
+
+					<i class="fa fa-envelope"/> #{msg['datos.emailAlbarregas']} <i class="fa fa-phone"/> #{msg['datos.tlfnoAlbarregas']}
+																												
+					<h:outputText value="#{indexView.fecha}">
+						<f:convertDateTime locale="es_ES" pattern="EEEE, dd MMMM yyyy"/>
+					</h:outputText>
+				
+				</p:panelGrid>
 
     		</div>
-			<div class="ui-grid-col-1"></div>    				
+    		
+			    				
 		</div>
 	    
-	    <div class="ui-grid-row">
-	    
-	    	<div class="ui-grid-col-1"></div>
-	        <div class="ui-grid-col-2">
+	    <!-- Logo y user/pass, botón login -->
+	    <div class="ui-grid-row"> 
+	    	    
+	        <div class="ui-grid-col-6">
 	        
-				<p:panel id="hdrLogo" style="background-color: #EBECED;">
-    				<p:outputLabel value="Logo"/>
+				<p:panel id="hdrLogo" styleClass="bgColor pnlLogo noPadding noBorder">
+					
+					<p:graphicImage name="/imagenes/logo.png" style="height: 80px;"/> <!-- altura de la imagen del logo -->
+					
 			    </p:panel>    			        	        
 	        	
 	        </div>
 	        
-	        <div class="ui-grid-col-8">
+	        <div class="ui-grid-col-6">
 	        
-				<p:panel id="hdrLogin" styleClass="txtright" style="background-color: #EBECED;">
-    				<p:outputLabel value="Login/SignUp"/>
+				<p:panel id="hdrLogin" styleClass="bgColor pnlLogin noPadding noBorder txtRight" > 
+
+					<p:inputText id="user" value="#{indexView.username}" size="12" placeholder="#{msg['placeholder.username']}"/>
+					<p:password id="pass" value="#{indexView.password}" size="12" placeholder="#{msg['placeholder.password']}"/>
+					<p:commandButton id="loginBtn" value="#{msg['btn.login']}" styleClass="btnLogin noMarginRight"/>
+					
 			    </p:panel>
 			        			        	        
 	        </div>
 	    
 	    </div>
-		<div class="ui-grid-col-1"></div>
-	</div>	
-	
+	    		
+	</div>
+		
+	</h:form>	
 </ui:composition>	
