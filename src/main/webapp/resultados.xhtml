@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	
+<f:view locale="#{facesContext.externalContext.requestLocale}"/>	<!-- IMPORTANTE para que el i18n funcione necesita esta linea y la declaración del bundle en el faces-config.xml -->
+
+<h:head>
+	<title> <ui:insert name="title">Befp</ui:insert> </title>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />	
+</h:head>
+			
+<h:body>
+
+	<h:outputText value="#{registroAlu.email}"/><br/>	
+	<h:outputText value="#{registroAlu.password}"/><br/>
+	<h:outputText value="#{registroAlu.nombre}"/><br/>
+	<h:outputText value="#{registroAlu.apellidos}"/><br/>
+	<h:outputText value="#{registroAlu.tipoIdentificacion}"/> =
+	<h:outputText value="#{registroAlu.identificacion}"/> 
+		
+</h:body>
+	
+</html>

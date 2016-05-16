@@ -20,7 +20,7 @@
 					<p:separator/>
 					<h:outputText value="#{msg['msg.alumnosDetalle']}" styleClass="txtGrande txtColorWhite"/>						
 					<p:separator/>
-					<p:commandButton id="regAlu" value="#{msg['btn.signup']}" styleClass="btnCustom"/>
+					<p:button id="regAlu" outcome="registroA.xhtml" value="#{msg['btn.signup']}" styleClass="btnCustom"/>
 
 			    </p:panel>    			        	        	        
 	        	        	
@@ -34,7 +34,7 @@
 					<p:separator/>
 					<h:outputText value="#{msg['msg.empresasDetalle']}" styleClass="txtGrande txtColorWhite"/>						
 					<p:separator/>
-					<p:commandButton id="regEmp" value="#{msg['btn.signup']}" styleClass="btnCustom"/>
+					<p:commandButton id="regEmp" value="#{msg['btn.signup']}" ajax="false" styleClass="btnCustom"/>
 
 			    </p:panel>
 			        			        	        	        

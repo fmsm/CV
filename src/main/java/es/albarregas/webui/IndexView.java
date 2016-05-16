@@ -1,5 +1,4 @@
-package es.albarregas.ManagedBeans;
-
+package es.albarregas.webui;
 
 import java.util.Date;
 
