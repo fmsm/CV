@@ -1,7 +1,11 @@
 
 /* de styleIndex.css*/
 
-body { margin:0; background-color: whitesmoke; }
+body { 
+	margin:0; 
+	background-color: whitesmoke;
+	font-family: Lato, sans-serif; 
+}
 
 .txtRight 	{ text-align: right;}
 .txtLeft 	{ text-align: left;}

@@ -1,12 +1,11 @@
-@CHARSET "UTF-8";
 
 /* GENERALES */
 
 body { 
-/* 	margin:0; */
 	margin-top:0;
 	margin-bottom:0;
 	background-color: whitesmoke;
+	font-family: Lato, sans-serif;
 }
 
 .txtRight 	{ text-align: right;}
@@ -84,7 +83,8 @@ i.fa-phone { margin-left: 20px; }
 	padding-bottom: 4em;
 	text-align: center;
 	background-size: cover;
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
+	border-radius: unset;	
 }						
 
 /* .ui-separator que esta dentro de los paneles anteriores*/
@@ -173,8 +173,8 @@ button.ui-button.ui-state-hover.btnCustom .ui-button-text  {
 	padding: 2em;		
 }
 
-.ftrDireccion, .ftrEmail, .ftrSocial {	
-	padding-top: 2em; 
+.ftrDireccion, .ftrEmail, .ftrWeb, .ftrSocial {	
+	padding-top: 1.3em; 
 }
 
 .ftrDireccionInfo, .ftrContactoInfo, .ftrSocialInfo {
@@ -187,9 +187,10 @@ button.ui-button.ui-state-hover.btnCustom .ui-button-text  {
 	margin-top: 0.5em;
 	color: white;
 	letter-spacing: 1px;
+	text-decoration: none;
 }
 
-.ftrContactoDetalle, .ftrSocialDetalle { font-size: 1.2em; }
+.ftrContactoDetalle, .ftrSocialDetalle { font-size: 1.1em; }
 
 .ftrContactoDetalle { display: block;}
 

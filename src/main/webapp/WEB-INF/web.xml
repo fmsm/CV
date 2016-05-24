@@ -47,5 +47,5 @@
        <extension>woff2</extension>
        <mime-type>font/woff2</mime-type>
    </mime-mapping> 
-   
+         
 </web-app>

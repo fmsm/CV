@@ -49,8 +49,15 @@
 	    		<div class="ftrEmail">
 	    			<h:outputText value="#{msg['msg.email']}" styleClass="ftrContactoInfo"/>
 	    			<br/>
-	    			<h:outputText value="#{msg['datos.emailAlbarregas']}" styleClass="ftrContactoDetalle"/>
+	    			<h:outputText value="#{msg['datos.emailAlbarregas']}" styleClass="ftrContactoDetalle"/>	    				
 	    		</div>
+	    		
+	    		<div class="ftrWeb">
+	    			<h:outputText value="#{msg['msg.website']}" styleClass="ftrContactoInfo"/>
+	    			<br/>
+	    			<p:link value="#{msg['datos.website']}" href="#{'http://'.concat(msg['datos.website'])}" target="blank" styleClass="ftrContactoDetalle"/>	    				
+	    		</div>
+	    		
 	    		
 	    		<div class="ftrSocial">
 	    			<h:outputText value="#{msg['msg.social']}" styleClass="ftrSocialInfo"/>
@@ -71,7 +78,8 @@
 						<div class="social socialG">
 							<i class="fa fa-google-plus fa-lg"/>
 						</div>				
-				    </div>			    			
+				    </div>
+				    				    			    			
 	    		</div>
 	    		
 	    	</div>

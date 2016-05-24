@@ -1,0 +1,65 @@
+
+/* de styleIndex.css*/
+
+body { 
+	margin:0; 
+	background-color: whitesmoke;
+	font-family: Lato, sans-serif; 
+}
+
+.txtRight 	{ text-align: right;}
+.txtLeft 	{ text-align: left;}
+.txtCenter 	{ text-align: center;}
+
+.txtBold 	{ font-weight: bold;}
+.txtEnorme 	{ font-size: 2em;}
+.txtGrande 	{ font-size: 1.4em;}
+
+.noBorder,
+.ui-panel.noBorder,
+.ui-panelgrid.noBorder .ui-panelgrid-content {border: 0;}
+
+/* ESCPECIFICAS */
+
+/* centrar vertical y horizontalmente */
+/* .flexCenter { */
+/* 	display: flex; */
+/* 	justify-content: center; */
+/* 	align-items: center;			 */
+/* } */
+
+.cvMenuPnl, .cvCenterPnl, .cvRightPnl { height: 900px; }
+
+.bgColor { background-color: white;}
+
+/* #fotoWrapper { */
+/* 	display: flex; */
+/* 	justify-content: flex-end; */
+/* 	margin-top: 1.5em; */
+/* 	margin-bottom: 1.5em;	 */
+/* } */
+
+/* #foto {  */
+/* 	width: 100px;  */
+/* 	height: 100px;  */
+/* 	border: 1px solid black; */
+/* } */
+
+/* .circle { */
+/* 	color: black; */
+/* 	background-color: white;	 */
+/* 	border: 1px solid black; */
+/* 	border-radius: 50%; */
+/* 	width: 2em; */
+/* 	height: 2em; */
+/* } */
+
+.ui-panel.cvCenterPnl .ui-panel-content { padding: 0;}
+
+.datosPersonales, .datosEstudios, .datosExperiencia { 
+	margin-top: 2em;	
+}
+
+.ui-panel.datosPersonales .ui-panel-content,
+.ui-panel.datosEstudios .ui-panel-content,
+.ui-panel.datosExperiencia .ui-panel-content { padding: 2em 1em;}
