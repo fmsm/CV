@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">2015</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bolsaempleofp</property>
+        <property name="hibernate.connection.username">clientejava</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.search.autoregister_listeners">false</property>
+        <property name="hibernate.validator.apply_to_ddl">false</property>
+        <mapping class="NotasAlumnos" />
+        <mapping class="Documentos" />
+        <mapping class="DatosAlumnos" />
+        <mapping class="ExperienciaAlumnos" />
+        <mapping class="IdiomasAlumnos" />
+        <mapping class="PermisosConduccion" />
+        <mapping class="Paises" />
+        <mapping class="Usuarios" />
+        <mapping class="NacionAlumnos" />
+        <mapping class="RedesSocialesAlumnos" />
+        <mapping class="Certificados" />
+        <mapping class="EstudiosAlumnos" />
+        <mapping class="Conocimientos" />
+        <mapping class="Ciclos" />
+        <mapping class="Modulos" />
+        <mapping class="BloquesDatosCv" />
+        <mapping class="Direcciones" />
+        <mapping class="Provincias" />
+        <mapping class="Municipios" />
+    </session-factory>
+</hibernate-configuration>
