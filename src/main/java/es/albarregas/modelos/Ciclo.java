@@ -9,7 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Ciclo")
+@Table(name = "Ciclos")
 public class Ciclo implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;

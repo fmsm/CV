@@ -4,7 +4,7 @@
  * lo que pretendia
  */
 
-package es.albarregas.webui;
+package es.albarregas.utilidades;
 
 import java.util.Map;
 import javax.faces.application.FacesMessage;

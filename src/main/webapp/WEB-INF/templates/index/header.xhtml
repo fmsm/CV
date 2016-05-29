@@ -8,6 +8,9 @@
 
 	<h:form id="headerForm">
 	
+	<!-- con ese for parece ser que solo deberia mostrar los mensajes que se le manden con '....addMessage("mensajeGrowl",...' -->
+	<p:growl id="growl"/>
+		
 	<div class="ui-grid ui-grid-responsive">
 	
 		<!-- Barra superior (fecha) -->
@@ -20,7 +23,7 @@
 
 					<i class="fa fa-envelope"/> #{msg['datos.emailAlbarregas']} <i class="fa fa-phone"/> #{msg['datos.tlfnoAlbarregas']}
 																												
-					<h:outputText value="#{indexView.fecha}">
+					<h:outputText value="#{inicio.fecha}">
 						<f:convertDateTime locale="es_ES" pattern="EEEE, dd MMMM yyyy"/>
 					</h:outputText>
 				
@@ -48,9 +51,12 @@
 	        
 				<p:panel id="hdrLogin" styleClass="bgColor pnlLogin noPadding noBorder txtRight" > 
 
-					<p:inputText id="user" value="#{indexView.username}" size="12" placeholder="#{msg['placeholder.username']}"/>
-					<p:password id="pass" value="#{indexView.password}" size="12" placeholder="#{msg['placeholder.password']}"/>
-					<p:commandButton id="loginBtn" value="#{msg['btn.login']}" styleClass="btnLogin noMarginRight"/>
+					<p:inputText id="user" value="#{inicio.username}" size="25" placeholder="#{msg['placeholder.email']}" required="true" requiredMessage="Campo Obligatorio"/>
+					<p:password id="pass" value="#{inicio.password}" size="16" placeholder="#{msg['placeholder.password']}" required="true" requiredMessage="Campo Obligatorio"/>
+					
+					<p:commandButton id="loginBtn" value="#{msg['btn.login']}" actionListener="#{inicio.login}" 
+									 process="@form" update="@form" oncomplete="confirmacion(xhr, status, args)"
+									 styleClass="btnLogin noMarginRight"/>
 					
 			    </p:panel>
 			        			        	        
@@ -60,5 +66,25 @@
 	    		
 	</div>
 		
-	</h:form>	
+	</h:form>
+		
+	<!-- PARECE QUE NO FUNCIONA BIEN, SOLO LO HACE SI YA HABIA SESION INICIADA -->
+	<!-- en el attr header accedo al atributo de la sesion 'nombre' directamente mediante EL (http://stackoverflow.com/tags/el/info) -->
+	<!-- header = "Bienvenido #{nombre}" -->
+	<!-- PARECE QUE NO FUNCIONA BIEN TAMPOCO, usando un atributo del mb inicio, PROBAR EN CASA CON java 1.8 -->
+	<!-- lo he vuelto a poner con un literal de momento -->
+	<p:dialog header="Login completado con exito" modal="true" draggable="false" resizable="false" closable="false" widgetVar="dlg_wv">		    	    
+		<p:button value="Continuar" outcome="cv.xhtml" onclick="PF('dlg_wv').hide();" style="width:100%; margin-bottom: 10px;"/>
+	</p:dialog>
+
+
+    <script type="text/javascript">
+        function confirmacion(xhr, status, args) {
+            if (args.loginCorrecto) {
+                PF('dlg_wv').show();
+            }
+        }
+    </script>
+	
+		
 </ui:composition>	

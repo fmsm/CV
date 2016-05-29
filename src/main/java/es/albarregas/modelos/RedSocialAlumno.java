@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "RedSocialAlumno")
+@Table(name = "RedesSocialesAlumnos")
 public class RedSocialAlumno implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;

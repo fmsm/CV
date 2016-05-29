@@ -1,0 +1,20 @@
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+		
+		
+	<!-- 
+		POSICION DEL DIALOGO: por alguna razon "top,right" no funciona pero al reves si 
+	 	y lo que pone en el 'primefaces user guide' de "Comma separated position values like ‘top’,‘right’. (Use single quotes when using a combination)" 
+		o bien no funciona o no se a que se refiere 
+	-->
+	<p:dialog id="dlgDatosPersonales" header="Basic Dialog" position="right,top" modal="true" draggable="false" resizable="false" closable="false"
+			  onShow="showDlg('#dlgDatosPersonales')" widgetVar="wv_dlgDatosPersonales">			  
+	    <h:outputText value="Resistance to PrimeFaces is futile!" />
+	    <p:commandButton value="Cerrar" onclick="hideDlg('#dlgDatosPersonales', 'wv_dlgDatosPersonales')"/>
+	</p:dialog>
+			
+</ui:composition>

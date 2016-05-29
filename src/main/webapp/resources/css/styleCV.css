@@ -15,11 +15,100 @@ body {
 .txtEnorme 	{ font-size: 2em;}
 .txtGrande 	{ font-size: 1.4em;}
 
-.noBorder,
 .ui-panel.noBorder,
-.ui-panelgrid.noBorder .ui-panelgrid-content {border: 0;}
+.ui-panelgrid.noBorder .ui-panelgrid-content,
+.ui-menu.noBorder {border: 0;}
+
+.ui-panel.noPadding .ui-panel-content,
+.ui-menu.noPadding { padding: 0;}
 
 /* ESCPECIFICAS */
+
+.txtFino {font-weight: 300;}
+.bgMenuColor	{ background-color: whitesmoke;}
+.bgCenterColor 	{ background-color: white;}
+
+.dottedBorder {border: 1px dotted lightgray;}
+
+.cvMenuPnl, .cvCenterPnl { height: 900px; }
+
+/* aplicar estilos al menu de cv, expediente, ...*/
+.ui-menu.cvMenu { width: 100%;}
+
+.ui-menu.cvMenu .ui-menuitem-link {
+	width: 100%;
+	padding-left: 0;
+	padding-right: 0;
+	border: none;
+}
+
+.ui-menu .ui-menuitem-link.menuActual {
+	color: white;
+	background-color: #2399E5; 
+	border: none;
+}
+
+/* .ui-menu .ui-menuitem-link:hover { } */
+
+.ui-menu.cvMenu .ui-menuitem-text { 
+	padding: .5em 0 .5em 1em;
+	font-family: 'Raleway';
+	font-size: 24px;
+}
+
+.ui-panelgrid.cvUser { font-family: 'Raleway'};
+
+/*quitar border-radius de los elementos del menu*/
+.ui-corner-all.noBorderRadius { border-radius: unset;}
+
+
+.ui-panel.cvCenterPnl > .ui-panel-content { 
+	padding: 0;
+	margin-left: 1em;
+	margin-right: 1em;
+}
+
+.pnlDatosPersonales, .pnlDatosEstudios, .pnlDatosExperiencia { margin-top: 2em; }
+
+.ui-panel.pnlDatosPersonales > .ui-panel-content,
+.ui-panel.pnlDatosEstudios > .ui-panel-content,
+.ui-panel.pnlDatosExperiencia > .ui-panel-content { padding: 2em 1em 2em 0;}
+
+
+/* dentro de cada .pnlXxxxXxxx, en el div de la derecha, esta el 'bloque' donde se van a mostrar datos: personales, formacion, experiencia, ...*/
+.bloqueDatos {
+	height: 150px;
+	border-left: 1px dotted lightgray;
+	margin-left: 0.5em;
+}
+
+
+/* boton para añadir datos, icono del boton visible pero el boton en si, sin background color
+   y además que el icono del boton sea totalmente visible y no lo recorte el boton con el overflow que viene por defecto*/
+button.ui-button.ui-state-default.btnAdd {
+	border: none;
+	border-radius: unset;
+	box-shadow: none;
+	background: none;			
+}
+	
+.ui-button.btnAdd .ui-button-text { color: #2399E5; }
+
+.ui-button.btnAdd .ui-icon { overflow: visible;}
+.ui-button.btnAdd .ui-icon.fa { color: #2399E5; }
+.ui-button.btnAdd .ui-button-text { padding-left: 2.5em;}
+
+/* button.ui-button.ui-state-hover.btnAdd {  */
+/* /* 	border: 1px solid #2399E5; */ */
+/* 	border: 1px solid white; */
+/* } */
+
+/* button.ui-button.ui-state-hover.btnAdd .ui-button-text  { */
+/* 	color: black; */
+/* /* 	background-color: #2399E5;	 */ */
+/* 	background-color: white;	 */
+/* } */
+
 
 /* centrar vertical y horizontalmente */
 /* .flexCenter { */
@@ -27,10 +116,6 @@ body {
 /* 	justify-content: center; */
 /* 	align-items: center;			 */
 /* } */
-
-.cvMenuPnl, .cvCenterPnl, .cvRightPnl { height: 900px; }
-
-.bgColor { background-color: white;}
 
 /* #fotoWrapper { */
 /* 	display: flex; */
@@ -53,13 +138,3 @@ body {
 /* 	width: 2em; */
 /* 	height: 2em; */
 /* } */
-
-.ui-panel.cvCenterPnl .ui-panel-content { padding: 0;}
-
-.datosPersonales, .datosEstudios, .datosExperiencia { 
-	margin-top: 2em;	
-}
-
-.ui-panel.datosPersonales .ui-panel-content,
-.ui-panel.datosEstudios .ui-panel-content,
-.ui-panel.datosExperiencia .ui-panel-content { padding: 2em 1em;}

@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Provincia")
+@Table(name = "Provincias")
 public class Provincia implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -55,7 +55,7 @@ public class Provincia implements java.io.Serializable {
 		this.provincia = provincia;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "provincias")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "provincia")
 	public Set<Municipio> getMunicipios() {
 		return municipios;
 	}

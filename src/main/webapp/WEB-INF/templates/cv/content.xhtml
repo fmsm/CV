@@ -5,103 +5,122 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
-		
-	<h:form id="cvForm">	
+				
+	<h:form id="cvForm">
 	
 	<div class="ui-grid ui-grid-responsive">
 	
 	    <div class="ui-grid-row"> 
-	    	    
+	    	
+	    	<!-- MENU DE LA PARTE DERECHA -->    
 	        <div class="ui-grid-col-2">
-	        					
-<!-- 				<p:panel id="cvMenuPnl" styleClass="cvMenuPnl noBorder">				 -->
-											   			
-<!--   				</p:panel> -->
-				 	        	
+	        	
+	        	<!-- logo -->				
+	        	<p:panel styleClass="bgMenuColor noPadding noBorder txtCenter" style="margin:4em 0 2em 0; padding: 0;">	        					
+	        		<p:graphicImage name="/imagenes/logo.png" style="height: 40px;"/> 	        															   
+  				</p:panel>
+				
+				<p:separator/>
+				
+				<p:panelGrid columns="1" layout="grid" columnClasses="bgMenuColor txtCenter" styleClass="cvUser noBorder">
+					<h:outputText value="Panel Alumno" styleClass="txtGrande"/>
+					<h:outputText value="#{nombre} #{apellidos}" styleClass="txtFino"/>				
+				</p:panelGrid>
+				
+				<p:separator style="margin-bottom: 2em;"/>				
+				
+				<!-- menu -->
+				
+				<p:menu styleClass="cvMenu bgMenuColor noPadding noBorder">
+					<p:menuitem value="Curriculum Vitae" styleClass="menuActual noBorderRadius"/>
+					<p:menuitem value="Expediente" styleClass="noBorderRadius" style="margin-top: 1em; margin-bottom: 1em;"/>
+					<p:menuitem value="Cerrar Sesión" styleClass="noBorderRadius"/>										
+				</p:menu>				
+				  								 	        
 	        </div>
-	        	        
-	        <div class="ui-grid-col-8 bgColor">
+
+			<!-- RESTO DE LA PÁGINA -->	        	        
+	        <div class="ui-grid-col-10 bgCenterColor">
 	        					
 				<p:panel id="cvCenterPnl" styleClass="cvCenterPnl noBorder">
 				
-					<p:panel id="datosPersonales" styleClass="datosPersonales"   style="border: 1px solid lightgray;">
+					<p:panel id="datosPersonales" styleClass="pnlDatosPersonales dottedBorder">
 					
 						<div class="ui-grid-row">
 						
-						 	<div class="ui-grid-col-4 txtRight">
-						        
-					        	<h:outputText value="Información personal" styleClass="txtGrande"/>
-						        	
-<!-- 					        		contenedor para centrar el div #foto a la derecha -->
-<!-- 					        		<div id="fotoWrapper"> -->
-<!-- 					        			en este div ira la foto cuando se añada -->
-<!-- 										<div id="foto" class="flexCenter">											 -->
-<!-- 											icono de una camara dentro de un circulo -->
-<!-- 							        		<div id="addImgDiv" class="circle flexCenter">							        			 -->
-<!-- 							        			<p:link id="addImgLink"><i class="fa fa-camera fa-lg"/></p:link> -->
-<!-- 							        			<p:tooltip for="addImgLink" value="Añadir foto"/>							        			 -->
-<!-- 							        		</div> -->
-<!-- 						        		</div> -->
-<!-- 					        		</div> -->
-															        	
+						 	<div class="ui-grid-col-3 txtRight">						        
+					        	<h:outputText value="Información personal" styleClass="txtGrande"/>						        																        	
 					        </div>
-						    						       
-					        <div class="ui-grid-col-8"></div>
+							
+							<!-- en este div tiene que ir todos los datos personales que se introduzcan -->						    						       
+					        <div class="ui-grid-col-9 bloqueDatos">
+					        
+					        	<p:panel styleClass="noPadding noBorder">	        					
+									<p:commandButton value="Añadir datos personales" onclick="PF('wv_dlgDatosPersonales').show()"
+											  icon="fa fa-plus-circle fa-lg" title="Añadir datos personales" styleClass="btnAdd"/>
+				  				</p:panel>					        
+				  																        					        
+					        </div>
 					        
 						</div>
 						
 					</p:panel>
+					
 									
-					<p:panel id="datosEstudios"   styleClass="datosEstudios"     style="border: 1px solid lightgray;">
+					<p:panel id="datosEstudios" styleClass="pnlDatosEstudios dottedBorder">
 					
 						<div class="ui-grid-row">
 						
-						        <div class="ui-grid-col-4 txtRight">
-						        
-						        	<h:outputText value="Formación Académica" styleClass="txtGrande"/>
-						        																        	
-						        </div>
-						        
-						        <div class="ui-grid-col-8"></div>
+					        <div class="ui-grid-col-3 txtRight">						        
+					        	<h:outputText value="Formación Académica" styleClass="txtGrande"/>						        																        	
+					        </div>
+					        
+					        <div class="ui-grid-col-9 bloqueDatos">
+					        
+					        	<p:panel styleClass="noPadding noBorder">	        					
+									<p:commandButton value="Añadir formación académica"
+													icon="fa fa-plus-circle fa-lg" title="Añadir formación académica" styleClass="btnAdd"/>
+												
+				  				</p:panel>					        						        
+					        </div>
+					        
 						</div>
 						
 					</p:panel>
 					
-					<p:panel id="datosExperiencia" styleClass="datosExperiencia" style="border: 1px solid lightgray;">
+					
+					<p:panel id="datosExperiencia" styleClass="pnlDatosExperiencia dottedBorder">
 					
 						<div class="ui-grid-row">
 						
-						        <div class="ui-grid-col-4 txtRight">
-						        
-						        	<h:outputText value="Experiencia Laboral" styleClass="txtGrande"/>
-						        																        	
-						        </div>
-						        
-						        <div class="ui-grid-col-8"></div>
+					        <div class="ui-grid-col-3 txtRight">						        
+					        	<h:outputText value="Experiencia Laboral" styleClass="txtGrande"/>						        																        	
+					        </div>
+					        
+					        <div class="ui-grid-col-9 bloqueDatos">
+					        
+					        	<p:panel styleClass="noPadding noBorder">	        					
+									<p:commandButton value="Añadir experiencia laboral" 
+													icon="fa fa-plus-circle fa-lg" title="Añadir experiencia laboral" styleClass="btnAdd"/>
+				  				</p:panel>
+				  									        						        
+					        </div>
+					        
 						</div>
 						
 					</p:panel>					
-
 											   			
-  				</p:panel>
-				 	        	
+  				</p:panel> 
+				<!-- FIN cvCenterPnl -->
+								 	        	
 	        </div>
-	        
-	        
-	        <div class="ui-grid-col-2">					
-<!-- 				<p:panel id="cvRightPnl" styleClass="cvRightPnl noBorder">				 -->
-											   			
-<!--   				</p:panel> -->
-				 	        	
-	        </div>	        	        
-	    
+	        <!-- FIN Div "Resto de la página"  -->
 	    </div>    
-			
-	        									        							
-  							
-								
+		<!-- FIN Div "ui-grid-row"  -->						
 	</div>
-	
+	<!-- FIN Div "ui-grid"  -->	
 	</h:form>
+			
+<ui:include src="/WEB-INF/templates/cv/dlgDatosPersonales.xhtml"/>		
 		
 </ui:composition>	

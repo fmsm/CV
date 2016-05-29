@@ -1,18 +1,22 @@
 package es.albarregas.modelos;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Usuario")
+@Table(name = "Usuarios")
 public class Usuario implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
 	private int idUsuario;
 	private String email;
 	private byte[] password;
@@ -27,6 +31,7 @@ public class Usuario implements java.io.Serializable {
 
 	
 	@Id
+	@GeneratedValue(strategy = IDENTITY)	
 	@Column(name = "IdUsuario", unique = true, nullable = false)
 	public int getIdUsuario() {
 		return this.idUsuario;

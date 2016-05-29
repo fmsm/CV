@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Certificado")
+@Table(name = "Certificados")
 public class Certificado implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;

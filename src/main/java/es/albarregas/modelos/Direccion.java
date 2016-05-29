@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Direccion")
+@Table(name = "Direcciones")
 public class Direccion implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
