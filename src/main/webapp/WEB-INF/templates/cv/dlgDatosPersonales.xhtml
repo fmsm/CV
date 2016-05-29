@@ -24,14 +24,31 @@
 	    
 		<div class="ui-grid ui-grid-responsive">
 					
+		    <div class="ui-grid-row" style="margin-bottom: .5em;">
+				<p:outputLabel for="nombre" value="Nombre" styleClass="ui-grid-col-6"/>
+				<p:outputLabel for="apellidos" value="Apellido/s" styleClass="ui-grid-col-6"/>
+			</div>
+			
 		    <div class="ui-grid-row">
+				<p:inputText id="nombre" value="#{registroAlumno.nombre}" required="true" requiredMessage="Campo Obligatorio" validatorMessage="Formato incorrecto" 
+							 placeholder="Antonio" styleClass="ui-grid-col-6" style="margin-right: .5em;">
+					<f:validateLength maximum="30"/>						
+				</p:inputText>
+				<p:inputText id="apellidos" value="#{registroAlumno.apellidos}" required="true" requiredMessage="Campo Obligatorio" validatorMessage="Formato incorrecto"
+							 placeholder="Sánchez Fernández" styleClass="ui-grid-col-6">
+					<f:validateLength maximum="60"/>															 
+				</p:inputText>		    		   
+			</div>
 
-						    			    
-		    </div> <!-- row -->
+		    <div class="ui-grid-row">
+				<p:message for="nombre" styleClass="ui-grid-col-6"/>
+				<p:message for="apellidos" styleClass="ui-grid-col-6"/> 
+			</div>
 		    
 		</div> <!-- grid -->
 			    
-		</h:form>    
+		</h:form>
+		    
 	</p:dialog>
 			
 </ui:composition>
