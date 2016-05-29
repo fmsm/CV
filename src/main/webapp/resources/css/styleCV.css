@@ -25,7 +25,7 @@ body {
 /* ESCPECIFICAS */
 
 .txtFino {font-weight: 300;}
-.bgMenuColor	{ background-color: whitesmoke;}
+.bgMenuColor, .bgDlg { background-color: whitesmoke;}
 .bgCenterColor 	{ background-color: white;}
 
 .dottedBorder {border: 1px dotted lightgray;}
