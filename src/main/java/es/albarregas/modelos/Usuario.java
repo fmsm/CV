@@ -1,14 +1,13 @@
 package es.albarregas.modelos;
 
 import static javax.persistence.GenerationType.IDENTITY;
-
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -23,7 +22,7 @@ public class Usuario implements java.io.Serializable {
 	private String rol;
 	private String nombre;
 	private String apellidos;
-	private Set<DatoAlumno> datosAlumnos;
+	private DatoAlumno datosAlumno;
 
 	
 	public Usuario() {
@@ -86,13 +85,14 @@ public class Usuario implements java.io.Serializable {
 		this.apellidos = apellidos;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
-	public Set<DatoAlumno> getDatosAlumnos() {
-		return datosAlumnos;
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
+	public DatoAlumno getDatosAlumno() {
+		return datosAlumno;
 	}
 
-	public void setDatosAlumnos(Set<DatoAlumno> datosAlumnos) {
-		this.datosAlumnos = datosAlumnos;
+	public void setDatosAlumno(DatoAlumno datosAlumno) {
+		this.datosAlumno = datosAlumno;
 	}
 
 }

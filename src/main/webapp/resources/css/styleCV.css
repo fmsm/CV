@@ -24,6 +24,9 @@ body {
 
 /* ESCPECIFICAS */
 
+.colorBlueA { color: #2399E5}
+.txtMediano { font-size: 1.2em;}
+.txtXS {font-size: 0.6em};
 .txtFino {font-weight: 300;}
 .bgMenuColor, .bgDlg { background-color: whitesmoke;}
 .bgCenterColor 	{ background-color: white;}
@@ -98,6 +101,14 @@ button.ui-button.ui-state-default.btnAdd {
 .ui-button.btnAdd .ui-icon.fa { color: #2399E5; }
 .ui-button.btnAdd .ui-button-text { padding-left: 2.5em;}
 
+
+/* dialogo añadir datos personales*/
+
+#datosPersonales .ui-calendar .ui-inputfield { width: 95%;}
+
+#datosPersonales .ui-fileupload-content {display: none;}
+#datosPersonales .ui-fileupload-buttonbar { padding: 0; border: none;}
+
 /* button.ui-button.ui-state-hover.btnAdd {  */
 /* /* 	border: 1px solid #2399E5; */ */
 /* 	border: 1px solid white; */
@@ -138,5 +149,3 @@ button.ui-button.ui-state-default.btnAdd {
 /* 	width: 2em; */
 /* 	height: 2em; */
 /* } */
-
-/* PARA LOS DIALOGOS */

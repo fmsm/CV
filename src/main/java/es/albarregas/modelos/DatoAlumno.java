@@ -1,10 +1,12 @@
 package es.albarregas.modelos;
 
+import static javax.persistence.GenerationType.IDENTITY;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,9 +21,8 @@ public class DatoAlumno implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private int idDatosAlumno;
+	private int idUsuario;
 	private Direccion direccion;
-	private Usuario usuario;
 	private String genero;
 	private Date fechaNacimiento;
 	private String tipoIdentificacion;
@@ -46,17 +47,18 @@ public class DatoAlumno implements java.io.Serializable {
 	public DatoAlumno() {
 	}
 
-
+	
 	@Id
-	@Column(name = "IdDatosAlumno", unique = true, nullable = false)
-	public int getIdDatosAlumno() {
-		return this.idDatosAlumno;
+	@GeneratedValue(strategy = IDENTITY)	
+	@Column(name = "IdUsuario", unique = true, nullable = false)
+	public int getIdUsuario() {
+		return this.idUsuario;
 	}
 
-	public void setIdDatosAlumno(int idDatosAlumno) {
-		this.idDatosAlumno = idDatosAlumno;
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
-
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "IdDireccion", nullable = false)
 	public Direccion getDireccion() {
@@ -67,15 +69,6 @@ public class DatoAlumno implements java.io.Serializable {
 		this.direccion = direccion;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "IdUsuario", nullable = false)
-	public Usuario getUsuario() {
-		return this.usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 
 	@Column(name = "Genero", nullable = false, length = 3)
 	public String getGenero() {
