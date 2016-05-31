@@ -1,19 +1,13 @@
 
 package es.albarregas.webui;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
-import org.primefaces.model.UploadedFile;
+import es.albarregas.modelos.Pais;
 
 @Named
 @ViewScoped
@@ -37,31 +31,55 @@ public class CvDatosPer implements java.io.Serializable {
 	private String webPersonal;
 	private String servicio;
 	private String nombreUsuario;	
+	private List<Pais> nacionalidades;
 	
-	private UploadedFile file;
-	private StreamedContent image;	
+	//private UploadedFile file;
+	//private InputStream image;	
+	
+//    private Part file;
+//    private byte[] content;
+	
+
+//    public void read() throws IOException {
+//        content = Utils.toByteArray(file.getInputStream());
+//    }
+
+    
+//	public void handleFileUpload(FileUploadEvent event) {
+//		
+//        try {
+//			content = Utils.toByteArray(event.getFile().getInputstream());
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//        
+//        
+//		//this.file = event.getFile();
+//		
+//		//InputStream stream = null;
+//		
+////		try {
+////			stream = this.file.getInputstream();
+////		} catch (IOException e) {			
+////			e.printStackTrace();
+////		}		
+//		
+////		this.setImage(stream);
+//		
+//        FacesContext.getCurrentInstance().addMessage("mensajeGrowlFoto", new FacesMessage(FacesMessage.SEVERITY_INFO, "Imagen subida con éxito", "") );
+//        System.out.println( event.getFile().getFileName());
+//    }
 	
 	
-	public void handleFileUpload(FileUploadEvent event) {
-        
-		this.file = event.getFile();
+	public void aceptar() {
 		
-		InputStream stream = null;
-		
-		try {
-			stream = this.file.getInputstream();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-		
-		this.image = new DefaultStreamedContent(stream, "image/jpeg");
-		
-        FacesContext.getCurrentInstance().addMessage("mensajeGrowlFoto", new FacesMessage(FacesMessage.SEVERITY_INFO, "Imagen subida con éxito", "") );
-        System.out.println( file.getFileName());
-    }
+	}
 	
 	public void buscarCP() {
+	}
+	
+	public List<Pais> acPais() {
+		return null;
 	}
 	
 	/*
@@ -164,22 +182,38 @@ public class CvDatosPer implements java.io.Serializable {
 	public void setNombreUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
 	}
+//	public UploadedFile getFile() {
+//		return file;
+//	}
+//	public void setFile(UploadedFile file) {
+//		this.file = file;
+//	}
+//	public InputStream getImage() {
+//		return image;
+//	}
+//	public void setImage(InputStream image) {
+//		this.image = image;
+//	}
 
-	public UploadedFile getFile() {
-		return file;
+	public List<Pais> getNacionalidades() {
+		return nacionalidades;
 	}
 
-	public void setFile(UploadedFile file) {
-		this.file = file;
-	}
-
-	public StreamedContent getImage() {
-		return image;
-	}
-
-	public void setImage(StreamedContent image) {
-		this.image = image;
+	public void setNacionalidades(List<Pais> nacionalidades) {
+		this.nacionalidades = nacionalidades;
 	}
 	
-		
+//    public Part getFile() {
+//        return file;
+//    }
+//
+//    public void setFile(Part file) {
+//        this.file = file;
+//    }
+//
+//    public byte[] getContent() {
+//        return content;
+//    }
+
+			
 }//CLASS

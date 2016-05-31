@@ -12,7 +12,7 @@
 	    <div class="ui-grid-row"> 
 	    	
 	    	<!-- MENU DE LA PARTE DERECHA -->    
-	        <div class="ui-grid-col-2">
+	        <div class="ui-grid-col-2 alturaCVLayout">
 	        	
 	        	<!-- logo -->				
 	        	<p:panel styleClass="bgMenuColor noPadding noBorder txtCenter" style="margin:4em 0 2em 0; padding: 0;">	        					
@@ -39,7 +39,7 @@
 	        </div>
 
 			<!-- RESTO DE LA PÁGINA -->	        	        
-	        <div class="ui-grid-col-10 bgCenterColor">
+	        <div class="ui-grid-col-10 bgCenterColor alturaCVLayout">
 	        					
 				<p:panel id="cvCenterPnl" styleClass="cvCenterPnl noBorder">
 				
@@ -119,7 +119,20 @@
 	</div>
 	<!-- FIN Div "ui-grid"  -->	
 	</h:form>
-			
-<ui:include src="/WEB-INF/templates/cv/dlgDatosPersonales.xhtml"/>		
+
+	<!-- 
+		POSICION DEL DIALOGO: por alguna razon "top,right" no funciona pero al reves si 
+	 	y lo que pone en el 'primefaces user guide' de "Comma separated position values like ‘top’,‘right’. (Use single quotes when using a combination)" 
+		o bien no funciona o no se a que se refiere 
+	-->
+	
+	<!-- he tenido que ajustar la altura del dialogo a mano (por css) , si no la parte de la redes sociales no era visible -->
+	
+	<p:dialog id="dlgDatosPersonales" position="right,top" modal="true" draggable="false" resizable="false" closable="false" positionType="absolute" dynamic="true"
+			  onShow="showDlg('#dlgDatosPersonales')" widgetVar="wv_dlgDatosPersonales" styleClass="bgDlg">
+			  			  
+		<ui:include src="/WEB-INF/templates/cv/dlgDatosPersonales.xhtml"/>
 		
+	</p:dialog>
+			
 </ui:composition>	

@@ -67,6 +67,12 @@
 	</dependency>	
 	
 	<dependency>
+	    <groupId>org.omnifaces</groupId>
+	    <artifactId>omnifaces</artifactId>
+	    <version>2.3</version>
+	</dependency>	
+	
+	<dependency>
 	    <groupId>org.codemonkey.simplejavamail</groupId>
 	    <artifactId>simple-java-mail</artifactId>
 	    <version>3.1.1</version>

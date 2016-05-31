@@ -1,7 +1,8 @@
-<!-- FALTA: FOTO Y NACIONALIDAD/ES -->
+<!-- FALTA. como grabar la imaben subida y que esta almacenada en el backing bean -->
 <!-- FALTA: concretar/definir lo de los multiples tipos de identificacion posibles -->
 <!-- FALTA: relacionado con direccion -> país (no se si ponerlo o dejarlo)  -->
 <!-- FALTA: pattern para el regex de la validacion de web personal -->
+<!-- FALTA: que la pagina sobre la que esta el dialogo no haga scroll cuando se hace scroll en el dialogo -->
 
 <ui:composition 
 	xmlns="http://www.w3.org/1999/xhtml"
@@ -9,128 +10,146 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:pe="http://primefaces.org/ui/extensions">
-	
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
 
-	<!-- 
-		POSICION DEL DIALOGO: por alguna razon "top,right" no funciona pero al reves si 
-	 	y lo que pone en el 'primefaces user guide' de "Comma separated position values like ‘top’,‘right’. (Use single quotes when using a combination)" 
-		o bien no funciona o no se a que se refiere 
-	-->
-	<p:dialog id="dlgDatosPersonales" position="right,top" modal="true" draggable="false" resizable="false" closable="false" positionType="absolute" dynamic="true"
-			  onShow="showDlg('#dlgDatosPersonales')" widgetVar="wv_dlgDatosPersonales" styleClass="bgDlg">
 			  
 		<f:facet name="header">
-			<p:commandButton value="Cerrar" onclick="hideDlg('#dlgDatosPersonales', 'wv_dlgDatosPersonales')"/>
-<!-- 				<p:commandLink onclick="hideDlg('#dlgDatosPersonales', 'wv_dlgDatosPersonales')"> -->
-<!-- 					<i class="fa fa-times-circle-o fa-2x colorBlueA" aria-hidden="true"/> -->
-<!-- 				</p:commandLink> -->
+<!-- 			<p:commandButton value="Cerrar" onclick="hideDlg('#dlgDatosPersonales', 'wv_dlgDatosPersonales')"/> -->
+				<p:commandLink onclick="hideDlg('#dlgDatosPersonales', 'wv_dlgDatosPersonales')">
+					<i class="fa fa-times-circle-o fa-3x colorBlueA"/>
+				</p:commandLink>
 			<h:outputText value="Información Personal" styleClass="txtGrande" style="margin-left: 2em;"/>
 		</f:facet>			  
 	    
 	    <p:separator/>
-
-	    <h:form id="datosPersonales">
 	    
-		    <p:growl id="growlFoto" for="mensajeGrowlFoto"/>
-		    
-			<div class="ui-grid ui-grid-responsive">
-				
-				<!-- SEPARACION -->
-				<div class="ui-grid-row" style="margin-bottom: 1em;">
-					<h:outputText value="Datos personales" styleClass="ui-grid-col-7 txtMediano" style="border-bottom: 1px dotted gray;"/>
-				</div>
-	
-				<!-- Foto -->
-				<div class="ui-grid-row" style="margin-bottom: 1em;">
-	
-					<div style="width: 110px; height: 110px; border: 1px solid gray;">
-						<p:graphicImage id="foto" value="#{cvDatosPer.image}"/>
-					</div>
+		<div class="ui-grid ui-grid-responsive">
+			
+			<!-- SEPARACION -->
+			<div class="ui-grid-row" style="margin: 1em 0;">
+				<h:outputText value="Datos personales" styleClass="ui-grid-col-12 txtMediano txtBold" style="border-bottom: 1px dotted gray;"/>
+			</div>
+
+			<div class="ui-grid-row" style="margin-bottom: 1em;">
+			
+				<!-- ******************************** -->			
+				<!-- FORM EXCLUSIVAMENTE PARA LA FOTO -->					
+				<h:form id="datosPersonalesFoto" styleClass="ui-grid-col-5">					
+			
+					<div id="elegirFoto">
 					
-					<!-- TODO : mostrar los mensajes de error de tamaño, extension, etc.. del p:fileupload, en un growl, en vez de donde por defecto salen 
-					     ya que por css estoy ocultando esa parte del p:fileupload 
-					     http://stackoverflow.com/a/34495163 -->
-															
-					<p:fileUpload mode="advanced" auto="true" label="Elegir foto" dragDropSupport="false" sizeLimit="10000" 
-								  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" value="#{cvDatosPer.file}"								   
-								  fileUploadListener="#{cvDatosPer.handleFileUpload}" 
-								  update="datosPersonales:growlFoto, datosPersonales:foto" /> 
-								  				
-				</div>
-							
+						
+							<div id="fotoWrapper">
+					    		<o:graphicImage value="#{uploadImageBean.content}" dataURI="true" rendered="#{not empty uploadImageBean.content}" />
+					    	</div>
+		
+						<!-- TODO : mostrar los mensajes de error de tamaño, extension, etc.. del p:fileupload, en un growl, en vez de donde por defecto salen 
+						     ya que por css estoy ocultando esa parte del p:fileupload 
+						     http://stackoverflow.com/a/34495163 -->
+		
+							<p:fileUpload mode="advanced" auto="true" label="Elegir foto" dragDropSupport="false" sizeLimit="10000" 
+										  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" value="#{uploadImageBean.file}"								   
+										  fileUploadListener="#{uploadImageBean.read}" 
+										  update="@form" />									  													  
+					</div>
+				
+				</h:form>
+				<!-- FORM EXCLUSIVAMENTE PARA LA FOTO -->
+				<!-- ******************************** -->
+				
+				<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
+				
+				<div class="ui-grid-col-5 bloqueBtnAceptarCancelar">
+
+						<p:commandButton id="btnAceptar" value="Aceptar" form="datosPersonales" actionListener="#{cvDatosPer.aceptar}" 
+										 process="datosPersonales" update="datosPersonales" oncomplete=""
+										 style="margin-bottom: 1em;"/>
+										 
+						<p:commandButton id="btnCancelar" value="Cancelar" onclick="hideDlg('#dlgDatosPersonales', 'wv_dlgDatosPersonales')" 
+										 />
+									 				
+				</div>				
+													  				    	
+			</div>
+			
+			<!-- ******************************** -->
+			<!-- FORM PARA TODO LO DEMAS, EXCLUIDA LA FOTO -->
+    		<h:form id="datosPersonales">
+    									
 				<!-- Nombre, Apellidos -->		
 			    <div class="ui-grid-row" style="margin-bottom: .5em;">
-					<p:outputLabel for="nombre" value="Nombre" styleClass="ui-grid-col-3"/>
-					<h:outputText styleClass="ui-grid-col-1"/> <!-- relleno -->
-					<p:outputLabel for="apellidos" value="Apellido/s" styleClass="ui-grid-col-3"/>				
+					<p:outputLabel for="nombre" value="Nombre" styleClass="ui-grid-col-5"/>
+					<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
+					<p:outputLabel for="apellidos" value="Apellido/s" styleClass="ui-grid-col-5"/>				
 				</div>
-				
+	
 			    <div class="ui-grid-row">
 			    
 					<p:inputText id="nombre" value="#{cvDatosPer.nombre}"
 								 required="true" requiredMessage="Campo Obligatorio" validatorMessage="Formato incorrecto" 
 								 placeholder="Antonio" 
-								 styleClass="ui-grid-col-3">
+								 styleClass="ui-grid-col-5">
 						<f:validateLength maximum="30"/>						
 					</p:inputText>
 					
-					<h:outputText styleClass="ui-grid-col-1" style="margin-right: .5em;"/> <!-- relleno -->
+					<h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
 					
 					<p:inputText id="apellidos" value="#{cvDatosPer.apellidos}" 
 								 required="true" requiredMessage="Campo Obligatorio" validatorMessage="Formato incorrecto"
 								 placeholder="Sánchez Fernández"
-								 styleClass="ui-grid-col-3">
+								 styleClass="ui-grid-col-5">
 						<f:validateLength maximum="60"/>															 
 					</p:inputText>
 															    		   
 				</div>
 	
 			    <div class="ui-grid-row" style="margin-bottom: 1em;">
-					<p:message for="nombre"	styleClass="ui-grid-col-3"/>
-					<h:outputText styleClass="ui-grid-col-1" style="margin-right: .5em;"/> <!-- relleno -->
-					<p:message for="apellidos" styleClass="ui-grid-col-3"/> 
+					<p:message for="nombre"	styleClass="ui-grid-col-5"/>
+					<h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
+					<p:message for="apellidos" styleClass="ui-grid-col-5"/> 
 				</div>
 	
 	
 				<!-- Genero, Fecha de nacimiento -->
 			    <div class="ui-grid-row" style="margin-bottom: .5em;">
-			    	<p:outputLabel for="genero" value="Genero" styleClass="ui-grid-col-3"/>
-			    	<h:outputText styleClass="ui-grid-col-1"/> <!-- relleno -->
-					<p:outputLabel for="fecNacimiento" value="Fecha de Nacimiento" styleClass="ui-grid-col-3"/>
+			    	<p:outputLabel for="genero" value="Genero" styleClass="ui-grid-col-5"/>
+			    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
+					<p:outputLabel for="fecNacimiento" value="Fecha de Nacimiento" styleClass="ui-grid-col-5"/>
 				</div>
 	
 			    <div class="ui-grid-row">
 			        <p:selectOneRadio id="genero" value="#{cvDatosPer.genero}" 
 			        				  required="true" requiredMessage="Campo Obligatorio" 
-			        				  styleClass="ui-grid-col-3" style="margin-right: .5em;">
+			        				  styleClass="ui-grid-col-5" style="margin-right: .5em;">
 			            <f:selectItem itemLabel="Hombre" itemValue="m" />
 			            <f:selectItem itemLabel="Mujer" itemValue="f" />
 			        </p:selectOneRadio>
-			        <h:outputText styleClass="ui-grid-col-1"/> <!-- relleno -->						    
+			        <h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->						    
 					<p:calendar id="fecNacimiento" value="#{cvDatosPer.fechaNacimiento}"
-								styleClass="ui-grid-col-3"/>
+								styleClass="ui-grid-col-5"/>
 				</div>
 	
 			    <div class="ui-grid-row" style="margin-bottom: 1em;">
-			    	<p:message for="genero" styleClass="ui-grid-col-3"/>
-			    	<h:outputText styleClass="ui-grid-col-1"/> <!-- relleno -->
-					<p:message for="fecNacimiento"	styleClass="ui-grid-col-3"/>
+			    	<p:message for="genero" styleClass="ui-grid-col-5"/>
+			    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
+					<p:message for="fecNacimiento"	styleClass="ui-grid-col-5"/>
 				</div>
 				
 				
 				<!-- Tipo identificacion, Identificacion (numero) -->
 			    <div class="ui-grid-row" style="margin-bottom: .5em;">
-					<p:outputLabel for="tipoIdentificacion" value="Tipo Identificación" styleClass="ui-grid-col-3"/>
-					<h:outputText styleClass="ui-grid-col-1"/> <!-- relleno -->
-					<p:outputLabel id="labelIdentificacion" for="identificacion" value="Identificación" styleClass="ui-grid-col-3"/>				
+					<p:outputLabel for="tipoIdentificacion" value="Tipo Identificación" styleClass="ui-grid-col-5"/>
+					<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
+					<p:outputLabel id="labelIdentificacion" for="identificacion" value="Identificación" styleClass="ui-grid-col-5"/>				
 				</div>
 	
 			    <div class="ui-grid-row">
 	       			<p:selectOneMenu id="tipoIdentificacion" value="#{cvDatosPer.tipoIdentificacion}" 
 	       							 required="true" requiredMessage="Campo Obligatorio" 
 	       							 widgetVar="wvSelectTipo" onchange="tipoIdentificacion()" 
-	       							 styleClass="ui-grid-col-3">
+	       							 styleClass="ui-grid-col-5">
 	       							 
 	       				<f:selectItem itemValue="" itemLabel="seleccionar una opción"/>
 	       				<f:selectItem itemValue="DNI/NIF" itemLabel="DNI/NIF"/>
@@ -139,7 +158,7 @@
 	       				
 	       			</p:selectOneMenu>
 	       			
-	       			<h:outputText styleClass="ui-grid-col-1" style="margin-right: .5em;"/> <!-- relleno -->
+	       			<h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
 	       			
 					<!-- problemático, validar dni o nif o nie o pasaporte, segun nos venga del campo anterior -->
 					<!-- de momento solo valida el dni/nif: que tenga formato 8 numeros 1 letra; no si la letra es correcta segun los números-->
@@ -147,29 +166,45 @@
 					<p:inputText id="identificacion" value="#{cvDatosPer.identificacion}"
 								 required="true" requiredMessage="Campo Obligatorio" validatorMessage="Formato incorrecto" 
 	 							 placeholder="93214561A" widgetVar="wvInputIdentificacion" 
-	 							 styleClass="ui-grid-col-3" >
+	 							 styleClass="ui-grid-col-5" >
 						<f:validateRegex pattern="^[0-9]{8}[a-zA-Z]{1}$"/>
 					</p:inputText>
 	       										    
 				</div>
 	
 			    <div class="ui-grid-row" style="margin-bottom: 1em;">
-			    	<p:message for="tipoIdentificacion" styleClass="ui-grid-col-3"/>
-			    	<h:outputText styleClass="ui-grid-col-1"/> <!-- relleno -->
-					<p:message for="identificacion" styleClass="ui-grid-col-3"/>				
+			    	<p:message for="tipoIdentificacion" styleClass="ui-grid-col-5"/>
+			    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
+					<p:message for="identificacion" styleClass="ui-grid-col-5"/>				
 				</div>
+				
+				
+				<!-- Nacionalidad/es -->				
+			    <div class="ui-grid-row" style="margin-bottom: .5em;">
+			    	<p:outputLabel for="nacionalidad" value="Nacionalidad/es" styleClass="ui-grid-col-5"/>
+				</div>
+	
+			    <div class="ui-grid-row">
+			        <p:autoComplete id="nacionalidad" multiple="true" value="#{cvDatosPer.nacionalidades}" completeMethod="#{cvDatosPer.acPais}"
+			                        var="item" itemLabel="#{item.pais}" itemValue="#{item.pais}" forceSelection="true" styleClass="ui-grid-col-5"/>
+				</div>
+	
+			    <div class="ui-grid-row" style="margin-bottom: 1em;">
+			    	<p:message for="nacionalidad" styleClass="ui-grid-col-5"/>
+				</div>
+				
 				
 				<!-- SEPARACION -->
 				<div class="ui-grid-row" style="margin-bottom: 1em;">
-					<h:outputText value="Lugar de residencia"  styleClass="ui-grid-col-7 txtMediano" style="border-bottom: 1px dotted gray;"/>
+					<h:outputText value="Lugar de residencia"  styleClass="ui-grid-col-12 txtMediano txtBold" style="border-bottom: 1px dotted gray;"/>
 				</div>
 				
 				
 				<!-- CP, Provincia -->
 			    <div class="ui-grid-row" style="margin-bottom: .5em;">
-			    	<p:outputLabel for="cp" value="Código Postal" styleClass="ui-grid-col-3"/>
-			    	<h:outputText styleClass="ui-grid-col-1"/> <!-- relleno -->
-	            	<p:outputLabel for="provincia" value="Provincia" styleClass="ui-grid-col-3"/>		    
+			    	<p:outputLabel for="cp" value="Código Postal" styleClass="ui-grid-col-5"/>
+			    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
+	            	<p:outputLabel for="provincia" value="Provincia" styleClass="ui-grid-col-5"/>		    
 				</div>
 	
 			    <div class="ui-grid-row">
@@ -177,33 +212,33 @@
 	                 <p:inputText id="cp" value="#{cvDatosPer.codPostal}"
 	                             required="true" 
 	                             placeholder="06800"
-	                             styleClass="ui-grid-col-3">
+	                             styleClass="ui-grid-col-5">
 	                     <p:ajax event="change" process="@this" update="cp, provincia" listener="#{cvDatosPer.buscarCP}" />                            
 	                     <pe:keyFilter regEx="/[0-9]/"/>
 	                 </p:inputText>
 			    	
-			    	 <h:outputText styleClass="ui-grid-col-1" style="margin-right: .5em;"/> <!-- relleno -->
+			    	 <h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
 			    	 
 	                 <p:inputText id="provincia" value="#{cvDatosPer.provincia}" readonly="true"
 	                              required="true"
 	                              placeholder="Badajoz"
-								  styleClass="ui-grid-col-3">                            
+								  styleClass="ui-grid-col-5">                            
 	                 </p:inputText>                    
 	       										    
 				</div>
 	
 			    <div class="ui-grid-row" style="margin-bottom: 1em;">
-			    	<p:message for="cp" styleClass="ui-grid-col-3"/>
-			    	<h:outputText styleClass="ui-grid-col-1"/> <!-- relleno -->		    	
-					<p:message for="provincia" styleClass="ui-grid-col-3"/>		    
+			    	<p:message for="cp" styleClass="ui-grid-col-5"/>
+			    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->		    	
+					<p:message for="provincia" styleClass="ui-grid-col-5"/>		    
 				</div>
 	
 	
 				<!-- Población, Direccion -->
 			    <div class="ui-grid-row" style="margin-bottom: .5em;">
-			    	<p:outputLabel for="poblacion" value="Población" styleClass="ui-grid-col-3"/>
-			    	<h:outputText styleClass="ui-grid-col-1"/> <!-- relleno -->
-	            	<p:outputLabel for="direccion" value="Direccion" styleClass="ui-grid-col-3"/>		    
+			    	<p:outputLabel for="poblacion" value="Población" styleClass="ui-grid-col-5"/>
+			    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
+	            	<p:outputLabel for="direccion" value="Direccion" styleClass="ui-grid-col-5"/>		    
 				</div>
 	
 			    <div class="ui-grid-row">
@@ -211,31 +246,31 @@
 	                 <p:inputText id="poblacion" value="#{cvDatosPer.municipio}" readonly="true"
 	                              required="true"
 	                              placeholder="Mérida"
-	                              styleClass="ui-grid-col-3"/>
+	                              styleClass="ui-grid-col-5"/>
 			                      		    
-			    	 <h:outputText styleClass="ui-grid-col-1" style="margin-right: .5em;"/> <!-- relleno -->
+			    	 <h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
 	
 	                 <p:inputText id="direccion" value="#{cvDatosPer.direccion}" 
 	                              required="true"
 	                              placeholder="Calle Segovia, nº 98"
-	                              styleClass="ui-grid-col-3">
+	                              styleClass="ui-grid-col-5">
 	                     <pe:keyFilter regEx="/[a-z áéíóúüñ,-/º0-9]/i"/>
 	                 </p:inputText>
 	       										    
 				</div>
 	
 			    <div class="ui-grid-row" style="margin-bottom: 1em;">
-			    	<p:message for="poblacion" styleClass="ui-grid-col-3"/>
-			    	<h:outputText styleClass="ui-grid-col-1"/> <!-- relleno -->		    	
-					<p:message for="direccion" styleClass="ui-grid-col-3"/>		    
+			    	<p:message for="poblacion" styleClass="ui-grid-col-5"/>
+			    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->		    	
+					<p:message for="direccion" styleClass="ui-grid-col-5"/>		    
 				</div>
 				
 				
 				<!-- Teléfono domicilio y teléfono movil -->
 			    <div class="ui-grid-row" style="margin-bottom: .5em;">
-			    	<p:outputLabel for="tlfnoDomicilio" value="Teléfono Domicilio" styleClass="ui-grid-col-3"/>
-			    	<h:outputText styleClass="ui-grid-col-1"/> <!-- relleno -->
-	            	<p:outputLabel for="tlfnoMovil" value="Teléfono Movil" styleClass="ui-grid-col-3"/>		    
+			    	<p:outputLabel for="tlfnoDomicilio" value="Teléfono Domicilio" styleClass="ui-grid-col-5"/>
+			    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
+	            	<p:outputLabel for="tlfnoMovil" value="Teléfono Movil" styleClass="ui-grid-col-5"/>		    
 				</div>
 	
 			    <div class="ui-grid-row">
@@ -243,18 +278,18 @@
 	                 <p:inputText id="tlfnoDomicilio" value="#{cvDatosPer.telefonoDomicilio}" 
 	                              required="true"
 	                              placeholder="924013894" 
-	                              styleClass="ui-grid-col-3">
+	                              styleClass="ui-grid-col-5">
 	                     <f:validateLength minimum="9" maximum="9"/>
 	                     <f:validateRegex pattern="^[6789]{1}[0-9]{8}$"/>
 	                     <pe:keyFilter mask="pint"/>
 	                 </p:inputText>                                                        
 			                      		    
-			    	 <h:outputText styleClass="ui-grid-col-1" style="margin-right: .5em;"/> <!-- relleno -->
+			    	 <h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
 	
 	                 <p:inputText id="tlfnoMovil" value="#{cvDatosPer.telefonoMovil}" 
 	                              required="true"
 	                              placeholder="675109281" 
-	                              styleClass="ui-grid-col-3">
+	                              styleClass="ui-grid-col-5">
 	                     <f:validateLength minimum="9" maximum="9"/>
 	                     <f:validateRegex pattern="^[6789]{1}[0-9]{8}$"/>
 	                     <pe:keyFilter mask="pint"/>
@@ -263,22 +298,22 @@
 				</div>
 	
 			    <div class="ui-grid-row" style="margin-bottom: 1em;">
-			    	<p:message for="tlfnoDomicilio" styleClass="ui-grid-col-3"/>
-			    	<h:outputText styleClass="ui-grid-col-1"/> <!-- relleno -->		    	
-					<p:message for="tlfnoMovil" styleClass="ui-grid-col-3"/>		    
+			    	<p:message for="tlfnoDomicilio" styleClass="ui-grid-col-5"/>
+			    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->		    	
+					<p:message for="tlfnoMovil" styleClass="ui-grid-col-5"/>		    
 				</div>
 	
 				<!-- SEPARACION -->
 				<div class="ui-grid-row" style="margin-bottom: 1em;">
-					<h:outputText value="Información adicional"  styleClass="ui-grid-col-7 txtMediano" style="border-bottom: 1px dotted gray;"/>
+					<h:outputText value="Información adicional"  styleClass="ui-grid-col-12 txtMediano txtBold" style="border-bottom: 1px dotted gray;"/>
 				</div>
 	
 	
 				<!-- Email y web personal -->
 			    <div class="ui-grid-row" style="margin-bottom: .5em;">
-			    	<p:outputLabel for="email" value="Email" styleClass="ui-grid-col-3"/>
-			    	<h:outputText styleClass="ui-grid-col-1"/> <!-- relleno -->
-	            	<p:outputLabel for="blog" value="Blog / Web Personal" styleClass="ui-grid-col-3"/>		    
+			    	<p:outputLabel for="email" value="Email" styleClass="ui-grid-col-5"/>
+			    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
+	            	<p:outputLabel for="blog" value="Blog / Web Personal" styleClass="ui-grid-col-5"/>		    
 				</div>
 	
 			    <div class="ui-grid-row">
@@ -287,62 +322,61 @@
 	                             required="true"
 	                             validatorMessage="Formato incorrecto"
 	                             placeholder="antonio.sanchez@gmail.com"
-	                             styleClass="ui-grid-col-3">
+	                             styleClass="ui-grid-col-5">
 	                    <f:validateRegex pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$"/>
 	                </p:inputText>        
 	
 			                      		    
-			    	 <h:outputText styleClass="ui-grid-col-1" style="margin-right: .5em;"/> <!-- relleno -->
+			    	 <h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
 	
 	                <p:inputText id="blog" value="#{cvDatosPer.webPersonal}" 
 	                             required="true"
 	                             validatorMessage="Formato incorrecto"
 	                             placeholder="www.antonio-sanchez.es"
-	                             styleClass="ui-grid-col-3">
+	                             styleClass="ui-grid-col-5">
 	<!--                     <f:validateRegex pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$"/> -->
 	                </p:inputText>        
 	       										    
 				</div>
 				
 			    <div class="ui-grid-row" style="margin-bottom: 1em;">
-			    	<p:message for="email" styleClass="ui-grid-col-3"/>
-			    	<h:outputText styleClass="ui-grid-col-1"/> <!-- relleno -->		    	
-					<p:message for="blog" styleClass="ui-grid-col-3"/>		    
+			    	<p:message for="email" styleClass="ui-grid-col-5"/>
+			    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->		    	
+					<p:message for="blog" styleClass="ui-grid-col-5"/>		    
 				</div>
 	
 	
-				<!-- Redes sociales -->			
+				<!-- Redes sociales -->
+				<!-- LO QUITO PORQUE NO CREO QUE ME DE TIEMPO A TERMINARLO EN CONDICIONES -->
+							
 				<!-- "header" del subapartado redes sociales -->
-			    <div class="ui-grid-row" style="margin-bottom: .5em;">
+<!-- 			    <div class="ui-grid-row" style="margin-bottom: .5em;"> -->
 			    
-			    	<h:outputText value="Redes Sociales" styleClass="ui-grid-col-6"/>
-	<!-- 		    	<p:commandButton icon="fa fa-plus" onclick="console.log('Añadir red social')" styleClass="ui-grid-col-1 txtXS"/>		    	 -->
-					<p:commandLink onclick="console.log('Añadir red social')" styleClass="ui-grid-col-1 txtXS txtRight">
-						<i class="fa fa-plus colorBlueA" aria-hidden="true"/>
-					</p:commandLink>
+<!-- 			    	<h:outputText value="Redes Sociales" styleClass="ui-grid-col-6"/> -->
+<!-- 					<p:commandLink onclick="console.log('Añadir red social')" styleClass="ui-grid-col-2 txtXS txtRight"> -->
+<!-- 						<i class="fa fa-plus colorBlueA"/> -->
+<!-- 					</p:commandLink> -->
 					
-				</div>
+<!-- 				</div> -->
 	
 				<!-- 1 row por cada red social -->			
-			    <div id="bloqueRedSocial" class="ui-grid-row">
+<!-- 			    <div id="bloqueRedSocial" class="ui-grid-row"> -->
 			    		    
-	       			<p:selectOneMenu value="#{cvDatosPer.servicio}" styleClass="ui-grid-col-3">
-	       				<f:selectItem itemValue="" itemLabel="seleccionar una opción"/>
-	       				<f:selectItem itemValue="Facebook" itemLabel="Facebook"/>
-	       				<f:selectItem itemValue="Twitter" itemLabel="Twitter"/>
-	       				<f:selectItem itemValue="Instagram" itemLabel="Instagram"/>
-	       			</p:selectOneMenu>
+<!-- 	       			<p:selectOneMenu value="#{cvDatosPer.servicio}" styleClass="ui-grid-col-5"> -->
+<!-- 	       				<f:selectItem itemValue="" itemLabel="seleccionar una opción"/> -->
+<!-- 	       				<f:selectItem itemValue="Facebook" itemLabel="Facebook"/> -->
+<!-- 	       				<f:selectItem itemValue="Twitter" itemLabel="Twitter"/> -->
+<!-- 	       				<f:selectItem itemValue="Instagram" itemLabel="Instagram"/> -->
+<!-- 	       			</p:selectOneMenu> -->
 	       			
-	       			<h:outputText styleClass="ui-grid-col-1" style="margin-right: .5em;"/> <!-- relleno -->
+<!-- 	       			<h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> relleno -->
 	       			       			
-					<p:inputText value="#{cvDatosPer.nombreUsuario}" styleClass="ui-grid-col-3" />
+<!-- 					<p:inputText value="#{cvDatosPer.nombreUsuario}" styleClass="ui-grid-col-5" /> -->
 	       										    
-				</div>			
+<!-- 				</div> -->
+	 		
+	 		</h:form>
 	 					
 			</div> <!-- grid -->
-			    
-		</h:form>
-    
-	</p:dialog>
 				
 </ui:composition>
