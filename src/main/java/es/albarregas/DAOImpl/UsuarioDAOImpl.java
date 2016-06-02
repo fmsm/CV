@@ -8,7 +8,7 @@ import es.albarregas.DAO.UsuarioDAO;
 import es.albarregas.modelos.Usuario;
 
 public class UsuarioDAOImpl extends DAOGenerico<Usuario> implements UsuarioDAO {
-
+	
 	@Override
 	public boolean existeUsuario(String email) {
 		
@@ -34,15 +34,17 @@ public class UsuarioDAOImpl extends DAOGenerico<Usuario> implements UsuarioDAO {
 		
 		Criteria criteria = sesion.createCriteria(Usuario.class);
 		criteria.add( Restrictions.eq("email", email));
-		criteria.add( Restrictions.eq("password", password) );
 		
+		if (password != null) {
+			criteria.add( Restrictions.eq("password", password) );	
+		}
+				
 		Usuario resultado = null;
 		resultado = (Usuario) criteria.uniqueResult();
 		
 		super.closeSession();
 		
 		return resultado;
-		//return (resultado == null) ? false : true;
 		
 	}//datosAccesoValidos
 

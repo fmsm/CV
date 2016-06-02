@@ -12,7 +12,7 @@
 	    <div class="ui-grid-row"> 
 	    	
 	    	<!-- MENU DE LA PARTE DERECHA -->    
-	        <div class="ui-grid-col-2 alturaCVLayout">
+	        <div class="ui-grid-col-2 alturaCVLayout bgMenuColor">
 	        	
 	        	<!-- logo -->				
 	        	<p:panel styleClass="bgMenuColor noPadding noBorder txtCenter" style="margin:4em 0 2em 0; padding: 0;">	        					
@@ -21,9 +21,10 @@
 				
 				<p:separator/>
 				
+				<!-- nombre/apellidos usuario -->
 				<p:panelGrid columns="1" layout="grid" columnClasses="bgMenuColor txtCenter" styleClass="cvUser noBorder">
-					<h:outputText value="Panel Alumno" styleClass="txtGrande"/>
-					<h:outputText value="#{nombre} #{apellidos}" styleClass="txtFino"/>				
+					<h:outputText value="Panel Alumno" styleClass="txtGrande" style="color: #DDDDDD;"/>
+					<h:outputText value="#{nombre} #{apellidos}" styleClass="txtFino" style="color: #DDDDDD;"/>				
 				</p:panelGrid>
 				
 				<p:separator style="margin-bottom: 2em;"/>				
@@ -32,16 +33,16 @@
 				
 				<p:menu styleClass="cvMenu bgMenuColor noPadding noBorder">
 					<p:menuitem value="Curriculum Vitae" styleClass="menuActual noBorderRadius"/>
-					<p:menuitem value="Expediente" styleClass="noBorderRadius" style="margin-top: 1em; margin-bottom: 1em;"/>
+					<p:menuitem value="Expediente" styleClass="noBorderRadius"/>
 					<p:menuitem value="Cerrar Sesión" styleClass="noBorderRadius"/>										
 				</p:menu>				
 				  								 	        
 	        </div>
 
 			<!-- RESTO DE LA PÁGINA -->	        	        
-	        <div class="ui-grid-col-10 bgCenterColor alturaCVLayout">
+	        <div class="ui-grid-col-10 alturaCVLayout bgCenterColor">
 	        					
-				<p:panel id="cvCenterPnl" styleClass="cvCenterPnl noBorder">
+				<p:panel id="cvCenterPnl" styleClass="cvCenterPnl bgCenterColor noBorder">
 				
 					<p:panel id="datosPersonales" styleClass="pnlDatosPersonales dottedBorder">
 					

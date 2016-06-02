@@ -1,7 +1,5 @@
 <!-- FALTA. como grabar la imaben subida y que esta almacenada en el backing bean -->
 <!-- FALTA: concretar/definir lo de los multiples tipos de identificacion posibles -->
-<!-- FALTA: relacionado con direccion -> país (no se si ponerlo o dejarlo)  -->
-<!-- FALTA: pattern para el regex de la validacion de web personal -->
 <!-- FALTA: que la pagina sobre la que esta el dialogo no haga scroll cuando se hace scroll en el dialogo -->
 
 <ui:composition 
@@ -14,19 +12,20 @@
 	xmlns:o="http://omnifaces.org/ui"
 	xmlns:of="http://omnifaces.org/functions">
 
-			  
-		<f:facet name="header">
-<!-- 			<p:commandButton value="Cerrar" onclick="hideDlg('#dlgDatosPersonales', 'wv_dlgDatosPersonales')"/> -->
-				<p:commandLink onclick="hideDlg('#dlgDatosPersonales', 'wv_dlgDatosPersonales')">
-					<i class="fa fa-times-circle-o fa-3x colorBlueA"/>
-				</p:commandLink>
-			<h:outputText value="Información Personal" styleClass="txtGrande" style="margin-left: 2em;"/>
-		</f:facet>			  
+	<f:facet name="header">
+		<!--<p:commandButton value="Cerrar" onclick="hideDlg('#dlgDatosPersonales', 'wv_dlgDatosPersonales')"/> -->
+		<p:commandLink onclick="hideDlg('#dlgDatosPersonales', 'wv_dlgDatosPersonales')">
+			<i class="fa fa-times-circle-o fa-3x"/>
+		</p:commandLink>
+		<h:outputText value="Información Personal" styleClass="txtGrande" style="margin-left: 2em;"/>
+	</f:facet>			  
 	    
-	    <p:separator/>
+    <p:separator/>
 	    
-		<div class="ui-grid ui-grid-responsive">
-			
+	<div class="ui-grid ui-grid-responsive">
+	
+		<h:form id="datosPersonales">
+		
 			<!-- SEPARACION -->
 			<div class="ui-grid-row" style="margin: 1em 0;">
 				<h:outputText value="Datos personales" styleClass="ui-grid-col-12 txtMediano txtBold" style="border-bottom: 1px dotted gray;"/>
@@ -34,349 +33,347 @@
 
 			<div class="ui-grid-row" style="margin-bottom: 1em;">
 			
-				<!-- ******************************** -->			
-				<!-- FORM EXCLUSIVAMENTE PARA LA FOTO -->					
-				<h:form id="datosPersonalesFoto" styleClass="ui-grid-col-5">					
-			
-					<div id="elegirFoto">
-					
-						
-							<div id="fotoWrapper">
-					    		<o:graphicImage value="#{uploadImageBean.content}" dataURI="true" rendered="#{not empty uploadImageBean.content}" />
-					    	</div>
-		
-						<!-- TODO : mostrar los mensajes de error de tamaño, extension, etc.. del p:fileupload, en un growl, en vez de donde por defecto salen 
-						     ya que por css estoy ocultando esa parte del p:fileupload 
-						     http://stackoverflow.com/a/34495163 -->
-		
-							<p:fileUpload mode="advanced" auto="true" label="Elegir foto" dragDropSupport="false" sizeLimit="10000" 
-										  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" value="#{uploadImageBean.file}"								   
-										  fileUploadListener="#{uploadImageBean.read}" 
-										  update="@form" />									  													  
-					</div>
+				<div id="elegirFoto" class="ui-grid-col-5">
+										
+					<div id="fotoWrapper">
+			    		<o:graphicImage value="#{uploadImageBean.content}" dataURI="true" rendered="#{not empty uploadImageBean.content}" />
+			    	</div>
+	
+					<!-- TODO : mostrar los mensajes de error de tamaño, extension, etc.. del p:fileupload, en un growl, en vez de donde por defecto salen 
+					     ya que por css estoy ocultando esa parte del p:fileupload 
+					     http://stackoverflow.com/a/34495163 -->
+	
+					<p:fileUpload mode="advanced" auto="true" label="Elegir foto" dragDropSupport="false" sizeLimit="10000" 
+								  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" value="#{uploadImageBean.file}"								   
+								  fileUploadListener="#{uploadImageBean.read}" 
+								  update="@form" />									  													  
 				
-				</h:form>
-				<!-- FORM EXCLUSIVAMENTE PARA LA FOTO -->
-				<!-- ******************************** -->
+				</div>
 				
 				<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
 				
+				<!-- BOTONES PARA ACEPTAR/CANCELAR    -->
+				<!-- ******************************** -->								
 				<div class="ui-grid-col-5 bloqueBtnAceptarCancelar">
 
-						<p:commandButton id="btnAceptar" value="Aceptar" form="datosPersonales" actionListener="#{cvDatosPer.aceptar}" 
-										 process="datosPersonales" update="datosPersonales" oncomplete=""
+						<p:commandButton id="btnAceptar" value="Aceptar" form=":datosPersonales" actionListener="#{cvDatosPer.aceptar}" 
+										 process=":datosPersonales" update=":datosPersonales"
 										 style="margin-bottom: 1em;"/>
 										 
-						<p:commandButton id="btnCancelar" value="Cancelar" onclick="hideDlg('#dlgDatosPersonales', 'wv_dlgDatosPersonales')" 
-										 />
+						<p:commandButton id="btnCancelar" value="Cancelar" actionListener="#{cvDatosPer.cancelar}" onclick="hideDlg('#dlgDatosPersonales', 'wv_dlgDatosPersonales')" 
+										 update=":datosPersonales" style="margin-bottom: 1em;"/>
+										 
+						<p:commandButton type="reset" form="datosPersonales" value="Restablecer" />
 									 				
-				</div>				
-													  				    	
+				</div>
+				<!-- BOTONES PARA ACEPTAR/CANCELAR    -->
+				<!-- ******************************** -->
+								
+			</div>
+		
+			<!-- Nombre, Apellidos -->		
+		    <div class="ui-grid-row" style="margin-bottom: .5em;">
+				<p:outputLabel for="nombre" value="Nombre" styleClass="ui-grid-col-5"/>
+				<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
+				<p:outputLabel for="apellidos" value="Apellido/s" styleClass="ui-grid-col-5"/>				
+			</div>
+
+		    <div class="ui-grid-row">
+		    
+				<!-- nombre y apellidos del usuario registrado, ya estan en la sesion -->			    
+				<p:inputText id="nombre" value="#{cvDatosPer.nombre}" readonly="true"								  
+							 placeholder="Francisco Manuel" required="true" requiredMessage="#{msg['error.required']}"
+							 styleClass="ui-grid-col-5">
+					<f:validateLength maximum="30"/>						
+				</p:inputText>
+				
+				<h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
+				
+				<p:inputText id="apellidos" value="#{cvDatosPer.apellidos}" readonly="true"								 
+							 placeholder="Sánchez Menor" required="true" requiredMessage="#{msg['error.required']}"
+							 styleClass="ui-grid-col-5">
+					<f:validateLength maximum="60"/>															 
+				</p:inputText>
+														    		   
+			</div>
+
+		    <div class="ui-grid-row" style="margin-bottom: 1em;">			    	
+				<div class="ui-grid-col-5"><p:message for="nombre" display="text"/></div>
+				<h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
+				<div class="ui-grid-col-5"><p:message for="apellidos" display="text"/></div> 
+			</div>
+
+
+			<!-- Genero, Fecha de nacimiento -->
+		    <div class="ui-grid-row" style="margin-bottom: .5em;">
+		    	<p:outputLabel for="genero" value="Genero" styleClass="ui-grid-col-5"/>
+		    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
+				<p:outputLabel for="fecNacimiento" value="Fecha de Nacimiento" styleClass="ui-grid-col-5"/>
+			</div>
+
+		    <div class="ui-grid-row">
+		        <p:selectOneRadio id="genero" value="#{cvDatosPer.genero}" 
+		        				  required="true" requiredMessage="#{msg['error.required']}" 
+		        				  styleClass="ui-grid-col-5" style="margin-right: .5em;">
+		            <f:selectItem itemLabel="Hombre" itemValue="m" />
+		            <f:selectItem itemLabel="Mujer" itemValue="f" />
+		        </p:selectOneRadio>
+		        <h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->						    
+				<p:calendar id="fecNacimiento" value="#{cvDatosPer.fechaNacimiento}" navigator="true" yearRange="c-40:c" locale="es" maxdate="{#now}" 
+							placeholder="seleccionar una fecha" required="true" requiredMessage="#{msg['error.required']}" validatorMessage="#{msg['error.formato']}"
+							styleClass="ui-grid-col-5"/>
+			</div>
+
+		    <div class="ui-grid-row" style="margin-bottom: 1em;">
+		    	<div class="ui-grid-col-5"><p:message for="genero" display="text"/></div>
+		    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
+				<div class="ui-grid-col-5"><p:message for="fecNacimiento" display="text"/></div>
 			</div>
 			
-			<!-- ******************************** -->
-			<!-- FORM PARA TODO LO DEMAS, EXCLUIDA LA FOTO -->
-    		<h:form id="datosPersonales">
-    									
-				<!-- Nombre, Apellidos -->		
-			    <div class="ui-grid-row" style="margin-bottom: .5em;">
-					<p:outputLabel for="nombre" value="Nombre" styleClass="ui-grid-col-5"/>
-					<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
-					<p:outputLabel for="apellidos" value="Apellido/s" styleClass="ui-grid-col-5"/>				
-				</div>
-	
-			    <div class="ui-grid-row">
-			    
-					<p:inputText id="nombre" value="#{cvDatosPer.nombre}"
-								 required="true" requiredMessage="Campo Obligatorio" validatorMessage="Formato incorrecto" 
-								 placeholder="Antonio" 
-								 styleClass="ui-grid-col-5">
-						<f:validateLength maximum="30"/>						
-					</p:inputText>
-					
-					<h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
-					
-					<p:inputText id="apellidos" value="#{cvDatosPer.apellidos}" 
-								 required="true" requiredMessage="Campo Obligatorio" validatorMessage="Formato incorrecto"
-								 placeholder="Sánchez Fernández"
-								 styleClass="ui-grid-col-5">
-						<f:validateLength maximum="60"/>															 
-					</p:inputText>
-															    		   
-				</div>
-	
-			    <div class="ui-grid-row" style="margin-bottom: 1em;">
-					<p:message for="nombre"	styleClass="ui-grid-col-5"/>
-					<h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
-					<p:message for="apellidos" styleClass="ui-grid-col-5"/> 
-				</div>
-	
-	
-				<!-- Genero, Fecha de nacimiento -->
-			    <div class="ui-grid-row" style="margin-bottom: .5em;">
-			    	<p:outputLabel for="genero" value="Genero" styleClass="ui-grid-col-5"/>
-			    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
-					<p:outputLabel for="fecNacimiento" value="Fecha de Nacimiento" styleClass="ui-grid-col-5"/>
-				</div>
-	
-			    <div class="ui-grid-row">
-			        <p:selectOneRadio id="genero" value="#{cvDatosPer.genero}" 
-			        				  required="true" requiredMessage="Campo Obligatorio" 
-			        				  styleClass="ui-grid-col-5" style="margin-right: .5em;">
-			            <f:selectItem itemLabel="Hombre" itemValue="m" />
-			            <f:selectItem itemLabel="Mujer" itemValue="f" />
-			        </p:selectOneRadio>
-			        <h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->						    
-					<p:calendar id="fecNacimiento" value="#{cvDatosPer.fechaNacimiento}"
-								styleClass="ui-grid-col-5"/>
-				</div>
-	
-			    <div class="ui-grid-row" style="margin-bottom: 1em;">
-			    	<p:message for="genero" styleClass="ui-grid-col-5"/>
-			    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
-					<p:message for="fecNacimiento"	styleClass="ui-grid-col-5"/>
-				</div>
-				
-				
-				<!-- Tipo identificacion, Identificacion (numero) -->
-			    <div class="ui-grid-row" style="margin-bottom: .5em;">
-					<p:outputLabel for="tipoIdentificacion" value="Tipo Identificación" styleClass="ui-grid-col-5"/>
-					<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
-					<p:outputLabel id="labelIdentificacion" for="identificacion" value="Identificación" styleClass="ui-grid-col-5"/>				
-				</div>
-	
-			    <div class="ui-grid-row">
-	       			<p:selectOneMenu id="tipoIdentificacion" value="#{cvDatosPer.tipoIdentificacion}" 
-	       							 required="true" requiredMessage="Campo Obligatorio" 
-	       							 widgetVar="wvSelectTipo" onchange="tipoIdentificacion()" 
-	       							 styleClass="ui-grid-col-5">
-	       							 
-	       				<f:selectItem itemValue="" itemLabel="seleccionar una opción"/>
-	       				<f:selectItem itemValue="DNI/NIF" itemLabel="DNI/NIF"/>
-	       				<f:selectItem itemValue="NIE" itemLabel="NIE"/>
-	       				<f:selectItem itemValue="Pasaporte" itemLabel="Pasaporte"/>
-	       				
-	       			</p:selectOneMenu>
-	       			
-	       			<h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
-	       			
-					<!-- problemático, validar dni o nif o nie o pasaporte, segun nos venga del campo anterior -->
-					<!-- de momento solo valida el dni/nif: que tenga formato 8 numeros 1 letra; no si la letra es correcta segun los números-->
-	       			
-					<p:inputText id="identificacion" value="#{cvDatosPer.identificacion}"
-								 required="true" requiredMessage="Campo Obligatorio" validatorMessage="Formato incorrecto" 
-	 							 placeholder="93214561A" widgetVar="wvInputIdentificacion" 
-	 							 styleClass="ui-grid-col-5" >
-						<f:validateRegex pattern="^[0-9]{8}[a-zA-Z]{1}$"/>
-					</p:inputText>
-	       										    
-				</div>
-	
-			    <div class="ui-grid-row" style="margin-bottom: 1em;">
-			    	<p:message for="tipoIdentificacion" styleClass="ui-grid-col-5"/>
-			    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
-					<p:message for="identificacion" styleClass="ui-grid-col-5"/>				
-				</div>
-				
-				
-				<!-- Nacionalidad/es -->				
-			    <div class="ui-grid-row" style="margin-bottom: .5em;">
-			    	<p:outputLabel for="nacionalidad" value="Nacionalidad/es" styleClass="ui-grid-col-5"/>
-				</div>
-	
-			    <div class="ui-grid-row">
-			        <p:autoComplete id="nacionalidad" multiple="true" value="#{cvDatosPer.nacionalidades}" completeMethod="#{cvDatosPer.acPais}"
-			                        var="item" itemLabel="#{item.pais}" itemValue="#{item.pais}" forceSelection="true" styleClass="ui-grid-col-5"/>
-				</div>
-	
-			    <div class="ui-grid-row" style="margin-bottom: 1em;">
-			    	<p:message for="nacionalidad" styleClass="ui-grid-col-5"/>
-				</div>
-				
-				
-				<!-- SEPARACION -->
-				<div class="ui-grid-row" style="margin-bottom: 1em;">
-					<h:outputText value="Lugar de residencia"  styleClass="ui-grid-col-12 txtMediano txtBold" style="border-bottom: 1px dotted gray;"/>
-				</div>
-				
-				
-				<!-- CP, Provincia -->
-			    <div class="ui-grid-row" style="margin-bottom: .5em;">
-			    	<p:outputLabel for="cp" value="Código Postal" styleClass="ui-grid-col-5"/>
-			    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
-	            	<p:outputLabel for="provincia" value="Provincia" styleClass="ui-grid-col-5"/>		    
-				</div>
-	
-			    <div class="ui-grid-row">
-			    
-	                 <p:inputText id="cp" value="#{cvDatosPer.codPostal}"
-	                             required="true" 
-	                             placeholder="06800"
-	                             styleClass="ui-grid-col-5">
-	                     <p:ajax event="change" process="@this" update="cp, provincia" listener="#{cvDatosPer.buscarCP}" />                            
-	                     <pe:keyFilter regEx="/[0-9]/"/>
-	                 </p:inputText>
-			    	
-			    	 <h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
-			    	 
-	                 <p:inputText id="provincia" value="#{cvDatosPer.provincia}" readonly="true"
-	                              required="true"
-	                              placeholder="Badajoz"
-								  styleClass="ui-grid-col-5">                            
-	                 </p:inputText>                    
-	       										    
-				</div>
-	
-			    <div class="ui-grid-row" style="margin-bottom: 1em;">
-			    	<p:message for="cp" styleClass="ui-grid-col-5"/>
-			    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->		    	
-					<p:message for="provincia" styleClass="ui-grid-col-5"/>		    
-				</div>
-	
-	
-				<!-- Población, Direccion -->
-			    <div class="ui-grid-row" style="margin-bottom: .5em;">
-			    	<p:outputLabel for="poblacion" value="Población" styleClass="ui-grid-col-5"/>
-			    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
-	            	<p:outputLabel for="direccion" value="Direccion" styleClass="ui-grid-col-5"/>		    
-				</div>
-	
-			    <div class="ui-grid-row">
-	
-	                 <p:inputText id="poblacion" value="#{cvDatosPer.municipio}" readonly="true"
-	                              required="true"
-	                              placeholder="Mérida"
-	                              styleClass="ui-grid-col-5"/>
-			                      		    
-			    	 <h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
-	
-	                 <p:inputText id="direccion" value="#{cvDatosPer.direccion}" 
-	                              required="true"
-	                              placeholder="Calle Segovia, nº 98"
-	                              styleClass="ui-grid-col-5">
-	                     <pe:keyFilter regEx="/[a-z áéíóúüñ,-/º0-9]/i"/>
-	                 </p:inputText>
-	       										    
-				</div>
-	
-			    <div class="ui-grid-row" style="margin-bottom: 1em;">
-			    	<p:message for="poblacion" styleClass="ui-grid-col-5"/>
-			    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->		    	
-					<p:message for="direccion" styleClass="ui-grid-col-5"/>		    
-				</div>
-				
-				
-				<!-- Teléfono domicilio y teléfono movil -->
-			    <div class="ui-grid-row" style="margin-bottom: .5em;">
-			    	<p:outputLabel for="tlfnoDomicilio" value="Teléfono Domicilio" styleClass="ui-grid-col-5"/>
-			    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
-	            	<p:outputLabel for="tlfnoMovil" value="Teléfono Movil" styleClass="ui-grid-col-5"/>		    
-				</div>
-	
-			    <div class="ui-grid-row">
-	
-	                 <p:inputText id="tlfnoDomicilio" value="#{cvDatosPer.telefonoDomicilio}" 
-	                              required="true"
-	                              placeholder="924013894" 
-	                              styleClass="ui-grid-col-5">
-	                     <f:validateLength minimum="9" maximum="9"/>
-	                     <f:validateRegex pattern="^[6789]{1}[0-9]{8}$"/>
-	                     <pe:keyFilter mask="pint"/>
-	                 </p:inputText>                                                        
-			                      		    
-			    	 <h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
-	
-	                 <p:inputText id="tlfnoMovil" value="#{cvDatosPer.telefonoMovil}" 
-	                              required="true"
-	                              placeholder="675109281" 
-	                              styleClass="ui-grid-col-5">
-	                     <f:validateLength minimum="9" maximum="9"/>
-	                     <f:validateRegex pattern="^[6789]{1}[0-9]{8}$"/>
-	                     <pe:keyFilter mask="pint"/>
-	                 </p:inputText>                                                        
-	       										    
-				</div>
-	
-			    <div class="ui-grid-row" style="margin-bottom: 1em;">
-			    	<p:message for="tlfnoDomicilio" styleClass="ui-grid-col-5"/>
-			    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->		    	
-					<p:message for="tlfnoMovil" styleClass="ui-grid-col-5"/>		    
-				</div>
-	
-				<!-- SEPARACION -->
-				<div class="ui-grid-row" style="margin-bottom: 1em;">
-					<h:outputText value="Información adicional"  styleClass="ui-grid-col-12 txtMediano txtBold" style="border-bottom: 1px dotted gray;"/>
-				</div>
-	
-	
-				<!-- Email y web personal -->
-			    <div class="ui-grid-row" style="margin-bottom: .5em;">
-			    	<p:outputLabel for="email" value="Email" styleClass="ui-grid-col-5"/>
-			    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
-	            	<p:outputLabel for="blog" value="Blog / Web Personal" styleClass="ui-grid-col-5"/>		    
-				</div>
-	
-			    <div class="ui-grid-row">
-	
-	                <p:inputText id="email" value="#{cvDatosPer.email}" 
-	                             required="true"
-	                             validatorMessage="Formato incorrecto"
-	                             placeholder="antonio.sanchez@gmail.com"
-	                             styleClass="ui-grid-col-5">
-	                    <f:validateRegex pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$"/>
-	                </p:inputText>        
-	
-			                      		    
-			    	 <h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
-	
-	                <p:inputText id="blog" value="#{cvDatosPer.webPersonal}" 
-	                             required="true"
-	                             validatorMessage="Formato incorrecto"
-	                             placeholder="www.antonio-sanchez.es"
-	                             styleClass="ui-grid-col-5">
-	<!--                     <f:validateRegex pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$"/> -->
-	                </p:inputText>        
-	       										    
-				</div>
-				
-			    <div class="ui-grid-row" style="margin-bottom: 1em;">
-			    	<p:message for="email" styleClass="ui-grid-col-5"/>
-			    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->		    	
-					<p:message for="blog" styleClass="ui-grid-col-5"/>		    
-				</div>
-	
-	
-				<!-- Redes sociales -->
-				<!-- LO QUITO PORQUE NO CREO QUE ME DE TIEMPO A TERMINARLO EN CONDICIONES -->
-							
-				<!-- "header" del subapartado redes sociales -->
+			
+			<!-- Tipo identificacion, Identificacion (numero) -->
+		    <div class="ui-grid-row" style="margin-bottom: .5em;">
+				<p:outputLabel for="tipoIdentificacion" value="Tipo Identificación" styleClass="ui-grid-col-5"/>
+				<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
+				<p:outputLabel id="labelIdentificacion" for="identificacion" value="Identificación" styleClass="ui-grid-col-5"/>				
+			</div>
+
+		    <div class="ui-grid-row">
+       			<p:selectOneMenu id="tipoIdentificacion" value="#{cvDatosPer.tipoIdentificacion}" 
+       							 required="true" requiredMessage="#{msg['error.required']}" 
+       							 widgetVar="wvSelectTipo" onchange="tipoIdentificacion()" 
+       							 styleClass="ui-grid-col-5">
+       							 
+       				<f:selectItem itemValue="" itemLabel="seleccionar una opción"/>
+       				<f:selectItem itemValue="DNI/NIF" itemLabel="DNI/NIF"/>
+       				<f:selectItem itemValue="NIE" itemLabel="NIE"/>
+       				<f:selectItem itemValue="Pasaporte" itemLabel="Pasaporte"/>
+       				
+       			</p:selectOneMenu>
+       			
+       			<h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
+       			
+				<!-- problemático, validar dni o nif o nie o pasaporte, segun nos venga del campo anterior -->
+				<!-- de momento solo valida el dni/nif: que tenga formato 8 numeros 1 letra; no si la letra es correcta segun los números-->
+       			
+				<p:inputText id="identificacion" value="#{cvDatosPer.identificacion}"
+							 required="true" requiredMessage="#{msg['error.required']}" validatorMessage="#{msg['error.formato']}" 
+ 							 placeholder="93214561A" widgetVar="wvInputIdentificacion" 
+ 							 styleClass="ui-grid-col-5" >
+					<f:validateRegex pattern="^[0-9]{8}[a-zA-Z]{1}$"/>
+				</p:inputText>
+       										    
+			</div>
+
+		    <div class="ui-grid-row" style="margin-bottom: 1em;">
+		    	<div class="ui-grid-col-5"><p:message for="tipoIdentificacion" display="text"/></div>
+		    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
+				<div class="ui-grid-col-5"><p:message for="identificacion" display="text"/></div>				
+			</div>
+			
+			
+			<!-- Nacionalidad/es -->				
+		    <div class="ui-grid-row" style="margin-bottom: .5em;">
+		    	<p:outputLabel for="nacionalidad" value="Nacionalidad/es" styleClass="ui-grid-col-5"/>
+			</div>
+
+		    <div class="ui-grid-row">
+		        <p:autoComplete id="nacionalidad" multiple="true" selectLimit="4" value="#{cvDatosPer.nacionalidades}" 
+		        				completeMethod="#{cvDatosPer.acPais}" var="item" itemLabel="#{item.pais}" itemValue="#{item}" forceSelection="true" converter="paisConversor"
+		                        minQueryLength="3" maxResults="15" queryDelay="500" cache="true" emptyMessage="No se encontraron sugerencias"
+		                        required="true" requiredMessage="#{msg['error.required']}" validatorMessage="#{msg['error.formato']}"
+		                        styleClass="ui-grid-col-5"/>
+			</div>
+
+		    <div class="ui-grid-row" style="margin-bottom: 1em;">
+		    	<div class="ui-grid-col-5"><p:message for="nacionalidad" display="text"/></div>
+			</div>
+			
+			
+			<!-- SEPARACION -->
+			<div class="ui-grid-row" style="margin-bottom: 1em;">
+				<h:outputText value="Lugar de residencia"  styleClass="ui-grid-col-12 txtMediano txtBold" style="border-bottom: 1px dotted gray;"/>
+			</div>
+			
+			
+			<!-- CP, Provincia -->
+		    <div class="ui-grid-row" style="margin-bottom: .5em;">
+		    	<p:outputLabel for="cp" value="Código Postal" styleClass="ui-grid-col-5"/>
+		    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
+            	<p:outputLabel for="provincia" value="Provincia" styleClass="ui-grid-col-5"/>		    
+			</div>
+
+		    <div class="ui-grid-row">
+		    
+                 <p:inputText id="cp" value="#{cvDatosPer.codPostal}"
+                             required="true"  requiredMessage="#{msg['error.required']}"
+                             placeholder="06800"
+                             styleClass="ui-grid-col-5">
+                     <p:ajax event="change" listener="#{cvDatosPer.buscarCP}" 
+                     		 process="@this" 
+                     		 update="datosPersonales:cp, datosPersonales:poblacion, datosPersonales:provincia, datosPersonales:msgCP, datosPersonales:msgCpMsg"  />                            
+                     <pe:keyFilter regEx="/[0-9]/"/>
+                 </p:inputText>
+		    	
+		    	 <h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
+		    	 
+                 <p:inputText id="provincia" value="#{cvDatosPer.provincia}" readonly="true"
+                              required="true"  requiredMessage="#{msg['error.required']}"
+                              placeholder="Badajoz"
+							  styleClass="ui-grid-col-5">                            
+                 </p:inputText>                    
+       										    
+			</div>
+
+		    <div class="ui-grid-row" style="margin-bottom: 1em;">
+		    	<div class="ui-grid-col-5">
+					<p:message id="msgCpMsg" for="cp" display="text" rendered="#{empty cvDatosPer.msgErrorCP}"/>
+			    	<h:outputText id="msgCP" value="#{cvDatosPer.msgErrorCP}" styleClass="cpErrorMsg"/>			    	
+		    	</div>
+		    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->		    	
+				<div class="ui-grid-col-5"><p:message for="provincia" display="text"/></div>		    
+			</div>
+
+
+			<!-- Población, Direccion -->
+		    <div class="ui-grid-row" style="margin-bottom: .5em;">
+		    	<p:outputLabel for="poblacion" value="Población" styleClass="ui-grid-col-5"/>
+		    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
+            	<p:outputLabel for="direccion" value="Direccion" styleClass="ui-grid-col-5"/>		    
+			</div>
+
+		    <div class="ui-grid-row">
+
+                 <p:inputText id="poblacion" value="#{cvDatosPer.municipio}" readonly="true"
+                              required="true"  requiredMessage="#{msg['error.required']}"
+                              placeholder="Mérida"
+                              styleClass="ui-grid-col-5"/>
+		                      		    
+		    	 <h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
+
+                 <p:inputText id="direccion" value="#{cvDatosPer.direccion}" 
+                              required="true"  requiredMessage="#{msg['error.required']}"
+                              placeholder="Calle Segovia, nº 98"
+                              styleClass="ui-grid-col-5">
+                     <pe:keyFilter regEx="/[a-z áéíóúüñ,-/º0-9]/i"/>
+                 </p:inputText>
+       										    
+			</div>
+
+		    <div class="ui-grid-row" style="margin-bottom: 1em;">
+		    	<div class="ui-grid-col-5"><p:message for="poblacion" display="text"/></div>
+		    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->		    	
+				<div class="ui-grid-col-5"><p:message for="direccion" display="text"/></div>		    
+			</div>
+			
+			
+			<!-- Teléfono domicilio y teléfono movil -->
+		    <div class="ui-grid-row" style="margin-bottom: .5em;">
+		    	<p:outputLabel for="tlfnoDomicilio" value="Teléfono Domicilio" styleClass="ui-grid-col-5"/>
+		    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
+            	<p:outputLabel for="tlfnoMovil" value="Teléfono Movil" styleClass="ui-grid-col-5"/>		    
+			</div>
+
+		    <div class="ui-grid-row">
+
+                 <p:inputText id="tlfnoDomicilio" value="#{cvDatosPer.telefonoDomicilio}" 	                              
+                              placeholder="924013894" validatorMessage="#{msg['error.formato']}"
+                              styleClass="ui-grid-col-5">
+                     <f:validateLength minimum="9" maximum="9"/>
+                     <f:validateRegex pattern="^[6789]{1}[0-9]{8}$"/>
+                     <pe:keyFilter mask="pint"/>
+                 </p:inputText>                                                        
+		                      		    
+		    	 <h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
+
+                 <p:inputText id="tlfnoMovil" value="#{cvDatosPer.telefonoMovil}" 
+                              placeholder="675109281"  validatorMessage="#{msg['error.formato']}"
+                              styleClass="ui-grid-col-5">
+                     <f:validateLength minimum="9" maximum="9"/>
+                     <f:validateRegex pattern="^[6789]{1}[0-9]{8}$"/>
+                     <pe:keyFilter mask="pint"/>
+                 </p:inputText>                                                        
+       										    
+			</div>
+
+		    <div class="ui-grid-row" style="margin-bottom: 1em;">
+		    	<div class="ui-grid-col-5"><p:message for="tlfnoDomicilio" display="text"/></div>
+		    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->		    	
+				<div class="ui-grid-col-5"><p:message for="tlfnoMovil" display="text"/></div>		    
+			</div>
+
+			<!-- SEPARACION -->
+			<div class="ui-grid-row" style="margin-bottom: 1em;">
+				<h:outputText value="Información adicional"  styleClass="ui-grid-col-12 txtMediano txtBold" style="border-bottom: 1px dotted gray;"/>
+			</div>
+
+
+			<!-- Email y web personal -->
+		    <div class="ui-grid-row" style="margin-bottom: .5em;">
+		    	<p:outputLabel for="email" value="Email" styleClass="ui-grid-col-5"/>
+		    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
+            	<p:outputLabel for="blog" value="Blog / Web Personal" styleClass="ui-grid-col-5"/>		    
+			</div>
+
+		    <div class="ui-grid-row">
+
+                <p:inputText id="email" value="#{cvDatosPer.email}" readonly="true" 
+                             required="true" requiredMessage="#{msg['error.required']}" validatorMessage="#{msg['error.formato']}"
+                             placeholder="antonio.sanchez@gmail.com"
+                             styleClass="ui-grid-col-5">
+                    <f:validateRegex pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$"/>
+                </p:inputText>        
+
+		                      		    
+		    	 <h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
+
+                <p:inputText id="blog" value="#{cvDatosPer.webPersonal}" 
+                             validatorMessage="#{msg['error.formato']}"
+                             placeholder="http://www.antonio-sanchez.es"
+                             styleClass="ui-grid-col-5">
+                    <f:validateRegex pattern="^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$"/>
+                </p:inputText>        
+       										    
+			</div>
+			
+		    <div class="ui-grid-row" style="margin-bottom: 1em;">
+		    	<div class="ui-grid-col-5"><p:message for="email" display="text"/></div>
+		    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->		    	
+				<div class="ui-grid-col-5"><p:message for="blog" display="text"/></div>		    
+			</div>
+
+
+			<!-- Redes sociales -->
+			<!-- LO QUITO PORQUE NO CREO QUE ME DE TIEMPO A TERMINARLO EN CONDICIONES -->
+						
+			<!-- "header" del subapartado redes sociales -->
 <!-- 			    <div class="ui-grid-row" style="margin-bottom: .5em;"> -->
-			    
+		    
 <!-- 			    	<h:outputText value="Redes Sociales" styleClass="ui-grid-col-6"/> -->
 <!-- 					<p:commandLink onclick="console.log('Añadir red social')" styleClass="ui-grid-col-2 txtXS txtRight"> -->
 <!-- 						<i class="fa fa-plus colorBlueA"/> -->
 <!-- 					</p:commandLink> -->
-					
+				
 <!-- 				</div> -->
-	
-				<!-- 1 row por cada red social -->			
+
+			<!-- 1 row por cada red social -->			
 <!-- 			    <div id="bloqueRedSocial" class="ui-grid-row"> -->
-			    		    
+		    		    
 <!-- 	       			<p:selectOneMenu value="#{cvDatosPer.servicio}" styleClass="ui-grid-col-5"> -->
 <!-- 	       				<f:selectItem itemValue="" itemLabel="seleccionar una opción"/> -->
 <!-- 	       				<f:selectItem itemValue="Facebook" itemLabel="Facebook"/> -->
 <!-- 	       				<f:selectItem itemValue="Twitter" itemLabel="Twitter"/> -->
 <!-- 	       				<f:selectItem itemValue="Instagram" itemLabel="Instagram"/> -->
 <!-- 	       			</p:selectOneMenu> -->
-	       			
+       			
 <!-- 	       			<h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> relleno -->
-	       			       			
+       			       			
 <!-- 					<p:inputText value="#{cvDatosPer.nombreUsuario}" styleClass="ui-grid-col-5" /> -->
-	       										    
+       										    
 <!-- 				</div> -->
-	 		
-	 		</h:form>
-	 					
-			</div> <!-- grid -->
+ 		
+ 		</h:form>
+ 					
+	</div> <!-- grid -->
 				
 </ui:composition>

@@ -1,9 +1,13 @@
 package es.albarregas.modelos;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +23,7 @@ public class Direccion implements java.io.Serializable {
 	private int idDireccion;
 	private Municipio municipio;
 	private String direccion;
-	private Set<DatoAlumno> datosAlumnos;
+	//private DatoAlumno datosAlumno;
 	private Set<BloqueDatosCv> bloquesDatosCvs;
 
 	
@@ -28,6 +32,7 @@ public class Direccion implements java.io.Serializable {
 
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)	
 	@Column(name = "IdDireccion", unique = true, nullable = false)
 	public int getIdDireccion() {
 		return this.idDireccion;
@@ -56,15 +61,15 @@ public class Direccion implements java.io.Serializable {
 		this.direccion = direccion;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "direccion")
-	public Set<DatoAlumno> getDatosAlumnos() {
-		return datosAlumnos;
-	}
-
-	public void setDatosAlumnos(Set<DatoAlumno> datosAlumnos) {
-		this.datosAlumnos = datosAlumnos;
-	}
-
+//	@OneToOne(fetch = FetchType.LAZY)
+//	@PrimaryKeyJoinColumn	
+//	public DatoAlumno getDatosAlumno() {
+//		return datosAlumno;
+//	}
+//
+//	public void setDatosAlumno(DatoAlumno datosAlumno) {
+//		this.datosAlumno = datosAlumno;
+//	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "direccion")
 	public Set<BloqueDatosCv> getBloquesDatosCvs() {
