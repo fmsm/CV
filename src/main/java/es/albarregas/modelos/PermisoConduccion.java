@@ -1,8 +1,11 @@
 package es.albarregas.modelos;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,7 +26,15 @@ public class PermisoConduccion implements java.io.Serializable {
 	}
 
 	
+	public PermisoConduccion(DatoAlumno datoAlumno, String tipo) {
+		super();
+		this.datoAlumno = datoAlumno;
+		this.tipo = tipo;
+	}
+
+
 	@Id
+	@GeneratedValue(strategy = IDENTITY)	
 	@Column(name = "IdPermisosConduccion", unique = true, nullable = false)
 	public int getIdPermisosConduccion() {
 		return this.idPermisosConduccion;

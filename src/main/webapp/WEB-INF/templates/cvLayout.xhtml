@@ -4,24 +4,39 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-	
-<f:view locale="#{facesContext.externalContext.requestLocale}"/>	<!-- IMPORTANTE para que el i18n funcione necesita esta linea y la declaración del bundle en el faces-config.xml -->
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">	
+		
+<!-- IMPORTANTE para que el i18n funcione necesita esta linea y la declaración del bundle en el faces-config.xml -->	
+<f:view locale="#{facesContext.externalContext.requestLocale}"/>	
 
 <h:head>
 	<title> <ui:insert name="title">Befp</ui:insert> </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<link href="#{resource['imagenes/favicon.ico']}" rel="shortcut icon" type="image/x-icon" />
 
 	<h:outputStylesheet name="css/fonts.css" />	
+	<h:outputStylesheet name="css/palette.css" />
 	<h:outputStylesheet name="css/styleCV.css" />
 	<h:outputScript name="js/scripts.js"/>	
 </h:head>
 			
 <h:body>
-
+	
+	<!-- establecer altura de "cv/content.xhtml", concretamente del menu de la izquierda y de la parte central, como la altura que tiene la ventana del navegador
+		 y cuando el tamaño de esta cambie, asignarle de nuevo los valores correspondientes al nuevo tamaño 
+	 -->
+	<o:onloadScript>
+		$('.layoutLeft, .layoutCenter').css('height', window.innerHeight);
+		$(window).resize(function(){
+			$('.layoutLeft, .layoutCenter').css('height', window.innerHeight);			
+		});	
+	</o:onloadScript>
+	
 	<!-- Content -->
 	<ui:include src="/WEB-INF/templates/cv/content.xhtml"></ui:include>
-				
+	
 </h:body>
 	
 </html>

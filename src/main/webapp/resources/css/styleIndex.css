@@ -27,6 +27,8 @@ body {
 .bgColorBlueA { background-color: #2399E5}
 .bgColorDark{ background-color: #333333;}
 
+.primLetraUpperCase:first-letter { text-transform: uppercase;}
+
 .noPadding,
 .ui-panel.noPadding .ui-panel-content { padding: 0;}
 
@@ -46,9 +48,6 @@ body {
 
 /* margen para un i de font awesome de la barra superior*/
 i.fa-phone { margin-left: 20px; }
-
-/* primera letra de la fecha en mayúsculas*/
-.fecha::first-letter { text-transform: uppercase;}
 
 .ui-panel.pnlLogo {
 	padding: 2em 0 2em 2em;	

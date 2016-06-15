@@ -1,8 +1,11 @@
 package es.albarregas.modelos;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,6 +23,7 @@ public class IdiomaAlumno implements java.io.Serializable {
 	private String writing;
 	private String listening;
 	private String speaking;
+	private String reading;
 
 	
 	public IdiomaAlumno() {
@@ -28,6 +32,7 @@ public class IdiomaAlumno implements java.io.Serializable {
 	
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)	
 	@Column(name = "IdIdiomasAlumnos", unique = true, nullable = false)
 	public int getIdIdiomaAlumnos() {
 		return this.idIdiomaAlumnos;
@@ -56,7 +61,7 @@ public class IdiomaAlumno implements java.io.Serializable {
 		this.idioma = idioma;
 	}
 
-	@Column(name = "Writing", nullable = false, length = 15)
+	@Column(name = "Writing", nullable = false, length = 8)
 	public String getWriting() {
 		return this.writing;
 	}
@@ -65,7 +70,7 @@ public class IdiomaAlumno implements java.io.Serializable {
 		this.writing = writing;
 	}
 
-	@Column(name = "Listening", nullable = false, length = 15)
+	@Column(name = "Listening", nullable = false, length = 8)
 	public String getListening() {
 		return this.listening;
 	}
@@ -74,13 +79,22 @@ public class IdiomaAlumno implements java.io.Serializable {
 		this.listening = listening;
 	}
 
-	@Column(name = "Speaking", nullable = false, length = 15)
+	@Column(name = "Speaking", nullable = false, length = 8)
 	public String getSpeaking() {
 		return this.speaking;
 	}
 
 	public void setSpeaking(String speaking) {
 		this.speaking = speaking;
+	}
+	
+	@Column(name = "Reading", nullable = false, length = 8)
+	public String getReading() {
+		return reading;
+	}
+
+	public void setReading(String reading) {
+		this.reading = reading;
 	}
 
 }

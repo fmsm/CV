@@ -3,7 +3,9 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
 
 	<h:form id="headerForm">
 	
@@ -18,13 +20,11 @@
     		<div class="ui-grid-col-12">
     			
 				<p:panelGrid id="hdrSup" columns="2" layout="grid" styleClass="noBorder" 
-							 columnClasses="bgColorDark txtLeft txtColorDark, bgColorDark txtRight txtColorDark fecha">
+							 columnClasses="bgColorDark txtLeft txtColorDark, bgColorDark txtRight txtColorDark primLetraUpperCase">
 
 					<i class="fa fa-envelope"/> #{msg['datos.emailAlbarregas']} <i class="fa fa-phone"/> #{msg['datos.tlfnoAlbarregas']}
-																												
-					<h:outputText value="#{inicio.fecha}">
-						<f:convertDateTime locale="es_ES" pattern="EEEE, dd MMMM yyyy"/>
-					</h:outputText>
+					
+					<h:outputText value="#{of:formatDate(now, 'EEEE, dd MMMM yyyy')}"/> 																							
 				
 				</p:panelGrid>
 
@@ -46,15 +46,18 @@
 	        	
 	        </div>
 	        
-	        <div class="ui-grid-col-6">
-	        
-				<p:panel id="hdrLogin" styleClass="bgColor pnlLogin noPadding noBorder txtRight" > 
+	        <div class="ui-grid-col-6 bgColor">
 
-					<p:inputText id="user" value="#{inicio.username}" size="25" placeholder="#{msg['placeholder.email']}" required="true" requiredMessage="Campo Obligatorio"/>
-					<p:password id="pass" value="#{inicio.password}" size="16" placeholder="#{msg['placeholder.password']}" required="true" requiredMessage="Campo Obligatorio"/>
-					
+				<p:panel id="hdrLogin" styleClass="bgColor pnlLogin noPadding noBorder txtRight"> 
+
+					<p:inputText id="user" value="#{inicio.username}" size="25" placeholder="#{msg['placeholder.email']}" required="true" requiredMessage="Campo Obligatorio"
+								 disabled="#{not empty login}"/>
+								 
+					<p:password id="pass" value="#{inicio.password}" size="16" placeholder="#{msg['placeholder.password']}" required="true" requiredMessage="Campo Obligatorio"
+								disabled="#{not empty login}"/>
+								
 					<p:commandButton id="loginBtn" value="#{msg['btn.login']}" actionListener="#{inicio.login}" 
-									 process="@form" update="@form" oncomplete="confirmacion(xhr, status, args)"
+									 process="@form" update="@form" oncomplete="confirmacion(xhr, status, args)" disabled="#{not empty login}"
 									 styleClass="btnLogin noMarginRight"/>
 					
 			    </p:panel>
@@ -72,8 +75,8 @@
 	<!-- header = "Bienvenido #{nombre}" -->
 	<!-- PARECE QUE NO FUNCIONA BIEN TAMPOCO, usando un atributo del mb inicio, PROBAR EN CASA CON java 1.8 -->
 	<!-- lo he vuelto a poner con un literal de momento -->
-	<p:dialog header="Login completado con exito" modal="true" draggable="false" resizable="false" closable="false" widgetVar="dlg_wv">		    	    
-		<p:button value="Continuar" outcome="cv.xhtml" onclick="PF('dlg_wv').hide();" style="width:100%; margin-bottom: 10px;"/>
+	<p:dialog header="#{msg['headerDlg.loginOK']}" modal="true" draggable="false" resizable="false" closable="false" widgetVar="dlg_wv">		    	    
+		<p:button value="#{msg['btn.continue']}" outcome="cv.xhtml" onclick="PF('dlg_wv').hide();" style="width:100%; margin-bottom: 10px;"/>
 	</p:dialog>
 
 

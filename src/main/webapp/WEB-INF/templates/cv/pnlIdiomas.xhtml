@@ -1,0 +1,87 @@
+
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	
+	<div class="ui-grid-row" style="padding-bottom: 1.5em;">
+	
+        <div class="ui-grid-col-3 txtRight">						        
+        	<h:outputText value="IDIOMAS" styleClass="txtGrande colorPrimary"/>						        																        	
+        </div>
+    	
+    	<h:panelGroup layout="block" rendered="#{not cvPrincipal.existenDatosIdiomas}" 
+    				  styleClass="ui-grid-col-9" style="margin-left: 0.5em; border-left: 1px dotted #009688;">
+			<p:commandButton value="Añadir idioma" onclick="preShowDlg('wv_dlgIdiomas')"													 
+							 icon="fa fa-plus fa-lg" title="Añadir idioma" styleClass="btnAdd"/>												
+        </h:panelGroup>
+    
+    </div>
+    
+    
+	<h:panelGroup styleClass="ui-grid-row" rendered="#{cvPrincipal.existenDatosIdiomas}">
+	
+        <div class="ui-grid-col-3 txtRight"/>
+        						        
+        <div class="ui-grid-col-7" style="margin-left: .5em; border-left: 1px dotted #009688;">
+        
+			<p:panelGrid columns="4" layout="grid" styleClass="txtBold txtCenter" style="border-bottom: 1px dotted #009688; margin-left: 2em;" >
+
+				<h:outputText value="Expresión Escrita" />
+				<h:outputText value="Comprensión Lectora" />
+				<h:outputText value="Comprensión Oral" />
+				<h:outputText value="Conversación" />
+								
+			</p:panelGrid>
+        
+        </div>
+    
+	</h:panelGroup>
+
+    
+   	<p:dataList id="datalistIdiomas" value="#{cvIdiomas.listaIdiomas}" var="item" type="none" rendered="#{cvPrincipal.existenDatosIdiomas}" 
+   				styleClass="noBorder">
+   	
+    	<div class="ui-grid-row">
+    	    	
+    		<div class="ui-grid-col-3 txtRight">
+    			<h:outputText value="#{item.idioma}" styleClass="txtMediano"/>
+    		</div>
+        	
+        	<div class="ui-grid-col-7" style="margin-left: .5em; border-left: 1px dotted #009688;">
+        		
+				<p:panelGrid columns="4" layout="grid" styleClass="txtBold txtCenter" style="border-bottom: 1px dotted #009688; margin-left: 2em;" >        			
+       			
+       				<h:outputText value="#{item.writing}"/>
+					<h:outputText value="#{item.reading}"/>
+					<h:outputText value="#{item.listening}"/>						
+					<h:outputText value="#{item.speaking}"/>
+  						
+				</p:panelGrid>
+        		
+        	</div>
+			
+			<div class="txtRight">
+				<p:commandButton icon="fa fa-pencil" value="Editar" title="Editar bloque"  
+								 actionListener="#{cvIdiomas.editarBloque(item)}" update="dlgIdiomas"
+								 oncomplete="preShowDlg('wv_dlgIdiomas')"  
+								 styleClass="btnEdit"/>				        			
+				<p:commandButton icon="fa fa-minus-circle" value="Borrar" title="Eliminar bloque" 
+								 actionListener="#{cvIdiomas.eliminarBloque(item)}" update="cvForm:cvCenterPnl, dlgIdiomas"  
+								 styleClass="btnDel"/>				
+        	</div>	
+       	</div> 
+        	           	
+   	</p:dataList>           
+		
+	<h:panelGroup layout="block" rendered="#{cvPrincipal.existenDatosIdiomas}" styleClass="ui-grid-row" style="margin-top: 0.5em;">
+		<div class="ui-grid-col-3"></div>
+		<p:commandButton value="Añadir idioma" onclick="preShowDlg('wv_dlgIdiomas')"													 
+						 icon="fa fa-plus fa-lg" title="Añadir idioma" 
+						 styleClass="btnAdd" style="margin-left: 2em;"/>
+	</h:panelGroup>
+			
+</ui:composition>	

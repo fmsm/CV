@@ -63,8 +63,6 @@ public class RegistroAlumno implements java.io.Serializable {
 			RequestContext context = RequestContext.getCurrentInstance();
 			context.addCallbackParam("loginCorrecto", true);
 			
-			//TODO: quedaria actualizar tabla DatosAlumnos.ultimoAcceso
-			
 		}//if..else
 										
 	}//registro

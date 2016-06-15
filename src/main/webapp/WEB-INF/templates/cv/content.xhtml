@@ -1,114 +1,78 @@
+
 <ui:composition 
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-				
+	xmlns:p="http://primefaces.org/ui"	
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
+		
 	<h:form id="cvForm">
 	
 	<div class="ui-grid ui-grid-responsive">
 	
 	    <div class="ui-grid-row"> 
 	    	
-	    	<!-- MENU DE LA PARTE DERECHA -->    
-	        <div class="ui-grid-col-2 alturaCVLayout bgMenuColor">
+	    	<!-- MENU DE LA PARTE IZQUIERDA -->    
+	        <div class="ui-grid-col-2 layoutLeft bgMenuColor">
 	        	
 	        	<!-- logo -->				
-	        	<p:panel styleClass="bgMenuColor noPadding noBorder txtCenter" style="margin:4em 0 2em 0; padding: 0;">	        					
-	        		<p:graphicImage name="/imagenes/logo.png" style="height: 40px;"/> 	        															   
-  				</p:panel>
+<!-- 	        	<p:panel styleClass="bgMenuColor noPadding noBorder txtCenter" style="margin:4em 0 2em 0; padding: 0;">	        					 -->
+<!-- 	        		<p:graphicImage name="/imagenes/logo.png" style="height: 40px;"/> 	        															    -->
+<!--   				</p:panel> -->
 				
-				<p:separator/>
+				<p:separator style="margin-top: 1em;"/>
 				
-				<!-- nombre/apellidos usuario -->
-				<p:panelGrid columns="1" layout="grid" columnClasses="bgMenuColor txtCenter" styleClass="cvUser noBorder">
-					<h:outputText value="Panel Alumno" styleClass="txtGrande" style="color: #DDDDDD;"/>
-					<h:outputText value="#{nombre} #{apellidos}" styleClass="txtFino" style="color: #DDDDDD;"/>				
+				<!-- foto/nombre/apellidos usuario -->
+				<p:panelGrid id="cvMenuFotoUsuario" columns="1" layout="grid" columnClasses="bgMenuColor txtCenter" styleClass="cvUser noBorder">
+					<h:outputText value="#{cvPrincipal.TITULOMENU}" styleClass="txtGrande" />	<!-- ñampa para inicializar el bean cvPrincipal y poder acceder despuesa la imagen del usuario, si esta guardada -->
+					<o:graphicImage value="#{imageBean.content}" dataURI="true" rendered="#{not empty imageBean.content and cvPrincipal.existenDatosPersonales}"
+									style="border-radius: 50%; height: 110px; "/>
+					<p:graphicImage name="/imagenes/userSinFoto.png" rendered="#{empty imageBean.content}" 
+									style="border-radius: 50%; height: 110px;"/>
+					<h:outputText value="#{cvPrincipal.nombre} #{cvPrincipal.apellidos}" styleClass="txtMediano" />					
 				</p:panelGrid>
 				
-				<p:separator style="margin-bottom: 2em;"/>				
+				<p:separator style="margin-bottom: 1em;"/>				
 				
-				<!-- menu -->
-				
+				<!-- menu -->				
 				<p:menu styleClass="cvMenu bgMenuColor noPadding noBorder">
-					<p:menuitem value="Curriculum Vitae" styleClass="menuActual noBorderRadius"/>
-					<p:menuitem value="Expediente" styleClass="noBorderRadius"/>
-					<p:menuitem value="Cerrar Sesión" styleClass="noBorderRadius"/>										
+					<p:menuitem value="Curriculum Vitae" icon="fa fa-file-text-o fa-2x" styleClass="noBorderRadius cvMenuSeleccionado"/>
+					<p:menuitem value="Expediente" icon="fa fa-list fa-2x" styleClass="noBorderRadius"/>
+					<p:menuitem value="Cerrar Sesión" action="#{cvPrincipal.cerrarSesion}" icon="fa fa-sign-out fa-2x" styleClass="noBorderRadius"/>										
 				</p:menu>				
 				  								 	        
 	        </div>
 
-			<!-- RESTO DE LA PÁGINA -->	        	        
-	        <div class="ui-grid-col-10 alturaCVLayout bgCenterColor">
+			<!-- RESTO DE LA PÁGINA / PARTE PRINCIPAL O CENTRAL -->	        	        
+	        <div class="ui-grid-col-10 layoutCenter bgCenterColor">
 	        					
 				<p:panel id="cvCenterPnl" styleClass="cvCenterPnl bgCenterColor noBorder">
 				
-					<p:panel id="datosPersonales" styleClass="pnlDatosPersonales dottedBorder">
-					
-						<div class="ui-grid-row">
-						
-						 	<div class="ui-grid-col-3 txtRight">						        
-					        	<h:outputText value="Información personal" styleClass="txtGrande"/>						        																        	
-					        </div>
-							
-							<!-- en este div tiene que ir todos los datos personales que se introduzcan -->						    						       
-					        <div class="ui-grid-col-9 bloqueDatos">
-					        
-					        	<p:panel styleClass="noPadding noBorder">	        					
-									<p:commandButton value="Añadir datos personales" onclick="PF('wv_dlgDatosPersonales').show()"
-											  icon="fa fa-plus-circle fa-lg" title="Añadir datos personales" styleClass="btnAdd"/>
-				  				</p:panel>					        
-				  																        					        
-					        </div>
-					        
-						</div>
-						
-					</p:panel>
-					
+					<p:panel id="cvCenterPnlDatosPersonales" styleClass="pnlDatosPersonales">						
+						<ui:include src="/WEB-INF/templates/cv/pnlDatosPersonales.xhtml"/>
+					</p:panel>						
+
 									
-					<p:panel id="datosEstudios" styleClass="pnlDatosEstudios dottedBorder">
-					
-						<div class="ui-grid-row">
-						
-					        <div class="ui-grid-col-3 txtRight">						        
-					        	<h:outputText value="Formación Académica" styleClass="txtGrande"/>						        																        	
-					        </div>
-					        
-					        <div class="ui-grid-col-9 bloqueDatos">
-					        
-					        	<p:panel styleClass="noPadding noBorder">	        					
-									<p:commandButton value="Añadir formación académica"
-													icon="fa fa-plus-circle fa-lg" title="Añadir formación académica" styleClass="btnAdd"/>
-												
-				  				</p:panel>					        						        
-					        </div>
-					        
-						</div>
-						
+					<p:panel id="cvCenterPnlFormacion" styleClass="pnlDatosEstudios">						
+						<ui:include src="/WEB-INF/templates/cv/pnlFormacion.xhtml"/>						
 					</p:panel>
 					
 					
-					<p:panel id="datosExperiencia" styleClass="pnlDatosExperiencia dottedBorder">
-					
-						<div class="ui-grid-row">
-						
-					        <div class="ui-grid-col-3 txtRight">						        
-					        	<h:outputText value="Experiencia Laboral" styleClass="txtGrande"/>						        																        	
-					        </div>
-					        
-					        <div class="ui-grid-col-9 bloqueDatos">
-					        
-					        	<p:panel styleClass="noPadding noBorder">	        					
-									<p:commandButton value="Añadir experiencia laboral" 
-													icon="fa fa-plus-circle fa-lg" title="Añadir experiencia laboral" styleClass="btnAdd"/>
-				  				</p:panel>
-				  									        						        
-					        </div>
-					        
-						</div>
-						
+					<p:panel id="cvCenterPnlExperiencia" styleClass="pnlDatosExperiencia">					
+						<ui:include src="/WEB-INF/templates/cv/pnlExperiencia.xhtml"/>											
 					</p:panel>					
+											   			
+
+					<p:panel id="cvCenterPnlIdiomas" styleClass="pnlDatosIdiomas">
+						<ui:include src="/WEB-INF/templates/cv/pnlIdiomas.xhtml"/>
+					</p:panel>
+					
+											   			
+					<p:panel id="cvCenterPnlOtros" styleClass="pnlDatosOtros dottedBorder">
+						<ui:include src="/WEB-INF/templates/cv/pnlOtros.xhtml"/>
+					</p:panel>
 											   			
   				</p:panel> 
 				<!-- FIN cvCenterPnl -->
@@ -126,14 +90,38 @@
 	 	y lo que pone en el 'primefaces user guide' de "Comma separated position values like ‘top’,‘right’. (Use single quotes when using a combination)" 
 		o bien no funciona o no se a que se refiere 
 	-->
-	
-	<!-- he tenido que ajustar la altura del dialogo a mano (por css) , si no la parte de la redes sociales no era visible -->
-	
-	<p:dialog id="dlgDatosPersonales" position="right,top" modal="true" draggable="false" resizable="false" closable="false" positionType="absolute" dynamic="true"
-			  onShow="showDlg('#dlgDatosPersonales')" widgetVar="wv_dlgDatosPersonales" styleClass="bgDlg">
-			  			  
-		<ui:include src="/WEB-INF/templates/cv/dlgDatosPersonales.xhtml"/>
 		
+	<p:dialog id="dlgDatosPersonales" position="right,top" modal="true" draggable="false" resizable="false" closable="false" dynamic="true"
+			  onShow="showDlg('#dlgDatosPersonales')" widgetVar="wv_dlgDatosPersonales" styleClass="bgDlg">			  			  
+		<ui:include src="/WEB-INF/templates/cv/dlgDatosPersonales.xhtml"/>		
 	</p:dialog>
+
 			
+	<p:dialog id="dlgFormacion" position="right,top" modal="true" draggable="false" resizable="false" closable="false" dynamic="true"
+			  onShow="showDlg('#dlgFormacion')" widgetVar="wv_dlgFormacion" styleClass="bgDlg">			  			  
+		<ui:include src="/WEB-INF/templates/cv/dlgFormacion.xhtml"/>		
+	</p:dialog>
+	
+	
+	<p:dialog id="dlgExperiencia" position="right,top" modal="true" draggable="false" resizable="false" closable="false" dynamic="true"
+			  onShow="showDlg('#dlgExperiencia')" widgetVar="wv_dlgExperiencia" styleClass="bgDlg">			  			  
+		<ui:include src="/WEB-INF/templates/cv/dlgExperiencia.xhtml"/>		
+	</p:dialog>	
+
+			
+	<p:dialog id="dlgIdiomas" position="right,top" modal="true" draggable="false" resizable="false" closable="false" dynamic="true"
+			  onShow="showDlg('#dlgIdiomas')" widgetVar="wv_dlgIdiomas" styleClass="bgDlg">			  			 
+		<ui:include src="/WEB-INF/templates/cv/dlgIdiomas.xhtml"/>		
+	</p:dialog>	
+	
+
+	<p:dialog id="dlgOtros" position="right,top" modal="true" draggable="false" resizable="false" closable="false" dynamic="true"
+			  onShow="showDlg('#dlgOtros')" widgetVar="wv_dlgOtros" styleClass="bgDlg">			  			  
+		<ui:include src="/WEB-INF/templates/cv/dlgOtros.xhtml"/>		
+	</p:dialog>	
+			
+	<p:dialog id="dlgFaltanDatosPersonales" header="Introducir primero datos personales" widgetVar="wv_dlgFaltanDatos" modal="true" draggable="false" resizable="false" closable="false">
+		<p:commandButton value="Continuar" outcome="cv.xhtml" onclick="PF('wv_dlgFaltanDatos').hide();" style="width:100%; margin-bottom: 10px;"/>
+	</p:dialog>
+				
 </ui:composition>	

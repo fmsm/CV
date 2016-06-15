@@ -1,6 +1,7 @@
-<!-- FALTA. como grabar la imaben subida y que esta almacenada en el backing bean -->
-<!-- FALTA: concretar/definir lo de los multiples tipos de identificacion posibles -->
-<!-- FALTA: que la pagina sobre la que esta el dialogo no haga scroll cuando se hace scroll en el dialogo -->
+<!-- FALTA: manejar mensajes de error para la opcion de subir foto (tamaño, extension, etc)  -->
+<!-- FALTA: locale en el p:calendar  -->
+<!-- FALTA: (SOLO TENER EN CUENTA EL DNI/NIF) concretar/definir lo de los multiples tipos de identificacion posibles -->
+<!-- FALTA: (OPCIONAL) que la pagina sobre la que esta el dialogo no haga scroll cuando se hace scroll en el dialogo -->
 
 <ui:composition 
 	xmlns="http://www.w3.org/1999/xhtml"
@@ -13,8 +14,8 @@
 	xmlns:of="http://omnifaces.org/functions">
 
 	<f:facet name="header">
-		<!--<p:commandButton value="Cerrar" onclick="hideDlg('#dlgDatosPersonales', 'wv_dlgDatosPersonales')"/> -->
-		<p:commandLink onclick="hideDlg('#dlgDatosPersonales', 'wv_dlgDatosPersonales')">
+		<p:commandLink actionListener="#{cvDatosPer.reset}" oncomplete="hideDlg('#dlgDatosPersonales', 'wv_dlgDatosPersonales')" 
+					   update=":datosPersonales">
 			<i class="fa fa-times-circle-o fa-3x"/>
 		</p:commandLink>
 		<h:outputText value="Información Personal" styleClass="txtGrande" style="margin-left: 2em;"/>
@@ -34,19 +35,19 @@
 			<div class="ui-grid-row" style="margin-bottom: 1em;">
 			
 				<div id="elegirFoto" class="ui-grid-col-5">
-										
-					<div id="fotoWrapper">
-			    		<o:graphicImage value="#{uploadImageBean.content}" dataURI="true" rendered="#{not empty uploadImageBean.content}" />
-			    	</div>
-	
+
+					<h:panelGroup id="fotoWrapper" styleClass="fotoWrapper" layout="block">
+			    		<o:graphicImage value="#{imageBean.content}" dataURI="true" rendered="#{not empty imageBean.content}" />
+					</h:panelGroup>
+					
 					<!-- TODO : mostrar los mensajes de error de tamaño, extension, etc.. del p:fileupload, en un growl, en vez de donde por defecto salen 
 					     ya que por css estoy ocultando esa parte del p:fileupload 
 					     http://stackoverflow.com/a/34495163 -->
 	
 					<p:fileUpload mode="advanced" auto="true" label="Elegir foto" dragDropSupport="false" sizeLimit="10000" 
-								  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" value="#{uploadImageBean.file}"								   
-								  fileUploadListener="#{uploadImageBean.read}" 
-								  update="@form" />									  													  
+								  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" value="#{imageBean.file}"								   
+								  fileUploadListener="#{imageBean.read}" styleClass="btnElegirFoto" 
+								  update=":datosPersonales:fotoWrapper" />									  													  
 				
 				</div>
 				
@@ -56,14 +57,17 @@
 				<!-- ******************************** -->								
 				<div class="ui-grid-col-5 bloqueBtnAceptarCancelar">
 
-						<p:commandButton id="btnAceptar" value="Aceptar" form=":datosPersonales" actionListener="#{cvDatosPer.aceptar}" 
-										 process=":datosPersonales" update=":datosPersonales"
-										 style="margin-bottom: 1em;"/>
+						<p:commandButton id="btnAceptar" value="Aceptar" actionListener="#{cvDatosPer.aceptar}" 
+										 process=":datosPersonales" update=":datosPersonales, cvForm:cvCenterPnlDatosPersonales, cvForm:cvMenuFotoUsuario"										 
+										 styleClass="btnAceptar" icon="fa fa-check" style="margin-bottom: 1em;"/>
 										 
-						<p:commandButton id="btnCancelar" value="Cancelar" actionListener="#{cvDatosPer.cancelar}" onclick="hideDlg('#dlgDatosPersonales', 'wv_dlgDatosPersonales')" 
-										 update=":datosPersonales" style="margin-bottom: 1em;"/>
+						<p:commandButton id="btnCancelar" value="Cancelar" actionListener="#{cvDatosPer.reset}" immediate="true"
+										 update=":datosPersonales"
+										 oncomplete="hideDlg('#dlgDatosPersonales', 'wv_dlgDatosPersonales')"										  
+										 styleClass="btnCancelar" icon="fa fa-ban" style="margin-bottom: 1em;"/>
 										 
-						<p:commandButton type="reset" form="datosPersonales" value="Restablecer" />
+						<p:commandButton id="btnRestablecer" value="Restablecer" actionListener="#{cvDatosPer.reset}" immediate="true"
+										 styleClass="btnRestablecer" icon="fa fa-undo" update=":datosPersonales" />
 									 				
 				</div>
 				<!-- BOTONES PARA ACEPTAR/CANCELAR    -->
@@ -80,7 +84,7 @@
 
 		    <div class="ui-grid-row">
 		    
-				<!-- nombre y apellidos del usuario registrado, ya estan en la sesion -->			    
+				<!-- aunque nombre y apellidos del usuario registrado, ya estan en la sesion -->			    
 				<p:inputText id="nombre" value="#{cvDatosPer.nombre}" readonly="true"								  
 							 placeholder="Francisco Manuel" required="true" requiredMessage="#{msg['error.required']}"
 							 styleClass="ui-grid-col-5">
@@ -119,7 +123,7 @@
 		            <f:selectItem itemLabel="Mujer" itemValue="f" />
 		        </p:selectOneRadio>
 		        <h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->						    
-				<p:calendar id="fecNacimiento" value="#{cvDatosPer.fechaNacimiento}" navigator="true" yearRange="c-40:c" locale="es" maxdate="{#now}" 
+				<p:calendar id="fecNacimiento" value="#{cvDatosPer.fechaNacimiento}" navigator="true" yearRange="c-40:c" locale="es" maxdate="{#now}" pattern="dd/MM/yyyy"
 							placeholder="seleccionar una fecha" required="true" requiredMessage="#{msg['error.required']}" validatorMessage="#{msg['error.formato']}"
 							styleClass="ui-grid-col-5"/>
 			</div>
@@ -141,13 +145,13 @@
 		    <div class="ui-grid-row">
        			<p:selectOneMenu id="tipoIdentificacion" value="#{cvDatosPer.tipoIdentificacion}" 
        							 required="true" requiredMessage="#{msg['error.required']}" 
-       							 widgetVar="wvSelectTipo" onchange="tipoIdentificacion()" 
+       							 widgetVar="wvSelectTipo" 
        							 styleClass="ui-grid-col-5">
        							 
        				<f:selectItem itemValue="" itemLabel="seleccionar una opción"/>
        				<f:selectItem itemValue="DNI/NIF" itemLabel="DNI/NIF"/>
-       				<f:selectItem itemValue="NIE" itemLabel="NIE"/>
-       				<f:selectItem itemValue="Pasaporte" itemLabel="Pasaporte"/>
+       				<f:selectItem itemValue="NIE" itemLabel="NIE" itemDisabled="true"/>
+       				<f:selectItem itemValue="Pasaporte" itemLabel="Pasaporte" itemDisabled="true"/>
        				
        			</p:selectOneMenu>
        			
@@ -237,7 +241,7 @@
 
 			<!-- Población, Direccion -->
 		    <div class="ui-grid-row" style="margin-bottom: .5em;">
-		    	<p:outputLabel for="poblacion" value="Población" styleClass="ui-grid-col-5"/>
+		    	<p:outputLabel for="poblacion" value="Municipio" styleClass="ui-grid-col-5"/>
 		    	<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
             	<p:outputLabel for="direccion" value="Direccion" styleClass="ui-grid-col-5"/>		    
 			</div>

@@ -2,8 +2,6 @@ package es.albarregas.modelos;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,7 +21,6 @@ public class Direccion implements java.io.Serializable {
 	private Municipio municipio;
 	private String direccion;
 	//private DatoAlumno datosAlumno;
-	private Set<BloqueDatosCv> bloquesDatosCvs;
 
 	
 	public Direccion() {
@@ -71,13 +67,5 @@ public class Direccion implements java.io.Serializable {
 //		this.datosAlumno = datosAlumno;
 //	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "direccion")
-	public Set<BloqueDatosCv> getBloquesDatosCvs() {
-		return this.bloquesDatosCvs;
-	}
-
-	public void setBloquesDatosCvs(Set<BloqueDatosCv> bloquesDatosCvs) {
-		this.bloquesDatosCvs = bloquesDatosCvs;
-	}
 
 }

@@ -1,0 +1,169 @@
+
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<f:facet name="header">
+		<p:commandLink actionListener="#{cvIdiomas.reset}" oncomplete="hideDlg('#dlgIdiomas', 'wv_dlgIdiomas')" 
+					   update=":datosIdiomas">
+			<i class="fa fa-times-circle-o fa-3x"/>
+		</p:commandLink>
+		<h:outputText value="Idiomas" styleClass="txtGrande" style="margin-left: 2em;"/>
+	</f:facet>			  
+	    
+    <p:separator/>
+	    
+	<div class="ui-grid ui-grid-responsive">
+	
+		<h:form id="datosIdiomas">
+		
+			<div class="ui-grid-row" style="margin-bottom: 1em;">
+				
+				<div class="ui-grid-col-5">
+				
+				
+				<!-- DATOS DATOS DATOS -->
+								
+					<!-- Idioma (nombre) -->		
+				    <div class="ui-grid-row" style="margin-bottom: .5em;">
+						<p:outputLabel for="idioma" value="Idioma" styleClass="ui-grid-col-12"/>
+					</div>
+		
+				    <div class="ui-grid-row">
+						
+						<p:selectOneMenu id="idioma" value="#{cvIdiomas.idioma}" effect="fold"
+										 required="true" requiredMessage="#{msg['error.required']}" 
+										 styleClass="ui-grid-col-12">
+				            <f:selectItem itemLabel="elige un idioma" itemValue="" />
+				            <f:selectItems value="#{cvIdiomas.idiomasSelect}" />				            						
+						</p:selectOneMenu>
+						
+					</div>
+		
+				    <div class="ui-grid-row" style="margin-bottom: 1em;">			    	
+						<div class="ui-grid-col-12"><p:message for="idioma" display="text"/></div>
+					</div>				
+				
+				
+					<!-- writing -->		
+				    <div class="ui-grid-row" style="margin-bottom: .5em;">
+						<p:outputLabel for="writing" value="Expresión Escrita" styleClass="ui-grid-col-12"/>
+					</div>
+		
+				    <div class="ui-grid-row">
+						
+						<p:selectOneMenu id="writing" value="#{cvIdiomas.writing}"
+										 required="true" requiredMessage="#{msg['error.required']}" 
+										 styleClass="ui-grid-col-12">
+				            <f:selectItem itemLabel="elige tu nivel" itemValue="" />
+				            <f:selectItems value="#{cvIdiomas.nivelIdiomaSelect}" />				            						
+						</p:selectOneMenu>
+						
+					</div>
+		
+				    <div class="ui-grid-row" style="margin-bottom: 1em;">			    	
+						<div class="ui-grid-col-12"><p:message for="writing" display="text"/></div>
+					</div>				
+				
+				
+					<!-- reading -->		
+				    <div class="ui-grid-row" style="margin-bottom: .5em;">
+						<p:outputLabel for="reading" value="Comprensión Lectora" styleClass="ui-grid-col-12"/>
+					</div>
+		
+				    <div class="ui-grid-row">
+						
+						<p:selectOneMenu id="reading" value="#{cvIdiomas.reading}"
+										 required="true" requiredMessage="#{msg['error.required']}" 
+										 styleClass="ui-grid-col-12">
+				            <f:selectItem itemLabel="elige tu nivel" itemValue="" />
+				            <f:selectItems value="#{cvIdiomas.nivelIdiomaSelect}" />				            						
+						</p:selectOneMenu>
+						
+					</div>
+		
+				    <div class="ui-grid-row" style="margin-bottom: 1em;">			    	
+						<div class="ui-grid-col-12"><p:message for="reading" display="text"/></div>
+					</div>				
+				
+
+					<!-- listening -->		
+				    <div class="ui-grid-row" style="margin-bottom: .5em;">
+						<p:outputLabel for="listening" value="Comprensión Oral" styleClass="ui-grid-col-12"/>
+					</div>
+		
+				    <div class="ui-grid-row">
+						
+						<p:selectOneMenu id="listening" value="#{cvIdiomas.listening}"
+										 required="true" requiredMessage="#{msg['error.required']}" 
+										 styleClass="ui-grid-col-12">
+				            <f:selectItem itemLabel="elige tu nivel" itemValue="" />
+				            <f:selectItems value="#{cvIdiomas.nivelIdiomaSelect}" />				            						
+						</p:selectOneMenu>
+						
+					</div>
+		
+				    <div class="ui-grid-row" style="margin-bottom: 1em;">			    	
+						<div class="ui-grid-col-12"><p:message for="listening" display="text"/></div>
+					</div>				
+				
+				
+					<!-- speaking -->		
+				    <div class="ui-grid-row" style="margin-bottom: .5em;">
+						<p:outputLabel for="speaking" value="Conversación" styleClass="ui-grid-col-12"/>
+					</div>
+		
+				    <div class="ui-grid-row">
+						
+						<p:selectOneMenu id="speaking" value="#{cvIdiomas.speaking}"
+										 required="true" requiredMessage="#{msg['error.required']}" 
+										 styleClass="ui-grid-col-12">
+				            <f:selectItem itemLabel="elige tu nivel" itemValue="" />
+				            <f:selectItems value="#{cvIdiomas.nivelIdiomaSelect}" />				            						
+						</p:selectOneMenu>
+						
+					</div>
+		
+				    <div class="ui-grid-row" style="margin-bottom: 1em;">			    	
+						<div class="ui-grid-col-12"><p:message for="speaking" display="text"/></div>
+					</div>				
+				
+				
+				<!-- DATOS DATOS DATOS -->
+
+				
+				</div>				
+				
+				<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
+				
+				<!-- BOTONES PARA ACEPTAR/CANCELAR    -->
+				<!-- ******************************** -->								
+				<div class="ui-grid-col-5 bloqueBtnAceptarCancelar">
+
+						<p:commandButton id="btnAceptar" value="Aceptar" actionListener="#{cvIdiomas.aceptar}" 
+										 process=":datosIdiomas" update=":datosIdiomas, cvForm:cvCenterPnlIdiomas"										 
+										 style="margin-bottom: 1em;"/>
+										 
+						<p:commandButton id="btnCancelar" value="Cancelar" actionListener="#{cvIdiomas.reset}" immediate="true"
+										 update=":datosIdiomas"
+										 oncomplete="hideDlg('#dlgIdiomas', 'wv_dlgIdiomas')"										  
+										 style="margin-bottom: 1em;"/>
+										 
+						<p:commandButton id="btnRestablecer" value="Restablecer" actionListener="#{cvIdiomas.reset}" immediate="true"
+										 update=":datosIdiomas" />
+									 				
+				</div>
+				<!-- BOTONES PARA ACEPTAR/CANCELAR    -->
+				<!-- ******************************** -->
+								
+			</div>
+ 		
+ 		</h:form>
+ 					
+	</div> <!-- grid -->
+				
+</ui:composition>

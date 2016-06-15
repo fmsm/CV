@@ -1,8 +1,10 @@
 package es.albarregas.webui;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -15,9 +17,10 @@ import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
 
+import es.albarregas.DAOImpl.DatoAlumnoDAOImpl;
 import es.albarregas.DAOImpl.UsuarioDAOImpl;
+import es.albarregas.modelos.DatoAlumno;
 import es.albarregas.modelos.Usuario;
-
 
 @Named
 @ViewScoped
@@ -31,6 +34,25 @@ public class Inicio implements java.io.Serializable {
 	private String username;
 	private String password;
 
+	
+	/**
+	 * Si se encuentra sesión ya existente, pasa de la pagina principal, directamente al perfil del alumno
+	 */
+	@PostConstruct
+	public void init() {
+		
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        
+        if (!session.isNew() && session.getAttribute("login") != null ) {
+        	try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("cv.xhtml");
+			} catch (IOException e) {				
+				e.printStackTrace();
+			}
+        }
+		
+	}//init
+	
 	
 	/**
 	 * Necesario para mostrar el mapa en el footer de la vista
@@ -71,7 +93,19 @@ public class Inicio implements java.io.Serializable {
 			RequestContext context = RequestContext.getCurrentInstance();
 			context.addCallbackParam("loginCorrecto", true);
 			
-			//TODO: quedaria actualizar tabla DatosAlumnos.ultimoAcceso
+			//actualizar la ultima fecha de acceso: se podria hacer de otra forma, pero lo voy a hacer de tal forma que cuando un usuario haga login
+			//en la aplicacion se actualize dicha fecha de ultimo acceso, pero solo si el usuario en cuestión ha introducido datos personales y por lo
+			//tanto tiene datos en la tabla DatosAlumnos
+			
+			//se obtiene el objeto DatoAlumno correspondiente a este usuario y se actualiza el timestamp con la fecha actual
+			DatoAlumnoDAOImpl datoAlumnoDAO = new DatoAlumnoDAOImpl();
+			DatoAlumno datoAlumno = datoAlumnoDAO.getDatoAlumnoByIdUsuario( usuario.getIdUsuario() );
+			
+			if (datoAlumno != null) {
+				datoAlumno.setUltimoAcceso( new Date() );
+				datoAlumnoDAO.update(datoAlumno);				
+			}//if
+			
 						
 		} else {
 	        FacesContext.getCurrentInstance().addMessage("mensajeGrowl", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email y/o contraseña incorrectos", "") );
@@ -80,13 +114,7 @@ public class Inicio implements java.io.Serializable {
 		}
 				
 	}//login
-	
-	
-	
-	public Date getFecha() {
-		return new Date();
-	}	
-	
+		
 	public String getUsername() {
 		return username;
 	}

@@ -1,0 +1,101 @@
+
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
+
+	<f:facet name="header">
+		<p:commandLink actionListener="#{cvOtros.reset}" oncomplete="hideDlg('#dlgOtros', 'wv_dlgOtros')" 
+					   update=":datosOtros">
+			<i class="fa fa-times-circle-o fa-3x"/>
+		</p:commandLink>
+		<h:outputText value="Otros Datos" styleClass="txtGrande" style="margin-left: 2em;"/>
+	</f:facet>			  
+	    
+    <p:separator/>
+	    
+	<div class="ui-grid ui-grid-responsive">
+	
+		<h:form id="datosOtros">
+
+			<div class="ui-grid-row" style="margin-bottom: 1em;">
+				
+				<div class="ui-grid-col-5">
+
+				<!-- DATOS DATOS DATOS -->
+								
+					<!-- SEPARACION -->
+					<!-- Permisos de Conducción -->
+					<div class="ui-grid-row" style="margin: 1em 0;">
+						<h:outputText value="Permiso/s de Conducción" styleClass="ui-grid-col-12 txtMediano txtBold" style="border-bottom: 1px dotted gray;"/>
+					</div>
+						
+				    <div class="ui-grid-row">
+						
+					    <p:selectManyCheckbox id="permisosConduccion" value="#{cvOtros.selectedTiposPermisos}" layout="grid" columns="5"										 	  
+										 	  styleClass="ui-grid-col-12">					    
+					        <f:selectItems value="#{cvOtros.tiposPermisos}" var="tipo" itemLabel="#{tipo}" itemValue="#{tipo}" />
+					    </p:selectManyCheckbox>						
+												
+					</div>
+		
+				    <div class="ui-grid-row" style="margin-bottom: 1em;">			    	
+						<div class="ui-grid-col-12"><p:message for="permisosConduccion" display="text"/></div>
+					</div>								
+				
+				
+					<!-- SEPARACION -->
+					<!-- Informacion Adicional -->
+					<div class="ui-grid-row" style="margin: 1em 0;">
+						<h:outputText value="Información Adicional" styleClass="ui-grid-col-12 txtMediano txtBold" style="border-bottom: 1px dotted gray;"/>
+					</div>
+					
+				    <div class="ui-grid-row">
+						<p:inputTextarea id="infoAdicional" value="#{cvOtros.infoAdicional}" maxlength="500" autoResize="true" 									 	 
+									 	 styleClass="ui-grid-col-12"/>									 				    
+					</div>
+		
+				    <div class="ui-grid-row" style="margin-bottom: 1em;">			    	
+						<div class="ui-grid-col-12"><p:message for="infoAdicional" display="text"/></div>
+					</div>					
+
+				
+				
+				<!-- DATOS DATOS DATOS -->
+				
+				</div>				
+				
+				<h:outputText styleClass="ui-grid-col-2"/> <!-- relleno -->
+				
+				<!-- BOTONES PARA ACEPTAR/CANCELAR    -->
+				<!-- ******************************** -->								
+				<div class="ui-grid-col-5 bloqueBtnAceptarCancelar">
+
+						<p:commandButton id="btnAceptar" value="Aceptar" actionListener="#{cvOtros.aceptar}" 
+										 process=":datosOtros" update=":datosOtros, cvForm:cvCenterPnlOtros"										 
+										 style="margin-bottom: 1em;"/>
+										 
+						<p:commandButton id="btnCancelar" value="Cancelar" actionListener="#{cvOtros.reset}" immediate="true"
+										 update=":datosOtros"
+										 oncomplete="hideDlg('#dlgOtros', 'wv_dlgOtros')"										  
+										 style="margin-bottom: 1em;"/>
+										 
+						<p:commandButton id="btnRestablecer" value="Restablecer" actionListener="#{cvOtros.reset}" immediate="true"
+										 update=":datosOtros" />
+									 				
+				</div>
+				<!-- BOTONES PARA ACEPTAR/CANCELAR    -->
+				<!-- ******************************** -->
+								
+			</div>
+ 		
+ 		</h:form>
+ 					
+	</div> <!-- grid -->
+				
+</ui:composition>

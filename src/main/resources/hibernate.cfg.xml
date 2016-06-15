@@ -8,22 +8,22 @@
 <!--         <property name="hibernate.connection.username">clientejava</property>         -->
 <!--         <property name="hibernate.connection.password">2015</property> -->
 <!--         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bolsaempleofp</property> -->
+		<property name="hibernate.enable_lazy_load_no_trans">true</property>    	
     	<property name="hibernate.show_sql">false</property>
+		<property name="hibernate.generate_statistics">false</property>    	
         <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
         <property name="hibernate.search.autoregister_listeners">false</property>
         <property name="hibernate.validator.apply_to_ddl">false</property>
         
-        <mapping class="es.albarregas.modelos.BloqueDatosCv" />
         <mapping class="es.albarregas.modelos.Certificado" />
         <mapping class="es.albarregas.modelos.Ciclo" />
         <mapping class="es.albarregas.modelos.Conocimiento" />
         <mapping class="es.albarregas.modelos.DatoAlumno" />
         <mapping class="es.albarregas.modelos.Direccion" />
-        <mapping class="es.albarregas.modelos.Documento" />
         <mapping class="es.albarregas.modelos.EstudioAlumno" />                                        
-        <mapping class="es.albarregas.modelos.NotaAlumno" />
         <mapping class="es.albarregas.modelos.ExperienciaAlumno" />
         <mapping class="es.albarregas.modelos.IdiomaAlumno" />
+        <mapping class="es.albarregas.modelos.Imagen" />        
         <mapping class="es.albarregas.modelos.Modulo" />
         <mapping class="es.albarregas.modelos.Municipio" />
         <mapping class="es.albarregas.modelos.NacionAlumno" />

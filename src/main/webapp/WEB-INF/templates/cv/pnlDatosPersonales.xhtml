@@ -1,0 +1,120 @@
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
+	
+	<div class="ui-grid-row">
+		
+		<!-- nombre bloque y foto -->						
+	 	<div class="ui-grid-col-3 txtRight">
+	 		
+	 		<div class="ui-grid-row">
+	 			<h:outputText value="INFORMACIÓN PERSONAL" styleClass="ui-grid-col-12 txtGrande colorPrimary" style="margin-bottom: .5em;"/>
+	 		</div>						        
+        	
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-12 alinearDerecha">					        	
+					<h:panelGroup id="fotoWrapper" layout="block" styleClass="fotoWrapper"  
+								  rendered="#{not empty imageBean.content and cvPrincipal.existenDatosPersonales}">
+			    		<o:graphicImage value="#{imageBean.content}" dataURI="true" rendered="#{not empty imageBean.content and cvPrincipal.existenDatosPersonales}"/>
+					</h:panelGroup>
+				</div>
+			</div>
+
+        </div>
+
+    	<h:panelGroup layout="block" rendered="#{not cvPrincipal.existenDatosPersonales}" 
+    				  styleClass="ui-grid-col-9" style="margin-left: 0.5em; border-left: 1px dotted #009688;">
+			<p:commandButton value="Añadir datos personales" onclick="PF('wv_dlgDatosPersonales').show()"													 
+							 icon="fa fa-plus fa-lg" title="Añadir datos personales" styleClass="btnAdd"/>
+        </h:panelGroup>
+
+
+		
+		<!-- iconos y datos -->
+		<h:panelGroup layout="block" rendered="#{cvPrincipal.existenDatosPersonales}" 
+					  styleClass="ui-grid-col-9" style="margin-left: 0.5em; border-left: 1px dotted #009688;">
+        
+
+			<!-- uso el ID 'nombreAlumno', para lograr que si el usuario no hay introducido 'datos personales' no se permite introducción de datos de ninguna de las otras 'categorias' 
+	 			(esto se controla en el fichero 'scripts.js' -->	
+
+			<div class="ui-grid-row" style="margin-left: 2em; margin-bottom: .5em;">
+				<h:outputText id="iconoNombreMale" rendered="#{cvDatosPer.genero eq 'm'}" styleClass="fa fa-male fa-2x"/>
+				<h:outputText id="iconoNombreFemale" rendered="#{cvDatosPer.genero eq 'f'}" styleClass="fa fa-female fa-2x"/>
+				<h:outputText id="nombreAlumno" value="#{cvDatosPer.nombre} #{cvDatosPer.apellidos}" styleClass="txtEnorme" style="padding-left: 0.75em;"/>
+				<p:tooltip for="iconoNombreMale" value="Nombre alumno" showEffect="clip" position="top"/>
+				<p:tooltip for="iconoNombreFemale" value="Nombre alumna" showEffect="clip" position="top"/>
+			</div>
+
+			<div class="ui-grid-row" style="margin-left: 2em; margin-bottom: .5em;">
+				<h:outputText id="iconoDireccion" styleClass="fa fa-home fa-lg"/>
+				<h:outputText value="#{cvDatosPer.direccion}" styleClass="txtGrande" style="padding-left: 1em;"/>
+				<p:tooltip for="iconoDireccion" value="Dirección" showEffect="clip" position="top"/>
+			</div>
+
+			<div class="ui-grid-row" style="margin-left: 2em; margin-bottom: .5em;">
+				<h:outputFormat value="{0} {1} ({2})" styleClass="txtGrande" style="padding-left: 1.9em;">
+				 	<f:param value="#{cvDatosPer.codPostal}" />
+				 	<f:param value="#{cvDatosPer.municipio}" />
+				 	<f:param value="#{cvDatosPer.provincia}" />
+			 	</h:outputFormat>			
+			</div>
+
+			<div class="ui-grid-row" style="margin-left: 2em; margin-bottom: .5em;">
+				
+				<h:panelGroup layout="block" rendered="#{not empty cvDatosPer.datosPersonales.telefonoDomicilio}" class="ui-grid-col-4">
+					<h:outputText id="iconoTlfnoDomicilio" styleClass="fa fa-phone fa-lg"/>
+				 	<h:outputText value="#{cvDatosPer.telefonoDomicilio}" styleClass="txtGrande" style="padding-left: 1.1em;"/>
+				 	<p:tooltip for="iconoTlfnoDomicilio" value="Teléfono Domicilio" showEffect="clip" position="top"/>
+			 	</h:panelGroup>				
+				
+				<h:panelGroup layout="block" rendered="#{not empty cvDatosPer.datosPersonales.telefonoMovil}" class="ui-grid-col-4">
+				 	<h:outputText id="iconoTlfnoMovil" styleClass="fa fa-mobile fa-lg"/>
+				 	<h:outputText value="#{cvDatosPer.telefonoMovil}" styleClass="txtGrande" style="padding-left: 1em;"/>
+				 	<p:tooltip for="iconoTlfnoMovil" value="Teléfono Movil" showEffect="clip" position="top"/>							
+				</h:panelGroup>			
+			</div>
+			
+			<div class="ui-grid-row" style="margin-left: 2em; margin-bottom: .5em;">
+				<h:outputText id="iconoEmail" styleClass="fa fa-envelope fa-lg"/>
+				<h:outputText value="#{cvDatosPer.email}" styleClass="txtGrande" style="padding-left: 1em;"/>
+				<p:tooltip for="iconoEmail" value="Email" showEffect="clip" position="top"/>
+			</div>			
+			
+			<h:panelGroup styleClass="ui-grid-row" rendered="#{not empty cvDatosPer.datosPersonales.webPersonal}" style="margin-left: 2em; margin-bottom: .5em;">
+				<h:outputText id="iconoWebPersonal" styleClass="fa fa-object-group fa-lg"/>
+				<h:outputText value="#{cvDatosPer.webPersonal}" styleClass="txtGrande" style="padding-left: 0.9em;"/>
+				<p:tooltip for="iconoWebPersonal" value="Web Personal" showEffect="clip" position="top"/>			
+			</h:panelGroup>			
+			
+			<div class="ui-grid-row" style="margin-left: 2em; margin-bottom: .5em;">
+				<h:outputText id="iconoEdad" styleClass="fa fa-birthday-cake fa-lg"/>
+				<h:outputText value="Edad " style="padding-left: 1.5em;"/>
+				<h:outputText value="#{cvDatosPer.edad}" styleClass="txtGrande" style="padding-left: 0.5em;"/>
+				<p:tooltip for="iconoEdad" value="Edad" showEffect="clip" position="top"/>			
+			</div>			
+			
+			<div class="ui-grid-row" style="margin-left: 2em; margin-bottom: .5em;">
+				<h:outputText id="iconoNacionalidad" styleClass="fa fa-flag fa-lg"/> 
+				<h:outputText value="Nacionalidad/es " style="padding-left: 1.5em; padding-right: 1em;"/>
+				<p:repeat var="item" value="#{cvDatosPer.nacionalidades}">
+					<h:outputText value=" #{item.pais} " styleClass="txtGrande"/>
+				</p:repeat>
+				<p:tooltip for="iconoNacionalidad" value="Nacionalidad/es" showEffect="clip" position="top"/>
+			</div>			
+			
+	    	<h:panelGroup layout="block" rendered="#{cvPrincipal.existenDatosPersonales}" styleClass="ui-grid-row" style="margin-left: 2em;">
+				<p:commandButton value="Editar datos personales" onclick="PF('wv_dlgDatosPersonales').show()" 
+						         icon="fa fa-pencil fa-lg" title="Editar datos personales" styleClass="btnAdd"/>
+			</h:panelGroup>
+			
+        </h:panelGroup>
+        
+	</div>
+			
+</ui:composition>

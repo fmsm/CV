@@ -2,7 +2,6 @@ package es.albarregas.DAOImpl;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
-
 import es.albarregas.DAO.DAOGenerico;
 import es.albarregas.DAO.UsuarioDAO;
 import es.albarregas.modelos.Usuario;
@@ -38,7 +37,7 @@ public class UsuarioDAOImpl extends DAOGenerico<Usuario> implements UsuarioDAO {
 		if (password != null) {
 			criteria.add( Restrictions.eq("password", password) );	
 		}
-				
+		
 		Usuario resultado = null;
 		resultado = (Usuario) criteria.uniqueResult();
 		

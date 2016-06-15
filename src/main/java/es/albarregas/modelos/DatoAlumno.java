@@ -2,6 +2,8 @@ package es.albarregas.modelos;
 
 import java.util.Date;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,7 +37,7 @@ public class DatoAlumno implements java.io.Serializable {
 	private Set<NotaAlumno> notasAlumnos;
 	private Set<IdiomaAlumno> idiomasAlumnos;
 	private Set<EstudioAlumno> estudiosAlumnos;
-	private Set<Documento> documentos;
+	private Imagen imagen;
 	private Set<Certificado> certificados;
 	private Set<RedSocialAlumno> redesSocialesAlumnos;
 	private Set<NacionAlumno> nacionesAlumnos;
@@ -56,7 +59,7 @@ public class DatoAlumno implements java.io.Serializable {
 		this.idUsuario = idUsuario;
 	}
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	@JoinColumn(name="IdDireccion")
 	public Direccion getDireccion() {
 		return this.direccion;
@@ -191,15 +194,17 @@ public class DatoAlumno implements java.io.Serializable {
 		this.estudiosAlumnos = estudiosAlumnos;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "datoAlumno")
-	public Set<Documento> getDocumentos() {
-		return documentos;
+	@OneToOne(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@PrimaryKeyJoinColumn
+	public Imagen getImagen() {
+		return imagen;
 	}
 
 
-	public void setDocumentos(Set<Documento> documentos) {
-		this.documentos = documentos;
+	public void setImagen(Imagen imagen) {
+		this.imagen = imagen;
 	}
+
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "datoAlumno")
 	public Set<Certificado> getCertificados() {
@@ -221,7 +226,7 @@ public class DatoAlumno implements java.io.Serializable {
 		this.redesSocialesAlumnos = redesSocialesAlumnos;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "datoAlumno")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "datoAlumno", cascade = { CascadeType.ALL }, orphanRemoval = true)
 	public Set<NacionAlumno> getNacionesAlumnos() {
 		return nacionesAlumnos;
 	}
@@ -231,7 +236,7 @@ public class DatoAlumno implements java.io.Serializable {
 		this.nacionesAlumnos = nacionesAlumnos;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "datoAlumno")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "datoAlumno", cascade = { CascadeType.ALL }, orphanRemoval = true)
 	public Set<PermisoConduccion> getPermisosConduccion() {
 		return permisosConduccion;
 	}

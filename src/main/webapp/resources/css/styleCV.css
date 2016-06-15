@@ -4,7 +4,7 @@
 body { 
 	margin:0; 
 	background-color: whitesmoke;
-	font-family: Lato, sans-serif; 
+	font-family: Lato, sans-serif;   
 }
 
 .txtRight 	{ text-align: right;}
@@ -17,58 +17,88 @@ body {
 
 .ui-panel.noBorder,
 .ui-panelgrid.noBorder .ui-panelgrid-content,
-.ui-menu.noBorder {border: 0;}
+.ui-menu.noBorder,
+.ui-datalist.noBorder .ui-widget-content { border: none;}
 
 .ui-panel.noPadding .ui-panel-content,
 .ui-menu.noPadding { padding: 0;}
 
-/* ESCPECIFICAS */
+/* ESCPECIFICAS de styleCV.css */
 
-/* estos dos son para los problemas con la altura del body de cv/content.xhtml y del dialogo*/
-.alturaCVLayout { height: 1100px;}
-/* .cvMenuPnl, .cvCenterPnl { height: 900px; } */
+/* Para que los dialogos al desaparecer no creen una barra de desplazamiento horizontal, que crea un efecto no desado en el tamaño del menu izquierdo y de la 
+   parte central, mientras se realiza la animacion que se realiza al desaparecer el diálogo */
+body { overflow-x: hidden; }
 
 .txtMediano { font-size: 1.2em;}
 .txtXS {font-size: 0.6em};
 .txtFino {font-weight: 300;}
 
+.colorPrimary	{ color:			#009688;}	
+
 .colorBlueA 	{ color: 			#2399E5;}
 			
-.bgMenuColor	{ background-color: #747474;}
+.bgMenuColor	{ background-color: #16A085;}		/* #747474 */
 .bgCenterColor 	{ background-color: whitesmoke;}
 .bgDlg 			{ background-color: whitesmoke;}
 
-.dottedBorder {border: 1px dotted lightgray;}
+.dottedBorder 		{border: 1px dotted lightgray;}
+.dottedBorderRight	{border-right: 1px dotted lightgray;}
 
-/* aplicar estilos al menu de cv, expediente, ...*/
+.alinearDerecha {display: flex; justify-content: flex-end;}
+
+
+/******************/
+/* MENU IZQUIERDO */
+/******************/
+
+
+/* estilos para la parte superior del menu de la izquierda, donde esta la foto,y el nombre*/
+.ui-panelgrid.cvUser span { color: white;}		/* #DDDDDD */ 
+.ui-panelgrid.cvUser .ui-grid-row:first-child { padding-top: 1em; background-color: #16A085;}
+.ui-panelgrid.cvUser .ui-grid-row:nth-child(2) { padding-top: 1em; padding-bottom: 1em; background-color: #16A085;}
+.ui-panelgrid.cvUser .ui-grid-row:last-child { padding-bottom: 1em; background-color: #16A085;}
+
+
+/*parte inferior del menu, lo que es el menu en si mismo*/
 .ui-menu.cvMenu { width: 100%;}
+
+.ui-menu.cvMenu .ui-menuitem { margin: 0;}
 
 .ui-menu.cvMenu .ui-menuitem-link {
 	width: 100%;
-	padding-left: 0;
-	padding-right: 0;
+	padding: 0;
 	border: none;
 }
 
-.ui-menu .ui-menuitem-link.menuActual,
-.ui-menu .ui-menuitem-link:hover {
-	color: white;
-	background-color: #2399E5; 
-	border: none;
-}
- 
-.ui-menu.cvMenu .ui-menuitem-text { 
-	padding: .5em 0 .5em 1em;
-	font-family: 'Raleway';
+.ui-menu.cvMenu .ui-icon { overflow: visible; padding-top: .5em; padding-left: .5em; color: white; }
+
+.ui-menu.cvMenu .ui-menuitem-link.cvMenuSeleccionado { background: #00796B !important;}
+.ui-menuitem-link.cvMenuSeleccionado span { color: black !important;}
+
+.ui-menu.cvMenu .ui-menuitem-text {
+	color: white;					/* #DDDDDD */
+	padding: 1em 0 1em 1em;
 	font-size: 24px;
-	color: #DDDDDD;
 }
 
-.ui-panelgrid.cvUser { font-family: 'Raleway'; };
+.ui-menu.cvMenu .ui-widget .ui-state-hover {
+	border: none;
+	background: none;
+}
+
+.ui-menu.cvMenu .ui-widget .ui-state-hover span { color: black;}
 
 /*quitar border-radius de los elementos del menu*/
 .ui-corner-all.noBorderRadius { border-radius: unset;}
 
+
+/****************/
+/* PARTE CENTRAL*/
+/****************/
+
+/*Hacer aparecer una barra de scroll cuando el contenido de la parte central exceda la altura de la ventana del navegador; y que cuando se realiza este 
+ scroll el menu de la parte izquierda no se desplaze, si no que aparezca siempre en pantalla */
+.layoutCenter { overflow-y: auto;}
 
 .ui-panel.cvCenterPnl > .ui-panel-content { 
 	padding: 0;
@@ -76,46 +106,84 @@ body {
 	margin-right: 1em;
 }
 
-.pnlDatosPersonales, .pnlDatosEstudios, .pnlDatosExperiencia { margin-top: 2em; }
-.pnlDatosExperiencia {margin-bottom: 2em;}
+.pnlDatosPersonales { margin-top: 1em;}
+.pnlDatosEstudios, .pnlDatosExperiencia, .pnlDatosIdiomas, .pnlDatosOtros { margin-top: 2em; }
+.pnlDatosOtros {margin-bottom: 1em;}
+
+.pnlDatosPersonales .fotoWrapper { margin-top: 1em;}
 
 .ui-panel.pnlDatosPersonales > .ui-panel-content,
 .ui-panel.pnlDatosEstudios > .ui-panel-content,
-.ui-panel.pnlDatosExperiencia > .ui-panel-content { padding: 2em 1em 2em 0;}
+.ui-panel.pnlDatosExperiencia > .ui-panel-content,
+.ui-panel.pnlDatosIdiomas > .ui-panel-content, 
+.ui-panel.pnlDatosOtros > .ui-panel-content { padding: 2em 1em 2em 0;}
 
+.ui-panel.pnlDatosPersonales .fa { color: #727272;}
 
 /* dentro de cada .pnlXxxxXxxx, en el div de la derecha, esta el 'bloque' donde se van a mostrar datos: personales, formacion, experiencia, ...*/
 .bloqueDatos {
-	height: 150px;
+/* 	height: 150px; */
 	border-left: 1px dotted lightgray;
 	margin-left: 0.5em;
 }
 
 
-/* boton para añadir datos, icono del boton visible pero el boton en si, sin background color
-   y además que el icono del boton sea totalmente visible y no lo recorte el boton con el overflow que viene por defecto*/
-button.ui-button.ui-state-default.btnAdd {
+/* boton para añadir datos, icono del boton visible pero NO el boton en si (es decir, el boton sin background color) */
+button.ui-button.ui-state-default.btnAdd, 
+button.ui-button.ui-state-default.btnDel,
+button.ui-button.ui-state-default.btnEdit {
 	border: none;
 	border-radius: unset;
 	box-shadow: none;
 	background: none;			
 }
-	
-.ui-button.btnAdd .ui-button-text { color: #2399E5; }
 
-.ui-button.btnAdd .ui-icon { overflow: visible;}
-.ui-button.btnAdd .ui-icon.fa { color: #2399E5; }
-.ui-button.btnAdd .ui-button-text { padding-left: 2.5em;}
+.ui-button.btnAdd .ui-icon.fa { color: #009688; }
+.ui-button.btnAdd .ui-button-text { color: #009688; padding-left: 2.5em; }
 
+.ui-button.btnDel .ui-icon.fa { color: red; }
+.ui-button.btnDel .ui-button-text { color: red; }
 
-/* DIALOGO PARA AÑADIR DATOS PERSONALES */
+.ui-button.btnEdit .ui-icon.fa { color: #00796B; }
+.ui-button.btnEdit .ui-button-text { color: #00796B; }
 
-#dlgDatosPersonales .ui-dialog-titlebar { 
+/* y además que el icono del boton sea totalmente visible y no lo recorte el boton con el overflow que viene por defecto */
+.ui-button.btnAdd .ui-icon,
+.ui-button.btnDel .ui-icon { overflow: visible;}
+
+.separacionFechas { margin: 0 .5em;}
+
+/* para los botones de borrar y editar del panel de idiomas, para hacerlos más pequeños y que no tenga que estar la pantalla con mucha anchura para que salga
+   todos los datos y botones en una misma linea, aunque sigue pasando que a determina anchura, se colocan un boton encima de otro */
+.pnlDatosIdiomas .ui-button-text-icon-left.btnEdit .ui-button-text { padding: .3em .3em .3em 1.8em; }
+.pnlDatosIdiomas .ui-button-text-icon-left.btnDel .ui-button-text  { padding: .3em .3em .3em 1.8em; }
+
+/* DIALOGOS */
+
+button.ui-button.btnAceptar { background: #536DFE; border: none;}
+button.ui-button.btnCancelar { background: #009688; border:none;}
+button.ui-button.btnRestablecer { background: #727272; border: none; }
+
+.ui-button.btnAceptar .ui-icon,
+.ui-button.btnCancelar .ui-icon,
+.ui-button.btnRestablecer .ui-icon { overflow: visible;}
+
+/* no soy capaz de ponerle estilos al hover por css */
+
+#dlgDatosPersonales .ui-dialog-titlebar,
+#dlgFormacion .ui-dialog-titlebar, 
+#dlgExperiencia .ui-dialog-titlebar,
+#dlgIdiomas .ui-dialog-titlebar,
+#dlgOtros .ui-dialog-titlebar { 
 	margin: 1em; 
 	padding: 0 0 0 0;
 }
 
-#dlgDatosPersonales .ui-dialog-title {
+#dlgDatosPersonales .ui-dialog-title, 
+#dlgFormacion .ui-dialog-title,
+#dlgExperiencia .ui-dialog-title,
+#dlgIdiomas .ui-dialog-title,
+#dlgOtros .ui-dialog-title {
 	width: 100%;
 	display: flex;
   	justify-content: space-between;	
@@ -123,10 +191,15 @@ button.ui-button.ui-state-default.btnAdd {
 	text-transform: uppercase;
 }
 
-#dlgDatosPersonales .ui-dialog-content { padding-top: 0;}
+#dlgDatosPersonales .ui-dialog-content,
+#dlgFormacion .ui-dialog-content,
+#dlgExperiencia .ui-dialog-content,
+#dlgIdiomas .ui-dialog-content,
+#dlgOtros .ui-dialog-content { padding-top: 0;}
 
-/* problemas con la altura del dialogo y de la página que contiene el dialogo */
-#dlgDatosPersonales { min-height: 1100px;}
+/* Hacer aparecer una barra de scroll en el dialogo para introducir datos personales, ya que es más grande que todos los demas y excede el tamaño de la
+venta del navegador */
+#dlgDatosPersonales { overflow-y: auto;}
 
 /* problemas con el calendario para elegir fecha de nacimiento */
 #dlgDatosPersonales .ui-calendar .ui-inputfield { width: 95%;}
@@ -134,7 +207,8 @@ button.ui-button.ui-state-default.btnAdd {
 /* problemas con el autocomplete de 'nacionalidad/es' */
 #dlgDatosPersonales .ui-autocomplete-multiple-container.ui-inputfield { width: 100%;}
 
-/* estilos para el componente fileupload*/ 
+/* estilos para el componente fileupload*/
+.ui-fileupload.btnElegirFoto .ui-button{ background: #536DFE; border: none;} 
 #datosPersonales .ui-fileupload-content {display: none;}
 #datosPersonales .ui-fileupload-buttonbar { padding: 0; border: none;}
 #datosPersonales .ui-fileupload-buttonbar .ui-button { margin-right: 0;}
@@ -146,20 +220,25 @@ button.ui-button.ui-state-default.btnAdd {
 }
 
 /* para que la imagen del dialogo se muestre "recortada"(en la vista solo) */
-#fotoWrapper,
-#fotoWrapper img { width: 110px; height: 110px; border: 1px solid gray; }
-#fotoWrapper { margin-bottom: 1em;}
+.fotoWrapper { border: 1px solid gray;}
+.fotoWrapper, .fotoWrapper img { width: 110px; height: 110px; }
+#elegirFoto .fotoWrapper { margin-bottom: 1em;}
 
 .bloqueBtnAceptarCancelar {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;	
+/* 	justify-content: center;	 */
 	font-size: 1.2em;
 }
 
 .bloqueBtnAceptarCancelar .ui-widget { font-family: 'Raleway'; }
 
-#dlgDatosPersonales .ui-message-error, .cpErrorMsg {
+#dlgDatosPersonales .ui-message-error,
+#dlgFormacion .ui-message-error,
+#dlgExperiencia .ui-message-error,
+#dlgIdiomas .ui-message-error,
+#dlgOtros .ui-message-error,
+.cpErrorMsg {
 	border: none;
 	margin: 0;
 	padding: 0;
@@ -168,4 +247,8 @@ button.ui-button.ui-state-default.btnAdd {
 	font-size: 11px;	
 }
 
-#dlgDatosPersonales .ui-message-error-detail { margin: 0};
+#dlgDatosPersonales .ui-message-error-detail,
+#dlgFormacion .ui-message-error-detail,
+#dlgExperiencia .ui-message-error-detail
+#dlgIdiomas .ui-message-error-detail,
+#dlgOtros .ui-message-error-detail { margin: 0};
