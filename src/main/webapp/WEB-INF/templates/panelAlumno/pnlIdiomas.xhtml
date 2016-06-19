@@ -16,7 +16,7 @@
     	<h:panelGroup layout="block" rendered="#{not cvPrincipal.existenDatosIdiomas}" 
     				  styleClass="ui-grid-col-9" style="margin-left: 0.5em; border-left: 1px dotted #009688;">
 			<p:commandButton value="Añadir idioma" onclick="preShowDlg('wv_dlgIdiomas')"													 
-							 icon="fa fa-plus fa-lg" title="Añadir idioma" styleClass="btnAdd"/>												
+							 icon="fa fa-plus fa-lg" title="Añadir idioma" styleClass="btnAdd" style="margin-left: 2em;"/>												
         </h:panelGroup>
     
     </div>
@@ -70,7 +70,7 @@
 								 oncomplete="preShowDlg('wv_dlgIdiomas')"  
 								 styleClass="btnEdit"/>				        			
 				<p:commandButton icon="fa fa-minus-circle" value="Borrar" title="Eliminar bloque" 
-								 actionListener="#{cvIdiomas.eliminarBloque(item)}" update="cvForm:cvCenterPnl, dlgIdiomas"  
+								 actionListener="#{cvIdiomas.eliminarBloque(item)}" update=":cvCenterPnl, dlgIdiomas"  
 								 styleClass="btnDel"/>				
         	</div>	
        	</div> 

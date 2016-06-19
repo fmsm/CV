@@ -17,7 +17,7 @@ public class NotaAlumno implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private int idExpedientesAlumnos;
+	private int idNotaAlumnos;
 	private DatoAlumno datoAlumno;
 	private Modulo modulo;
 	private byte notaModulo;
@@ -26,17 +26,21 @@ public class NotaAlumno implements java.io.Serializable {
 	
 	public NotaAlumno() {
 	}
-
+	
+	public NotaAlumno(Modulo modulo) {
+		this.modulo = modulo;
+	}
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)	
-	@Column(name = "IdExpedientesAlumnos", unique = true, nullable = false)
-	public int getIdExpedientesAlumnos() {
-		return this.idExpedientesAlumnos;
+	@Column(name = "IdNotasAlumnos", unique = true, nullable = false)
+	public int getIdNotaAlumnos() {
+		return this.idNotaAlumnos;
 	}
 
-	public void setIdExpedientesAlumnos(int idExpedientesAlumnos) {
-		this.idExpedientesAlumnos = idExpedientesAlumnos;
+
+	public void setIdNotaAlumnos(int idNotaAlumnos) {
+		this.idNotaAlumnos = idNotaAlumnos;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

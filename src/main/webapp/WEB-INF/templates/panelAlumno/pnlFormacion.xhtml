@@ -1,5 +1,3 @@
-<!-- FALTA: estilo para la visualizacion del atributo 'infoAdicional' del bean CvFormacion.java, en este panel  -->
-<!-- FALTA: que sacar por pantalla en fechaFin, cuando el atributo actualmente sea true -->
 
 <ui:composition 
 	xmlns="http://www.w3.org/1999/xhtml"
@@ -18,7 +16,7 @@
     	<h:panelGroup layout="block" rendered="#{not cvPrincipal.existenDatosFormacion}" 
     				  styleClass="ui-grid-col-9" style="margin-left: 0.5em; border-left: 1px dotted #009688;">
 			<p:commandButton value="Añadir formación académica" onclick="preShowDlg('wv_dlgFormacion')"													 
-							 icon="fa fa-plus fa-lg" title="Añadir formación académica" styleClass="btnAdd"/>												
+							 icon="fa fa-plus fa-lg" title="Añadir formación académica" styleClass="btnAdd" style="margin-left: 2em;"/>												
         </h:panelGroup>
     
     </div>
@@ -45,7 +43,8 @@
         		<div class="ui-grid-row">
         			<div class="ui-grid-col-10" style="margin-left: 2em;">
         				<h:outputText value="#{item.titulo}" styleClass="ui-grid-row txtMediano" style="margin-bottom: .5em;"/>
-						<h:outputText value="#{item.centro} ( #{item.nombreMunicipio} )" styleClass="ui-grid-row" style="margin-bottom: .5em; color: #727272;"/>
+						<h:outputText value="#{item.centro} ( #{item.nombreMunicipio} )" rendered="#{not empty item.nombreMunicipio}" styleClass="ui-grid-row" style="margin-bottom: .5em; color: #727272;"/>
+						<h:outputText value="#{item.centro}" rendered="#{empty item.nombreMunicipio}" styleClass="ui-grid-row" style="margin-bottom: .5em; color: #727272;"/>						
    						<h:outputText value="#{item.infoAdicional}" rendered="#{not empty cvFormacion.infoAdicional}" styleClass="ui-grid-row" style="color: #727272;"/>
         			</div>
         			<div class="ui-grid-col-2">
@@ -54,7 +53,7 @@
 										 oncomplete="preShowDlg('wv_dlgFormacion')"										   
 										 styleClass="btnEdit"/>				        			
 						<p:commandButton icon="fa fa-minus-circle" value="Borrar" title="Eliminar bloque" 
-										 actionListener="#{cvFormacion.eliminarBloque(item)}" update="cvForm:cvCenterPnl"  
+										 actionListener="#{cvFormacion.eliminarBloque(item)}" update=":cvCenterPnl"  
 										 styleClass="btnDel"/>				
         			</div>
         		</div>

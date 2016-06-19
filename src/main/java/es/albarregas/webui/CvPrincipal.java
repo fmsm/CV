@@ -18,6 +18,9 @@ public class CvPrincipal implements java.io.Serializable {
 	private String apellidos;
 	private String email;
 	
+	//="cv" / ="expediente"
+	private String mnuOpcionSeleccionada;
+	
 	private final String TITULOMENU = "PANEL DEL ALUMNO";  
 		
 	@Inject
@@ -35,6 +38,8 @@ public class CvPrincipal implements java.io.Serializable {
 	public void init() {
 		
 		System.out.println("CvPrincipal.init() (@PostConstruct)");
+		
+		this.setMnuOpcionSeleccionada("cv");
 		
 		//cargar nombre/apellidos/email de la sesion actual
 		this.nombre = UtilSesion.getSessionNombre();
@@ -77,6 +82,13 @@ public class CvPrincipal implements java.io.Serializable {
 		return cdiCvOtros.isTieneDatos();
 	}		
 	
+	public void cv() {
+		this.mnuOpcionSeleccionada = "cv";
+	}
+	
+	public void expediente() {
+		this.mnuOpcionSeleccionada = "expediente";
+	}
 	
 	/**
 	 * Cierra la sesion actual, cuando se pulsa en la opción correspondiente del menu de 'cv/content.xhtml'
@@ -105,12 +117,14 @@ public class CvPrincipal implements java.io.Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-
 	public String getTITULOMENU() {
 		return TITULOMENU;
 	}
-
-
+	public String getMnuOpcionSeleccionada() {
+		return mnuOpcionSeleccionada;
+	}
+	public void setMnuOpcionSeleccionada(String mnuOpcionSeleccionada) {
+		this.mnuOpcionSeleccionada = mnuOpcionSeleccionada;
+	}
 	
 }//CLASS

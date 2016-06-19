@@ -15,7 +15,7 @@ function showDlg(idDlg) {
 
 function preShowDlg(wv) {
 	//si el usuario no hay introducido 'datos personales' no se permite introducción de datos de ninguna de las otras 'categorias'
-	if ( $("#cvForm\\:nombreAlumno").text() === '') {
+	if ( $("#nombreAlumno").text() === '') {
 		PF('wv_dlgFaltanDatos').show();
 	} else {
 		PF( wv ).show();

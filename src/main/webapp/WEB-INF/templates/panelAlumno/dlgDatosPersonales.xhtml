@@ -1,7 +1,3 @@
-<!-- FALTA: manejar mensajes de error para la opcion de subir foto (tamaño, extension, etc)  -->
-<!-- FALTA: locale en el p:calendar  -->
-<!-- FALTA: (SOLO TENER EN CUENTA EL DNI/NIF) concretar/definir lo de los multiples tipos de identificacion posibles -->
-<!-- FALTA: (OPCIONAL) que la pagina sobre la que esta el dialogo no haga scroll cuando se hace scroll en el dialogo -->
 
 <ui:composition 
 	xmlns="http://www.w3.org/1999/xhtml"
@@ -58,16 +54,16 @@
 				<div class="ui-grid-col-5 bloqueBtnAceptarCancelar">
 
 						<p:commandButton id="btnAceptar" value="Aceptar" actionListener="#{cvDatosPer.aceptar}" 
-										 process=":datosPersonales" update=":datosPersonales, cvForm:cvCenterPnlDatosPersonales, cvForm:cvMenuFotoUsuario"										 
+										 process=":datosPersonales" update="datosPersonales, cvCenterPnlDatosPersonales, cvForm:cvMenuFotoUsuario"										 
 										 styleClass="btnAceptar" icon="fa fa-check" style="margin-bottom: 1em;"/>
 										 
 						<p:commandButton id="btnCancelar" value="Cancelar" actionListener="#{cvDatosPer.reset}" immediate="true"
-										 update=":datosPersonales"
+										 update="datosPersonales"
 										 oncomplete="hideDlg('#dlgDatosPersonales', 'wv_dlgDatosPersonales')"										  
 										 styleClass="btnCancelar" icon="fa fa-ban" style="margin-bottom: 1em;"/>
 										 
 						<p:commandButton id="btnRestablecer" value="Restablecer" actionListener="#{cvDatosPer.reset}" immediate="true"
-										 styleClass="btnRestablecer" icon="fa fa-undo" update=":datosPersonales" />
+										 styleClass="btnRestablecer" icon="fa fa-undo" update="datosPersonales" />
 									 				
 				</div>
 				<!-- BOTONES PARA ACEPTAR/CANCELAR    -->
@@ -157,8 +153,9 @@
        			
        			<h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
        			
-				<!-- problemático, validar dni o nif o nie o pasaporte, segun nos venga del campo anterior -->
-				<!-- de momento solo valida el dni/nif: que tenga formato 8 numeros 1 letra; no si la letra es correcta segun los números-->
+				<!-- problemático, validar dni/nif o nie o pasaporte, segun nos venga del campo anterior, no se como validar pasaporte -->
+				<!-- para que sea más facil hacer pruebas solo valida el dni/nif: formato 8 numeros 1 letra; no si la letra es correcta segun los números, 
+					 aunque el validador esta implementado -->
        			
 				<p:inputText id="identificacion" value="#{cvDatosPer.identificacion}"
 							 required="true" requiredMessage="#{msg['error.required']}" validatorMessage="#{msg['error.formato']}" 
@@ -178,7 +175,7 @@
 			
 			<!-- Nacionalidad/es -->				
 		    <div class="ui-grid-row" style="margin-bottom: .5em;">
-		    	<p:outputLabel for="nacionalidad" value="Nacionalidad/es" styleClass="ui-grid-col-5"/>
+		    	<p:outputLabel for="nacionalidad" value="Nacionalidad/es  (admite múltiples valores)" styleClass="ui-grid-col-5"/>
 			</div>
 
 		    <div class="ui-grid-row">
@@ -186,7 +183,7 @@
 		        				completeMethod="#{cvDatosPer.acPais}" var="item" itemLabel="#{item.pais}" itemValue="#{item}" forceSelection="true" converter="paisConversor"
 		                        minQueryLength="3" maxResults="15" queryDelay="500" cache="true" emptyMessage="No se encontraron sugerencias"
 		                        required="true" requiredMessage="#{msg['error.required']}" validatorMessage="#{msg['error.formato']}"
-		                        styleClass="ui-grid-col-5"/>
+		                        styleClass="ui-grid-col-12"/>
 			</div>
 
 		    <div class="ui-grid-row" style="margin-bottom: 1em;">
@@ -217,6 +214,7 @@
                      		 process="@this" 
                      		 update="datosPersonales:cp, datosPersonales:poblacion, datosPersonales:provincia, datosPersonales:msgCP, datosPersonales:msgCpMsg"  />                            
                      <pe:keyFilter regEx="/[0-9]/"/>
+                     <f:validateLength minimum="5" maximum="5"/>
                  </p:inputText>
 		    	
 		    	 <h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->

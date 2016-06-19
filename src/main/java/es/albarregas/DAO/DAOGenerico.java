@@ -1,5 +1,7 @@
 package es.albarregas.DAO;
 
+import java.util.List;
+
 public class DAOGenerico<T> extends HibernateUtil {
 	
 	private String mensajeError = "";
@@ -36,6 +38,44 @@ public class DAOGenerico<T> extends HibernateUtil {
         System.out.println(mensaje);
         
 	}//save	
+	
+	
+	public void saveAll(List<T> entidades) {
+        
+		String mensaje = "[INFO - ACCESSO BD] .saveAll " + entidades.getClass();
+		
+        super.openSession();
+        
+        try {
+            super.transaccion = super.sesion.beginTransaction();
+            
+            for (T entidad: entidades) {
+            	super.sesion.save(entidad);
+            }//for
+            
+            //super.sesion.flush();
+            super.transaccion.commit();
+                        
+        } catch (org.hibernate.exception.GenericJDBCException sqlE) {
+            super.transaccion.rollback();
+            
+            this.setMensajeError(sqlE.getMessage());
+            mensaje = "[ERROR - es.albarregas.dao.DAOGenerico.java] Fallo en método .saveAll()\n" + sqlE;
+
+        } catch (Exception e) {
+            super.transaccion.rollback();
+            
+            this.setMensajeError(e.getMessage());
+            mensaje = "[ERROR - es.albarregas.dao.DAOGenerico.java] Fallo en método .saveAll()\n" + e;
+            
+        } finally {
+            super.closeSession();
+        }
+		
+        System.out.println(mensaje);
+        
+	}//save	
+	
 	
 	
 	public void update(T entidad) {

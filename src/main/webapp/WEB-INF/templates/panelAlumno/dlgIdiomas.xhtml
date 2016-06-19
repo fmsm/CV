@@ -145,16 +145,16 @@
 				<div class="ui-grid-col-5 bloqueBtnAceptarCancelar">
 
 						<p:commandButton id="btnAceptar" value="Aceptar" actionListener="#{cvIdiomas.aceptar}" 
-										 process=":datosIdiomas" update=":datosIdiomas, cvForm:cvCenterPnlIdiomas"										 
-										 style="margin-bottom: 1em;"/>
+										 process=":datosIdiomas" update=":datosIdiomas, :cvCenterPnlIdiomas"										 
+										 styleClass="btnAceptar" icon="fa fa-check" style="margin-bottom: 1em;"/>
 										 
 						<p:commandButton id="btnCancelar" value="Cancelar" actionListener="#{cvIdiomas.reset}" immediate="true"
 										 update=":datosIdiomas"
 										 oncomplete="hideDlg('#dlgIdiomas', 'wv_dlgIdiomas')"										  
-										 style="margin-bottom: 1em;"/>
+										 styleClass="btnCancelar" icon="fa fa-ban" style="margin-bottom: 1em;"/>
 										 
 						<p:commandButton id="btnRestablecer" value="Restablecer" actionListener="#{cvIdiomas.reset}" immediate="true"
-										 update=":datosIdiomas" />
+										 styleClass="btnRestablecer" icon="fa fa-undo" update=":datosIdiomas" />
 									 				
 				</div>
 				<!-- BOTONES PARA ACEPTAR/CANCELAR    -->

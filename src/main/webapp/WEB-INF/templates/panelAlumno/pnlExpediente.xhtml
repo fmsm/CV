@@ -1,0 +1,83 @@
+
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<h:form id="expedienteForm">
+	
+	<div class="ui-grid-row">
+		
+		<!-- PARTE CENTRAL : IZQUIERDA (label expediente) -->	
+        <div class="ui-grid-col-3 txtRight">						        
+        	<h:outputText value="EXPEDIENTE" styleClass="txtGrande colorPrimary"/>						        																        	
+        </div>
+
+		<!-- PARTE CENTRAL : CENTRO (seleccion de ciclo y lista de modulos) -->
+		<h:panelGroup layout="block" styleClass="ui-grid-col-6" style="margin-left: .5em; border-left: 1px dotted #009688;">
+		
+   			<h:panelGroup layout="block" styleClass="ui-grid-row" style="margin-left: 2em; margin-bottom: .5em;">  
+   				<p:outputLabel for="ciclo" value="Ciclo" styleClass="ui-grid-col-12 txtBold"/>     			
+   			</h:panelGroup>
+	
+		    <h:panelGroup layout="block" styleClass="ui-grid-row" style="margin-left: 2em; margin-bottom: 2em;">
+				
+				<p:selectOneMenu id="ciclo" effect="fold" value="#{expediente.cicloSeleccionado}"
+								 required="true" requiredMessage="#{msg['error.required']}" 
+								 styleClass="ui-grid-col-12">
+		            <f:selectItem itemLabel="elige un ciclo" itemValue=" " />
+		            <f:selectItems value="#{expediente.listaCiclos}" />
+		            		            				
+		            <p:ajax event="change" listener="#{expediente.seleccionCiclo}" 
+		            		process="expedienteForm:ciclo" update="expedienteForm:modulos,expedienteForm:btnAceptar" 
+		            		oncomplete="$('.inputNota input').val(' ')"/>            						
+				</p:selectOneMenu>
+				
+			</h:panelGroup>
+       			
+       			
+   			<h:panelGroup id="modulos">
+       			
+   				<h:panelGroup id="lblModulos" layout="block" rendered="#{not empty expediente.listaNotasAlumno}" styleClass="ui-grid-row" 
+   							  style="margin-left: 2em; margin-bottom: 1em;">  
+ 					<p:outputLabel value="Modulos del Ciclo Seleccionado" styleClass="ui-grid-col-12 txtBold" style="border-bottom: 1px dotted #009688;"/> 
+   				</h:panelGroup>
+   				   					
+				<p:dataList id="dtlModulos" value="#{expediente.listaNotasAlumno}" var="item" type="none" 
+							rendered="#{not empty expediente.listaNotasAlumno}" styleClass="noBorder">
+					
+					<div class="ui-grid-row">
+						<h:outputText value="#{item.modulo.nombre}" styleClass="ui-grid-col-11" style="margin-left: 2em;"/>
+						<p:inputNumber value="#{item.notaModulo}" minValue="0" maxValue="10" decimalPlaces="0" size="2"
+									   required="true" requiredMessage="#{msg['error.required']}" 
+									   styleClass="ui-grid-col-1 inputNota" style="margin-bottom: .5em; margin-left: 2em;"/>
+					</div>
+					
+				</p:dataList>
+					
+   			</h:panelGroup>
+   				
+		</h:panelGroup>
+		
+		<!-- PARTE CENTRAL : DERECHA (botones) -->		
+		<h:panelGroup layout="block" styleClass="ui-grid-col-3" style="margin-top: 1.5em;">
+
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-8 alinearDerecha">
+					<p:commandButton id="btnAceptar" value="Aceptar" disabled="#{empty expediente.cicloSeleccionado}" 
+									 actionListener="#{expediente.aceptar}" 
+									 process="@form" update="@form"										 
+									 style="margin-bottom: 1em;"/>
+				</div>									 
+			</div>
+		
+		</h:panelGroup>
+    
+    </div>
+
+	</h:form>
+					
+</ui:composition>	

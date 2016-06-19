@@ -160,7 +160,7 @@ button.ui-button.ui-state-default.btnEdit {
 
 /* DIALOGOS */
 
-button.ui-button.btnAceptar { background: #536DFE; border: none;}
+button.ui-button.btnAceptar { background: #00796B; Bborder: none;}
 button.ui-button.btnCancelar { background: #009688; border:none;}
 button.ui-button.btnRestablecer { background: #727272; border: none; }
 
@@ -169,6 +169,12 @@ button.ui-button.btnRestablecer { background: #727272; border: none; }
 .ui-button.btnRestablecer .ui-icon { overflow: visible;}
 
 /* no soy capaz de ponerle estilos al hover por css */
+
+/* para los radioButton de #dlgDatosPersonales, cuando estan seleccionados, si no salen con el color por defecto del tema de primefaces */
+#dlgDatosPersonales .ui-radiobutton-box.ui-state-active {background: #009688; border-color: #009688;}
+
+/* igual que lo de antes pero para los checkbox de #dlgOtros*/
+#dlgOtros .ui-chkbox-box.ui-state-active {background: #009688; border-color: #009688;}
 
 #dlgDatosPersonales .ui-dialog-titlebar,
 #dlgFormacion .ui-dialog-titlebar, 
@@ -208,7 +214,7 @@ venta del navegador */
 #dlgDatosPersonales .ui-autocomplete-multiple-container.ui-inputfield { width: 100%;}
 
 /* estilos para el componente fileupload*/
-.ui-fileupload.btnElegirFoto .ui-button{ background: #536DFE; border: none;} 
+.ui-fileupload.btnElegirFoto .ui-button{ background: #00796B; border: none;} 
 #datosPersonales .ui-fileupload-content {display: none;}
 #datosPersonales .ui-fileupload-buttonbar { padding: 0; border: none;}
 #datosPersonales .ui-fileupload-buttonbar .ui-button { margin-right: 0;}
@@ -252,3 +258,9 @@ venta del navegador */
 #dlgExperiencia .ui-message-error-detail
 #dlgIdiomas .ui-message-error-detail,
 #dlgOtros .ui-message-error-detail { margin: 0};
+
+/* EXPEDIENTE */
+
+/* no se muy bien porque, pero si no estan las dos reglas no funciona correctamente */
+.inputNota .ui-inputfield {text-align: right;}
+.ui-inputnumber>.ui-inputtext {text-align: right;}

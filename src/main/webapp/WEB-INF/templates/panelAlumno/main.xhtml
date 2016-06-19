@@ -1,0 +1,52 @@
+
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"	
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
+	    	
+	<!-- RESTO DE LA PÁGINA / PARTE PRINCIPAL O CENTRAL -->	        	        
+     <div class="ui-grid-col-10 layoutCenter bgCenterColor">
+     					
+		<p:panel id="cvCenterPnl" styleClass="cvCenterPnl bgCenterColor noBorder">
+	
+			<p:panel id="cvCenterPnlDatosPersonales" styleClass="pnlDatosPersonales" rendered="#{cvPrincipal.mnuOpcionSeleccionada eq 'cv'}">						
+				<ui:include src="/WEB-INF/templates/panelAlumno/pnlDatosPersonales.xhtml"/>
+			</p:panel>						
+		
+							
+			<p:panel id="cvCenterPnlFormacion" styleClass="pnlDatosEstudios" rendered="#{cvPrincipal.mnuOpcionSeleccionada eq 'cv'}">						
+				<ui:include src="/WEB-INF/templates/panelAlumno/pnlFormacion.xhtml"/>						
+			</p:panel>
+			
+			
+			<p:panel id="cvCenterPnlExperiencia" styleClass="pnlDatosExperiencia" rendered="#{cvPrincipal.mnuOpcionSeleccionada eq 'cv'}">				
+				<ui:include src="/WEB-INF/templates/panelAlumno/pnlExperiencia.xhtml"/>
+			</p:panel>					
+									   			
+		
+			<p:panel id="cvCenterPnlIdiomas" styleClass="pnlDatosIdiomas" rendered="#{cvPrincipal.mnuOpcionSeleccionada eq 'cv'}">
+				<ui:include src="/WEB-INF/templates/panelAlumno/pnlIdiomas.xhtml"/>
+			</p:panel>
+			
+									   			
+			<p:panel id="cvCenterPnlOtros" styleClass="pnlDatosOtros dottedBorder" rendered="#{cvPrincipal.mnuOpcionSeleccionada eq 'cv'}">
+				<ui:include src="/WEB-INF/templates/panelAlumno/pnlOtros.xhtml"/>
+			</p:panel>
+			
+			
+			<p:panel id="pnlExpediente" styleClass="pnlDatosPersonales dottedBorder" rendered="#{cvPrincipal.mnuOpcionSeleccionada eq 'expediente'}">
+				<ui:include src="/WEB-INF/templates/panelAlumno/pnlExpediente.xhtml"/>
+			</p:panel>
+			
+		</p:panel> 
+		<!-- FIN cvCenterPnl -->
+				 	        	
+     </div>
+     <!-- FIN Div "Resto de la página"  -->
+
+
+</ui:composition>	

@@ -45,7 +45,7 @@ public class Inicio implements java.io.Serializable {
         
         if (!session.isNew() && session.getAttribute("login") != null ) {
         	try {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("cv.xhtml");
+				FacesContext.getCurrentInstance().getExternalContext().redirect("panelAlumno.xhtml");
 			} catch (IOException e) {				
 				e.printStackTrace();
 			}

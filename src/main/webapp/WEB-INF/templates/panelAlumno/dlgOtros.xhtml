@@ -77,16 +77,16 @@
 				<div class="ui-grid-col-5 bloqueBtnAceptarCancelar">
 
 						<p:commandButton id="btnAceptar" value="Aceptar" actionListener="#{cvOtros.aceptar}" 
-										 process=":datosOtros" update=":datosOtros, cvForm:cvCenterPnlOtros"										 
-										 style="margin-bottom: 1em;"/>
+										 process=":datosOtros" update=":datosOtros, :cvCenterPnlOtros"										 
+										 styleClass="btnAceptar" icon="fa fa-check" style="margin-bottom: 1em;"/>
 										 
 						<p:commandButton id="btnCancelar" value="Cancelar" actionListener="#{cvOtros.reset}" immediate="true"
 										 update=":datosOtros"
 										 oncomplete="hideDlg('#dlgOtros', 'wv_dlgOtros')"										  
-										 style="margin-bottom: 1em;"/>
+										 styleClass="btnCancelar" icon="fa fa-ban" style="margin-bottom: 1em;"/>
 										 
 						<p:commandButton id="btnRestablecer" value="Restablecer" actionListener="#{cvOtros.reset}" immediate="true"
-										 update=":datosOtros" />
+										 styleClass="btnRestablecer" icon="fa fa-undo" update=":datosOtros" />
 									 				
 				</div>
 				<!-- BOTONES PARA ACEPTAR/CANCELAR    -->

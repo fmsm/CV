@@ -8,34 +8,52 @@
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
 	<f:facet name="header">
-		<p:commandLink actionListener="#{cvExperiencia.reset}" oncomplete="hideDlg('#dlgExperiencia', 'wv_dlgExperiencia')" 
-					   update=":datosExperiencia">
+		<p:commandLink actionListener="#{cvFormacion.reset}" oncomplete="hideDlg('#dlgFormacion', 'wv_dlgFormacion')" 
+					   update=":datosFormacion">
 			<i class="fa fa-times-circle-o fa-3x"/>
 		</p:commandLink>
-		<h:outputText value="Experiencia Laboral" styleClass="txtGrande" style="margin-left: 2em;"/>
+		<h:outputText value="Formación Académica" styleClass="txtGrande" style="margin-left: 2em;"/>
 	</f:facet>			  
 	    
     <p:separator/>
 	    
 	<div class="ui-grid ui-grid-responsive">
 	
-		<h:form id="datosExperiencia">
-		
+		<h:form id="datosFormacion">
+
 			<div class="ui-grid-row" style="margin-bottom: 1em;">
 				
 				<div class="ui-grid-col-5">
 				
-				<!-- DATOS DATOS DATOS -->
+					<!-- DATOS DATOS DATOS -->
 				
-				
-					<!-- Puesto -->		
+					<!-- Titulo -->		
 				    <div class="ui-grid-row" style="margin-bottom: .5em;">
-						<p:outputLabel for="puesto" value="Puesto" styleClass="ui-grid-col-12"/>
+						<p:outputLabel for="titulo" value="Titulo Obtenido" styleClass="ui-grid-col-12"/>
 					</div>
 		
 				    <div class="ui-grid-row">
-						<p:inputText id="puesto" value="#{cvExperiencia.puesto}"								  
-									 placeholder="Programador Java" 
+						<p:inputText id="titulo" value="#{cvFormacion.titulo}"								  
+									 placeholder="Técnico superior en Desarrollo de Aplicaciones Web" 
+									 required="true" requiredMessage="#{msg['error.required']}" validatorMessage="#{msg['error.formato']}"
+									 styleClass="ui-grid-col-12">
+							<f:validateLength maximum="90"/>						
+						</p:inputText>
+					</div>
+		
+				    <div class="ui-grid-row" style="margin-bottom: 1em;">			    	
+						<div class="ui-grid-col-12"><p:message for="titulo" display="text"/></div>
+					</div>
+				
+				
+					<!-- Centro -->		
+				    <div class="ui-grid-row" style="margin-bottom: .5em;">
+						<p:outputLabel for="centro" value="Centro" styleClass="ui-grid-col-12"/>
+					</div>
+		
+				    <div class="ui-grid-row">
+						<p:inputText id="centro" value="#{cvFormacion.centro}"								  
+									 placeholder="IES Albarregas" 
 									 required="true" requiredMessage="#{msg['error.required']}" validatorMessage="#{msg['error.formato']}"
 									 styleClass="ui-grid-col-12">
 							<f:validateLength maximum="60"/>						
@@ -43,55 +61,17 @@
 					</div>
 		
 				    <div class="ui-grid-row" style="margin-bottom: 1em;">			    	
-						<div class="ui-grid-col-12"><p:message for="puesto" display="text"/></div>
+						<div class="ui-grid-col-12"><p:message for="centro" display="text"/></div>
 					</div>				
-				
-				
-					<!-- Empresa -->		
-				    <div class="ui-grid-row" style="margin-bottom: .5em;">
-						<p:outputLabel for="empresa" value="Empresa" styleClass="ui-grid-col-12"/>
-					</div>
-		
-				    <div class="ui-grid-row">
-						<p:inputText id="empresa" value="#{cvExperiencia.empresa}"								  
-									 placeholder="GPEX" 
-									 required="true" requiredMessage="#{msg['error.required']}" validatorMessage="#{msg['error.formato']}"
-									 styleClass="ui-grid-col-12">
-							<f:validateLength maximum="60"/>						
-						</p:inputText>
-					</div>
-		
-				    <div class="ui-grid-row" style="margin-bottom: 1em;">			    	
-						<div class="ui-grid-col-12"><p:message for="empresa" display="text"/></div>
-					</div>				
-				
 					
-					<!-- Sector -->		
-				    <div class="ui-grid-row" style="margin-bottom: .5em;">
-						<p:outputLabel for="sector" value="Sector" styleClass="ui-grid-col-12"/>
-					</div>
-		
-				    <div class="ui-grid-row">
-						<p:inputText id="sector" value="#{cvExperiencia.sector}"								  
-									 placeholder="Desarrollo de Software" 
-									 validatorMessage="#{msg['error.formato']}"
-									 styleClass="ui-grid-col-12">
-							<f:validateLength maximum="60"/>						
-						</p:inputText>
-					</div>
-		
-				    <div class="ui-grid-row" style="margin-bottom: 1em;">			    	
-						<div class="ui-grid-col-12"><p:message for="sector" display="text"/></div>
-					</div>					
-				
-
+					
 					<!-- Municipio -->		
 				    <div class="ui-grid-row" style="margin-bottom: .5em;">
 						<p:outputLabel for="municipio" value="Municipio" styleClass="ui-grid-col-12"/>
 					</div>
 		
 				    <div class="ui-grid-row">
-						<p:inputText id="municipio" value="#{cvExperiencia.municipio}"								  
+						<p:inputText id="municipio" value="#{cvFormacion.municipio}"								  
 									 placeholder="Mérida" 
 									 validatorMessage="#{msg['error.formato']}"
 									 styleClass="ui-grid-col-12">
@@ -110,7 +90,7 @@
 					</div>
 		
 				    <div class="ui-grid-row">
-						<p:inputText id="inicioMes" value="#{cvExperiencia.inicioMes}" placeholder="11" maxlength="2"
+						<p:inputText id="inicioMes" value="#{cvFormacion.inicioMes}" placeholder="11" maxlength="2"
 									 required="true" requiredMessage="#{msg['error.required']}" validatorMessage="#{msg['error.formato']}" 
 									 styleClass="ui-grid-col-3">
 							 <f:validateLongRange minimum="1" maximum="12"/>									 
@@ -120,7 +100,7 @@
 										                      		    
 			    	 	<h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
 
-						<p:inputText id="inicioAnno" value="#{cvExperiencia.inicioAnno}" placeholder="2015" maxlength="4" 
+						<p:inputText id="inicioAnno" value="#{cvFormacion.inicioAnno}" placeholder="2015" maxlength="4" 
 									 required="true" requiredMessage="#{msg['error.required']}" validatorMessage="#{msg['error.formato']}" 
 									 styleClass="ui-grid-col-3" >
 							 <f:validateLongRange minimum="1990" maximum="2016"/>									 
@@ -141,7 +121,7 @@
 					</div>
 		
 				    <div class="ui-grid-row">
-						<p:inputText id="finMes" value="#{cvExperiencia.finMes}" placeholder="11" maxlength="2" widgetVar="wvFinMes"
+						<p:inputText id="finMes" value="#{cvFormacion.finMes}" placeholder="11" maxlength="2" widgetVar="wvFinMes"
 									 required="true" requiredMessage="#{msg['error.required']}" validatorMessage="#{msg['error.formato']}" 
 									 styleClass="ui-grid-col-3">
 							 <f:validateLongRange minimum="1" maximum="12"/>
@@ -151,7 +131,7 @@
 										                      		    
 			    	 	<h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
 
-						<p:inputText id="finAnno" value="#{cvExperiencia.finAnno}" placeholder="2015" maxlength="4" widgetVar="wvFinAnno" 
+						<p:inputText id="finAnno" value="#{cvFormacion.finAnno}" placeholder="2015" maxlength="4" widgetVar="wvFinAnno" 
 									 required="true" requiredMessage="#{msg['error.required']}" validatorMessage="#{msg['error.formato']}" 
 									 styleClass="ui-grid-col-3" >
 							 <f:validateLongRange minimum="1990" maximum="2016"/>									 
@@ -168,26 +148,25 @@
 
 					<!-- Actualmente -->
 				    <div class="ui-grid-row" style="margin-bottom: 1em;">
-						<p:selectBooleanCheckbox id="actualmente" value="#{cvExperiencia.actualmente}" widgetVar="wvActualmente" onchange="toggleFechaFin()"/>
+						<p:selectBooleanCheckbox id="actualmente" value="#{cvFormacion.actualmente}" widgetVar="wvActualmente" onchange="toggleFechaFin()"/>
 						<p:outputLabel for="actualmente" value="Cursando actualmente" style="margin-left: .5em;"/>
 					</div>
 					
 					<!-- Informacion Adicional -->
-				    <div class="ui-grid-row" style="margin-bottom: .5em;">
-						<p:outputLabel for="infoAdicional" value="Información Adicional" styleClass="ui-grid-col-12"/>
-					</div>
+<!-- 				    <div class="ui-grid-row" style="margin-bottom: .5em;"> -->
+<!-- 						<p:outputLabel for="infoAdicional" value="Información Adicional" styleClass="ui-grid-col-12"/> -->
+<!-- 					</div> -->
 		
-				    <div class="ui-grid-row">
-						<p:inputTextarea id="infoAdicional" value="#{cvExperiencia.infoAdicional}" maxlength="500" autoResize="true" disabled="true" 									 	 
-									 	 styleClass="ui-grid-col-12"/>									 				    
-					</div>
+<!-- 				    <div class="ui-grid-row"> -->
+<!-- 						<p:inputTextarea id="infoAdicional" value="#{cvFormacion.infoAdicional}" maxlength="500" autoResize="true" disabled="true"									 	  -->
+<!-- 									 	 styleClass="ui-grid-col-12"/>									 				     -->
+<!-- 					</div> -->
 		
-				    <div class="ui-grid-row" style="margin-bottom: 1em;">			    	
-						<div class="ui-grid-col-12"><p:message for="infoAdicional" display="text"/></div>
-					</div>					
+<!-- 				    <div class="ui-grid-row" style="margin-bottom: 1em;">			    	 -->
+<!-- 						<div class="ui-grid-col-12"><p:message for="infoAdicional" display="text"/></div> -->
+<!-- 					</div>					 -->
 				
-				
-				<!-- DATOS DATOS DATOS -->
+					<!-- DATOS DATOS DATOS -->				
 				
 				</div>				
 				
@@ -197,17 +176,17 @@
 				<!-- ******************************** -->								
 				<div class="ui-grid-col-5 bloqueBtnAceptarCancelar">
 
-						<p:commandButton id="btnAceptar" value="Aceptar" actionListener="#{cvExperiencia.aceptar}" 
-										 process=":datosExperiencia" update=":datosExperiencia, cvForm:cvCenterPnlExperiencia"										 
-										 style="margin-bottom: 1em;"/>
+						<p:commandButton id="btnAceptar" value="Aceptar" actionListener="#{cvFormacion.aceptar}" 
+										 process=":datosFormacion" update=":datosFormacion, :cvCenterPnlFormacion"										 
+										 styleClass="btnAceptar" icon="fa fa-check" style="margin-bottom: 1em;"/>
 										 
-						<p:commandButton id="btnCancelar" value="Cancelar" actionListener="#{cvExperiencia.reset}" immediate="true"
-										 update=":datosExperiencia"
-										 oncomplete="hideDlg('#dlgExperiencia', 'wv_dlgExperiencia')"										  
-										 style="margin-bottom: 1em;"/>
+						<p:commandButton id="btnCancelar" value="Cancelar" actionListener="#{cvFormacion.reset}" immediate="true"
+										 update=":datosFormacion"
+										 oncomplete="hideDlg('#dlgFormacion', 'wv_dlgFormacion')"										  
+										 styleClass="btnCancelar" icon="fa fa-ban" style="margin-bottom: 1em;"/>
 										 
-						<p:commandButton id="btnRestablecer" value="Restablecer" actionListener="#{cvExperiencia.reset}" immediate="true"
-										 update=":datosExperiencia" />
+						<p:commandButton id="btnRestablecer" value="Restablecer" actionListener="#{cvFormacion.reset}" immediate="true"
+										 styleClass="btnRestablecer" icon="fa fa-undo" update=":datosFormacion" />
 									 				
 				</div>
 				<!-- BOTONES PARA ACEPTAR/CANCELAR    -->

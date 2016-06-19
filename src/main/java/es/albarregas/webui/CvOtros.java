@@ -103,7 +103,7 @@ public class CvOtros implements java.io.Serializable {
 	}//init
 	
 	
-	/**
+	/*
 	 * Método para grabar los datos introducidos en el dialogo en la BD.
 	 * Hay que tener en cuenta que por aqui va a pasar tanto cuando se añaden datos por primera vez, como cuando se pulsa sobre el botón
 	 * para editar/cambiar datos ya existentes.
