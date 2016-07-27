@@ -3,108 +3,118 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:pe="http://primefaces.org/ui/extensions">
+	xmlns:p="http://primefaces.org/ui">
 		
 	<h:form id="contentForm">
 	
 	<!-- con ese for parece ser que solo deberia mostrar los mensajes que se le manden con '....addMessage("mensajeGrowl",...' -->	
 	<p:growl id="growl" for="mensajeGrowl"/>
 		
-	<div class="ui-grid ui-grid-responsive">
-	
-	    <div class="ui-grid-row"> 
-	    	    
-	        <div class="ui-grid-col-12 txtCenter">					
-				<p:graphicImage name="/imagenes/logo.png" styleClass="logoRegistro"/> 	        	
-	        </div>
-	    
-	    </div>    
-			
-		<div class="ui-grid-row">
+	<div class="ui-grid ui-grid-responsive backgroundImage">
+
+		<!-- este id se usa (en layoutSignUp.xhtml) -->		
+		<div id="contenedor" class="ui-grid-row">
 		        	        		        		
 	        <div class="ui-grid-col-4" style="margin: auto;">
 	        									        							
-				<p:panel id="registroAluPnl" styleClass="pnlRegistro">
+				<p:panel id="registroAluPnl" styleClass="pnlIndex">
 				
-					<f:facet name="header">
-						<h:outputText value="#{msg['header.createAccAlu']}"/>
-					</f:facet>
-					
+<!-- 					<f:facet name="header"> -->
+<!-- 						<h:outputText value="#{msg['header.crearCuenta']}"/> -->
+<!-- 					</f:facet> -->
 																				
 					<div class="ui-grid-row">
- 						<p:outputLabel for="email" value="#{msg['msg.emailS']}" styleClass="ui-grid-col-6"/> 
-						<p:message for="email" display="text" styleClass="ui-grid-col-6"/>					
+ 						<p:outputLabel for="email" value="#{msg['msg.emailS']}" styleClass="ui-grid-col-12"/> 										
 					</div>
 					
 					<div class="ui-grid-row">					
 						<p:inputText id="email" value="#{registroAlumno.email}" required="true" requiredMessage="#{msg['error.required']}" validatorMessage="#{msg['error.formato']}" 
+									 onchange="limpiarErrorValidacion(this.id)"
 									 placeholder="#{msg['placeholder.email']}" styleClass="ui-grid-col-12">
 							<f:validateRegex pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$" />
 						</p:inputText>					
 					</div>
 					
+					<div class="ui-grid-row">
+						<div class="ui-grid-col-12"><p:message for="email" display="text"/></div> 										
+					</div>										
+					
 					
 					<div class="ui-grid-row">
-						<p:outputLabel for="password" value="#{msg['msg.password']}" styleClass="ui-grid-col-6"/>
-						<p:message for="password" display="text" styleClass="ui-grid-col-6"/>
+						<p:outputLabel for="password" value="#{msg['msg.password']}" styleClass="ui-grid-col-12"/>
 					</div>
 					
 					<div class="ui-grid-row">
 						<p:password id="password" value="#{registroAlumno.password}" required="true" requiredMessage="#{msg['error.required']}" 
+									onchange="limpiarErrorValidacion(this.id)"
 									match="passwordMatch" placeholder="#{msg['placeholder.password']}" styleClass="ui-grid-col-12">									
 							<f:validateLength minimum="6" maximum="16" />
-							<pe:keyFilter mask="alphanum"/>
+							<p:keyFilter mask="alphanum"/>
 						</p:password>
 					</div>
 
+					<div class="ui-grid-row">
+						<div class="ui-grid-col-12"><p:message for="password" display="text"/></div> 										
+					</div>										
+
 
 					<div class="ui-grid-row">
-						<p:outputLabel for="passwordMatch" value="#{msg['msg.passwordMatch']}" styleClass="ui-grid-col-6"/>
-						<p:message for="passwordMatch" display="text" styleClass="ui-grid-col-6"/>
+						<p:outputLabel for="passwordMatch" value="#{msg['msg.passwordMatch']}" styleClass="ui-grid-col-12"/>
 					</div>
 					
 					<div class="ui-grid-row">					
 						<p:password id="passwordMatch" value="#{registroAlumno.password}" required="true" requiredMessage="#{msg['error.required']}" 
+									onchange="limpiarErrorValidacion(this.id)"
 									placeholder="#{msg['placeholder.password']}" styleClass="ui-grid-col-12">
-							<pe:keyFilter mask="alphanum"/>							
+							<p:keyFilter mask="alphanum"/>							
 						</p:password>									
 					</div>
 
+					<div class="ui-grid-row">
+						<div class="ui-grid-col-12"><p:message for="password" display="text"/></div> 										
+					</div>										
+
 
 					<div class="ui-grid-row">
-						<p:outputLabel for="nombre" value="#{msg['msg.nombre']}" styleClass="ui-grid-col-6"/>
-						<p:message for="nombre" display="text" styleClass="ui-grid-col-6"/>
+						<p:outputLabel for="nombre" value="#{msg['msg.nombre']}" styleClass="ui-grid-col-12"/>
 					</div>
-					
-					
+										
 					<div class="ui-grid-row">					
 						<p:inputText id="nombre" value="#{registroAlumno.nombre}" required="true" requiredMessage="#{msg['error.required']}" validatorMessage="#{msg['error.formato']}" 
+									 onchange="limpiarErrorValidacion(this.id)"
 									 placeholder="#{msg['placeholder.name']}" styleClass="ui-grid-col-12">
 							<f:validateLength maximum="30" />						
 						</p:inputText>
 					</div>
 
+					<div class="ui-grid-row">
+						<div class="ui-grid-col-12"><p:message for="nombre" display="text"/></div> 										
+					</div>										
+
 
 					<div class="ui-grid-row">
-						<p:outputLabel for="apellidos"  value="#{msg['msg.apellidos']}" styleClass="ui-grid-col-6"/>
-						<p:message for="apellidos" display="text" styleClass="ui-grid-col-6"/>
+						<p:outputLabel for="apellidos"  value="#{msg['msg.apellidos']}" styleClass="ui-grid-col-12"/>
 					</div>
-					
+										
 					<div class="ui-grid-row">
 						<p:inputText id="apellidos" value="#{registroAlumno.apellidos}" required="true" requiredMessage="#{msg['error.required']}" validatorMessage="#{msg['error.formato']}"
+									 onchange="limpiarErrorValidacion(this.id)"
 									 placeholder="#{msg['placeholder.apellidos']}" styleClass="ui-grid-col-12">
 							<f:validateLength maximum="60" />															 
 						</p:inputText>
 					</div>
 					
+					<div class="ui-grid-row">
+						<div class="ui-grid-col-12"><p:message for="apellidos" display="text"/></div> 										
+					</div>										
+
 					
 					<!-- botones -->					            			            		
-					<div class="ui-grid-row pnlRegistroButtonPanel">
-						<p:button id="btnBack" outcome="index.xhtml" value="#{msg['btn.cancel']}" styleClass="ui-grid-col-6" />
+					<div class="ui-grid-row pnlIndexButtonPanel">
+						<p:button id="btnBack" outcome="index.xhtml" value="#{msg['btn.cancel']}" icon="fa fa-chevron-left" styleClass="ui-grid-col-6" />
 						<p:commandButton id="btnAceptar" value="#{msg['btn.ok']}" actionListener="#{registroAlumno.registro}" 
-										 process="@form" update="@form" oncomplete="confirmacion(xhr, status, args)" 
-										 styleClass="ui-grid-col-6" />
+										 process="@form" update="@form" oncomplete="confirmacion(args)" 
+										 icon="fa fa-chevron-right" iconPos="right" styleClass="ui-grid-col-6" />
 					</div>
 											   			
   				</p:panel>
@@ -118,17 +128,8 @@
 	</h:form>
 
 
-	<p:dialog header="#{msg['btn.cancel']}" modal="true" draggable="false" resizable="false" closable="false" widgetVar="dlg_wv">		    	    
-		<p:button value="#{msg['btn.continue']}" outcome="panelAlumno.xhtml" onclick="PF('dlg_wv').hide();" style="width:100%; margin-bottom: 10px;"/>
+	<p:dialog header="#{msg['headerDlg.registerOK']}" modal="true" draggable="false" resizable="false" closable="false" styleClass="loginOK" widgetVar="wv_dlgConfirmacion">		    	    
+		<p:button value="#{msg['btn.continue']}" outcome="panelAlumno.xhtml" onclick="PF('wv_dlgConfirmacion').hide();" style="width:100%; margin-bottom: 10px;"/>
 	</p:dialog>
-
-
-    <script type="text/javascript">
-        function confirmacion(xhr, status, args) {
-            if (args.loginCorrecto) {
-                PF('dlg_wv').show();
-            }
-        }
-    </script>
 		
 </ui:composition>	

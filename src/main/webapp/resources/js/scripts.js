@@ -1,6 +1,34 @@
 
-//funcion que se ejecutara cuando en "cv/content.xhtml" se pulse sobre alguno de los botones para añadir/editar datos
-//se encarga de la 'animación' de desplazamiento de derecha a izquierda
+function confirmacion(args) {
+    if (args.loginCorrecto) {
+        PF('wv_dlgConfirmacion').show();
+    }
+}
+
+function limpiarErrorValidacion(cosa) {
+	
+	var $errorCorrespondiente = $( PrimeFaces.escapeClientId( cosa ) ).parent().next();
+	var texto = $errorCorrespondiente.find('.ui-message-error-detail').text();
+
+	if ( texto !== '' && texto !== undefined ) { 
+		//console.log('eliminar');
+		$errorCorrespondiente.find('.ui-message-error-detail').remove();
+	}
+	
+}
+
+
+//Función para forzar que si el usuario no hay introducido 'Datos personales', no se permita la introducción de datos de ninguna de las otras 'categorias'.
+function preShowDlg(wv) {
+	if ( $("#nombreAlumno").text() === '') {
+		PF('wv_dlgFaltanDatos').show();
+	} else {
+		PF( wv ).show();
+	}
+}
+
+//Función que se ejecutará cuando en la pantalla del Panel del Alumno, se pulse sobre alguno de los botones para añadir/editar datos.
+//Y que se encarga de la 'animación' de desplazamiento de derecha a izquierda.
 function showDlg(idDlg) {
 		
 	var yBody = $('body').height();
@@ -13,17 +41,8 @@ function showDlg(idDlg) {
 }//showDlg()
 
 
-function preShowDlg(wv) {
-	//si el usuario no hay introducido 'datos personales' no se permite introducción de datos de ninguna de las otras 'categorias'
-	if ( $("#nombreAlumno").text() === '') {
-		PF('wv_dlgFaltanDatos').show();
-	} else {
-		PF( wv ).show();
-	}
-}
-
-//funcion que se ejecutara cuando en "cv/dlgXXX.xhtml" se pulse sobre el botón de cancelar o el link superior en forma de x para cerrar el dialogo
-//se encarga de la 'animación' de desplazamiento de izquierda a derecha
+//Función que se ejecutara cuando en cualquiera de los diálogos para la introducción de datos, se pulse sobre el botón de cancelar o el link superior en forma
+//de x para cerrar el dialogo. Y que se encarga de la 'animación' de desplazamiento de izquierda a derecha.
 function hideDlg(idDlg, widgetVar) {
 
 	var xBody = Math.floor( $('body').width() );
@@ -37,7 +56,7 @@ function hideDlg(idDlg, widgetVar) {
 }//hideDlg()
 
 
-//funcion para establecer como activado/desactivato los inputs de fecha de finalización en el diálogo para añadir datos de Formacion ("cv/dlgFormacion.xhtml")
+//Función para establecer como activados/desactivados, los inputs de fecha de finalización en los diálogos para añadir Datos de Formacion o de Experiencia Laboral
 function toggleFechaFin() {
 	
 	if ( PF('wvActualmente').isChecked() ) {
@@ -51,6 +70,8 @@ function toggleFechaFin() {
 	}
 	
 }
+
+
 
 //TRAS LOS ULTIMOS CAMBIOS ESTA FUNCION YA NO SE USA, PERO NO BORRAR POR SI ACASO
 //funcion para establecer como desactivado/activado el input de "identificación", 
@@ -66,5 +87,3 @@ function tipoIdentificacion() {
 		PF('wvInputIdentificacion').disable();		
 	}
 }//tipoIdentificacion		
-
-	

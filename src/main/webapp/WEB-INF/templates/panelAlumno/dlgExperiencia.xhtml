@@ -4,8 +4,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:pe="http://primefaces.org/ui/extensions">
+	xmlns:p="http://primefaces.org/ui">
 
 	<f:facet name="header">
 		<p:commandLink actionListener="#{cvExperiencia.reset}" oncomplete="hideDlg('#dlgExperiencia', 'wv_dlgExperiencia')" 
@@ -115,7 +114,7 @@
 									 styleClass="ui-grid-col-3">
 							 <f:validateLongRange minimum="1" maximum="12"/>									 
 		                     <f:validateRegex pattern="^[0-9]{1,2}$"/>
-		                     <pe:keyFilter mask="pint"/>									 
+		                     <p:keyFilter mask="pint"/>									 
 						</p:inputText>
 										                      		    
 			    	 	<h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
@@ -125,7 +124,7 @@
 									 styleClass="ui-grid-col-3" >
 							 <f:validateLongRange minimum="1990" maximum="2016"/>									 
 		                     <f:validateRegex pattern="^[0-9]{4}$"/>
-		                     <pe:keyFilter mask="pint"/>							 
+		                     <p:keyFilter mask="pint"/>							 
 						</p:inputText>									 
 					</div>
 		
@@ -146,7 +145,7 @@
 									 styleClass="ui-grid-col-3">
 							 <f:validateLongRange minimum="1" maximum="12"/>
 		                     <f:validateRegex pattern="^[0-9]{1,2}$"/>
-		                     <pe:keyFilter mask="pint"/>									 
+		                     <p:keyFilter mask="pint"/>									 
 						</p:inputText>
 										                      		    
 			    	 	<h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
@@ -156,7 +155,7 @@
 									 styleClass="ui-grid-col-3" >
 							 <f:validateLongRange minimum="1990" maximum="2016"/>									 
 		                     <f:validateRegex pattern="^[0-9]{4}$"/>
-		                     <pe:keyFilter mask="pint"/>							 
+		                     <p:keyFilter mask="pint"/>							 
 						</p:inputText>									 
 					</div>
 		
@@ -168,8 +167,8 @@
 
 					<!-- Actualmente -->
 				    <div class="ui-grid-row" style="margin-bottom: 1em;">
-						<p:selectBooleanCheckbox id="actualmente" value="#{cvExperiencia.actualmente}" widgetVar="wvActualmente" onchange="toggleFechaFin()"/>
-						<p:outputLabel for="actualmente" value="Cursando actualmente" style="margin-left: .5em;"/>
+						<p:selectBooleanCheckbox id="actualmente" value="#{cvExperiencia.actualmente}" disabled="true" widgetVar="wvActualmente" onchange="toggleFechaFin()"/>
+						<p:outputLabel for="actualmente" value="Actualmente" style="margin-left: .5em;"/>
 					</div>
 					
 					<!-- Informacion Adicional -->

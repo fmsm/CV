@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.2.final using JasperReports Library version 6.2.2  -->
+<!-- 2016-06-20T21:59:13 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="personales" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fb42e330-4b91-4dc2-a0bb-8176bbdb4676">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="bolsaempleofp"/>
+	<queryString>
+		<![CDATA[select * from Usuarios u left join DatosAlumnos da on da.IdUsuario = u.IdUsuario where u.IdUsuario = 1;]]>
+	</queryString>
+	<field name="Nombre" class="java.lang.String"/>
+	<field name="Apellidos" class="java.lang.String"/>
+	<field name="Email" class="java.lang.String"/>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="80" y="0" width="170" height="30" uuid="c9909274-c346-423a-ba82-e50534edcf0f"/>
+				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="80" height="30" uuid="3b233646-58cb-427e-968d-1be2dee2eb65"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="30" width="170" height="30" uuid="44eda0b5-8ed0-43eb-9d79-9ea0e2b1a854"/>
+				<textFieldExpression><![CDATA[$F{Apellidos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="30" width="80" height="30" uuid="37ab87ac-0cdc-472e-b25c-371d113dada8"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Apellidos]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="60" width="170" height="30" uuid="4d5fdbc6-40df-4759-80d1-db6b2db9b359"/>
+				<textFieldExpression><![CDATA[$F{Email}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="60" width="80" height="30" uuid="733d5de5-7f57-4fcb-9d9d-7eed8d667ba2"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

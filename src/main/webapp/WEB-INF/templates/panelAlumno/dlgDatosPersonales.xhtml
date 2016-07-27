@@ -5,7 +5,6 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:o="http://omnifaces.org/ui"
 	xmlns:of="http://omnifaces.org/functions">
 
@@ -213,7 +212,7 @@
                      <p:ajax event="change" listener="#{cvDatosPer.buscarCP}" 
                      		 process="@this" 
                      		 update="datosPersonales:cp, datosPersonales:poblacion, datosPersonales:provincia, datosPersonales:msgCP, datosPersonales:msgCpMsg"  />                            
-                     <pe:keyFilter regEx="/[0-9]/"/>
+                     <p:keyFilter regEx="/[0-9]/"/>
                      <f:validateLength minimum="5" maximum="5"/>
                  </p:inputText>
 		    	
@@ -257,7 +256,7 @@
                               required="true"  requiredMessage="#{msg['error.required']}"
                               placeholder="Calle Segovia, nº 98"
                               styleClass="ui-grid-col-5">
-                     <pe:keyFilter regEx="/[a-z áéíóúüñ,-/º0-9]/i"/>
+                     <p:keyFilter regEx="/[a-z áéíóúüñ,-/º0-9]/i"/>
                  </p:inputText>
        										    
 			</div>
@@ -283,7 +282,7 @@
                               styleClass="ui-grid-col-5">
                      <f:validateLength minimum="9" maximum="9"/>
                      <f:validateRegex pattern="^[6789]{1}[0-9]{8}$"/>
-                     <pe:keyFilter mask="pint"/>
+                     <p:keyFilter mask="pint"/>
                  </p:inputText>                                                        
 		                      		    
 		    	 <h:outputText styleClass="ui-grid-col-2" style="margin-right: .5em;"/> <!-- relleno -->
@@ -293,7 +292,7 @@
                               styleClass="ui-grid-col-5">
                      <f:validateLength minimum="9" maximum="9"/>
                      <f:validateRegex pattern="^[6789]{1}[0-9]{8}$"/>
-                     <pe:keyFilter mask="pint"/>
+                     <p:keyFilter mask="pint"/>
                  </p:inputText>                                                        
        										    
 			</div>

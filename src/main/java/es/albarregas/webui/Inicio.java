@@ -12,10 +12,6 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.primefaces.context.RequestContext;
-import org.primefaces.model.map.DefaultMapModel;
-import org.primefaces.model.map.LatLng;
-import org.primefaces.model.map.MapModel;
-import org.primefaces.model.map.Marker;
 
 import es.albarregas.DAOImpl.DatoAlumnoDAOImpl;
 import es.albarregas.DAOImpl.UsuarioDAOImpl;
@@ -28,8 +24,8 @@ public class Inicio implements java.io.Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private static final LatLng COORDALBARREGAS = new LatLng(38.9233251, -6.3368287);
-	private MapModel mapModel = new DefaultMapModel();
+//	private static final LatLng COORDALBARREGAS = new LatLng(38.9233251, -6.3368287);
+//	private MapModel mapModel = new DefaultMapModel();
 	
 	private String username;
 	private String password;
@@ -54,20 +50,20 @@ public class Inicio implements java.io.Serializable {
 	}//init
 	
 	
-	/**
-	 * Necesario para mostrar el mapa en el footer de la vista
-	 * @return MapModel
-	 */
-	public MapModel getMapModel() {
-		
-//		StringBuilder ruta = new StringBuilder();
-//		ruta.append(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()).append("/resources/imagenes/marker.png");
-//				
-//		mapModel.addOverlay( new Marker(COORDALBARREGAS,"IES Albarregas", null, ruta.toString()) );
-		
-		mapModel.addOverlay( new Marker(COORDALBARREGAS,"IES Albarregas") );
-		return mapModel;
-	}
+//	/**
+//	 * Necesario para mostrar el mapa en el footer de la vista
+//	 * @return MapModel
+//	 */
+//	public MapModel getMapModel() {
+//		
+////		StringBuilder ruta = new StringBuilder();
+////		ruta.append(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()).append("/resources/imagenes/marker.png");
+////				
+////		mapModel.addOverlay( new Marker(COORDALBARREGAS,"IES Albarregas", null, ruta.toString()) );
+//		
+//		mapModel.addOverlay( new Marker(COORDALBARREGAS,"IES Albarregas") );
+//		return mapModel;
+//	}
 	
 	
 	/**

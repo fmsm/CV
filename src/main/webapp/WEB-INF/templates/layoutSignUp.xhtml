@@ -9,20 +9,20 @@
 	xmlns:of="http://omnifaces.org/functions">	
 
 <!-- IMPORTANTE para que el i18n funcione necesita esta linea y la declaración del bundle en el faces-config.xml -->	
-<f:view locale="#{facesContext.externalContext.requestLocale}"/>	
+<f:view locale="#{facesContext.externalContext.requestLocale}"/>
 
 <h:head>
 	<title> <ui:insert name="title">Befp</ui:insert> </title>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 	<link href="#{resource['imagenes/favicon.ico']}" rel="shortcut icon" type="image/x-icon" />
-				
-	<h:outputStylesheet name="css/fonts.css" />
+	
+	<h:outputStylesheet name="css/fonts.css" />		
 	<h:outputStylesheet name="css/styles.css" />
-	<h:outputScript name="js/scripts.js"/>
+	<h:outputScript name="js/scripts.js"/>		
 </h:head>
 			
 <h:body>
-	
+
 	<!-- 
 	A) Establecer la altura del componente con id 'contenedor' en "index/login.xhtml", como la altura que tiene la ventana del navegador;
 	y además añadir un handler al evento javascript 'resize', para que cuando la altura de la ventana del navegador cambie, lo haga tambien la altura
@@ -37,14 +37,12 @@
 	$(window).resize(function(){
 		$('#contenedor').css('height', window.innerHeight);			
 	});
-		
-<!-- 	if (window.innerWidth &lt; 1280) { alert('tamaño menor de 1280'); }; -->
 	
 	</o:onloadScript>
 	
 	<!-- Content -->
-	<ui:include src="/WEB-INF/templates/index/login.xhtml"></ui:include>
-			
+	<ui:include src="/WEB-INF/templates/index/signup.xhtml"></ui:include>
+				
 </h:body>
 	
 </html>

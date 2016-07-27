@@ -1,6 +1,11 @@
 
 package es.albarregas.webui;
 
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -8,6 +13,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import es.albarregas.utilidades.UtilSesion;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 @Named
 @ViewScoped
@@ -88,7 +97,39 @@ public class CvPrincipal implements java.io.Serializable {
 	
 	public void expediente() {
 		this.mnuOpcionSeleccionada = "expediente";
+		//prueba();
 	}
+	
+
+	public void prueba() {
+		
+		//Para 'cargar' el fichero jasper:
+		//http://stackoverflow.com/questions/13244749/finding-path-to-jsf-resource
+		//http://stackoverflow.com/questions/8758403/filenotfoundexception-while-i-am-using-jasper-report
+		
+		try {		
+			
+			Connection conn = null;
+	        try {
+	        	Class.forName("com.mysql.jdbc.Driver");
+	        	conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bolsaempleofp", "clientejava", "2015");
+	        } catch (SQLException ex) {
+	        } catch (ClassNotFoundException ex) {
+
+	        }			
+			
+			InputStream jasperStream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/resources/reports/personales.jasper");
+			//JasperReport report = (JasperReport) JRLoader.loadObject(jasperStream);			
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperStream, null, conn);  
+	        JasperViewer jasperViewer = new JasperViewer(jasperPrint);
+            jasperViewer.setVisible(true);						
+		} catch (JRException e) {
+			e.printStackTrace();
+		}//try..catch
+		
+		System.out.println("");
+		
+	}//prueba
 	
 	/**
 	 * Cierra la sesion actual, cuando se pulsa en la opción correspondiente del menu de 'cv/content.xhtml'
