@@ -2,7 +2,7 @@
 
 Aplicación web, realizada como Proyecto Fin de Ciclo (para el **Ciclo Superior de Desarrollo de Aplicaciones Web**), durante los meses de Marzo a Junio de 2016.
 
-Enlace a la aplicación web desplegada en un vps: [ **CV** ](http://92.222.86.6:8080/befp/)
+Enlace a la aplicación web desplegada en un vps: [ **CV** ](http://92.222.86.6:8080/cv/)
 
 Existe unos usuarios ya dados de alta en la aplicación, y con su Currículum Vítae ya creado; con los que se puede acceder para probar la aplicación, si así se desea. Algunos de ellos son los siguientes:
 
